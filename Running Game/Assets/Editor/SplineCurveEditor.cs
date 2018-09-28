@@ -20,6 +20,12 @@ public class SplineCurveEditor : Editor
 
     private int selectedIndex = -1;
 
+    private static Color[] modeColours = {
+        Color.white,
+        Color.yellow,
+        Color.cyan
+    };
+
     private void OnSceneGUI()
     {
         // Initial setup
@@ -27,8 +33,9 @@ public class SplineCurveEditor : Editor
         handleTransform = curve.transform;
         handleRotation = Tools.pivotRotation == PivotRotation.Local ?
             handleTransform.rotation : Quaternion.identity;
+
         Vector3 p0 = ShowPoint(0);
-        for (int i = 1; i < curve.points.Length; i += 3)
+        for (int i = 1; i < curve.ControlPointCount; i += 3)
         {
             Vector3 p1 = ShowPoint(i);
             Vector3 p2 = ShowPoint(i + 1);
@@ -49,6 +56,19 @@ public class SplineCurveEditor : Editor
     {
         DrawDefaultInspector();
         curve = target as SplineCurve;
+
+        EditorGUI.BeginChangeCheck();
+        bool loop = EditorGUILayout.Toggle("Loop", curve.Loop);
+        if (EditorGUI.EndChangeCheck()) {
+            Undo.RecordObject(curve, "Toggle Loop");
+            EditorUtility.SetDirty(curve);
+            curve.Loop = loop;
+        }
+
+        if (selectedIndex >= 0 && selectedIndex < curve.ControlPointCount) {
+            DrawSelectedPointInspector();
+        }
+
         if (GUILayout.Button("Add Curve"))
         {
             Undo.RecordObject(curve, "Add Curve");
@@ -72,12 +92,16 @@ public class SplineCurveEditor : Editor
 
     private Vector3 ShowPoint (int index)
     {
-        Vector3 point = handleTransform.TransformPoint(curve.points[index]);
+        Vector3 point = handleTransform.TransformPoint(curve.GetControlPoint(index));
         float size = HandleUtility.GetHandleSize(point);
-        Handles.color = Color.white;
+        if (index == 0) {
+            size *= 2f;
+        }
+        Handles.color = modeColours[(int)curve.GetControlPointMode(index)];
         if (Handles.Button(point, handleRotation, handleSize, pickSize, Handles.DotHandleCap))
         {
             selectedIndex = index;
+            Repaint();
         }
         if (selectedIndex == index)
         {
@@ -87,9 +111,28 @@ public class SplineCurveEditor : Editor
             {
                 Undo.RecordObject(curve, "Move Point");
                 EditorUtility.SetDirty(curve);
-                curve.points[index] = handleTransform.InverseTransformPoint(point);
+                curve.SetControlPoint(index, handleTransform.InverseTransformPoint(point));
             }
         }
         return point;
+    }
+
+    private void DrawSelectedPointInspector() {
+        GUILayout.Label("Selected Point");
+        EditorGUI.BeginChangeCheck();
+        Vector3 point = EditorGUILayout.Vector3Field("Position", curve.GetControlPoint(selectedIndex));
+        if (EditorGUI.EndChangeCheck()) {
+            Undo.RecordObject(curve, "Move Point");
+            EditorUtility.SetDirty(curve);
+            curve.SetControlPoint(selectedIndex, point);
+        }
+        EditorGUI.BeginChangeCheck();
+        BezierControlPointMode mode = (BezierControlPointMode)
+            EditorGUILayout.EnumPopup("Mode", curve.GetControlPointMode(selectedIndex));
+        if (EditorGUI.EndChangeCheck()) {
+            Undo.RecordObject(curve, "Change Point Mode");
+            curve.SetControlPointMode(selectedIndex, mode);
+            EditorUtility.SetDirty(curve);
+        }
     }
 }
