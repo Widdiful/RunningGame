@@ -7,10 +7,12 @@ public class DropInRound : MonoBehaviour
     bool gameStarted;
     const string playerJoin = "Join_";
     Dictionary<string, bool> playersJoined;
+    GameData gameData;
 
     // Use this for initialization
     void Start()
     {
+        gameData = gameObject.GetComponent<GameData>();
         playersJoined = new Dictionary<string, bool>();
     }
     // Update is called once per frame
@@ -36,6 +38,10 @@ public class DropInRound : MonoBehaviour
                     {
                         playersJoined.Add(playerJoin + (i + 1), true);
                         Debug.Log("Player " + (i + 1) + " joined");
+                        GameObject tmpPlayer = Instantiate(Resources.Load<GameObject>("Player") as GameObject);
+                        tmpPlayer.GetComponent<Posing>().ID = (i + 1);
+                        tmpPlayer.name = "Player_" + (i + 1);
+                        gameData.players.Add(tmpPlayer);
                     }
                 }
             }
