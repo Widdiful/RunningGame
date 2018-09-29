@@ -14,6 +14,8 @@ public class SplineCurve : MonoBehaviour {
     [SerializeField]
     private bool loop;
 
+    public float splineLength;
+
     public int CurveCount { get
         {
             return (points.Length - 1) / 3;
@@ -104,6 +106,41 @@ public class SplineCurve : MonoBehaviour {
         return transform.TransformPoint(Bezier.GetPoint(points[i], points[i + 1], points[i + 2], points[i + 3], t));
     }
 
+    public int GetCurrentCurve(float t) {
+        int i;
+        if (t >= 1f) {
+            t = 1f;
+            i = points.Length - 4;
+        }
+        else {
+            t = Mathf.Clamp01(t) * CurveCount;
+            i = (int)t;
+            t -= i;
+        }
+
+        return i;
+    }
+
+    public Vector3 GetPointOnCurve(int i, float t) {
+        return transform.TransformPoint(Bezier.GetPoint(points[i], points[i + 1], points[i + 2], points[i + 3], t));
+    }
+
+    public float GetLengthOfCurve(int curve) {
+        curve *= 3;
+
+        float length = 0;
+        Vector3 point = GetPointOnCurve(curve, 0f);
+        Vector3 previousPoint = point;
+        int steps = 1000;
+        for (int i = 1; i <= steps; i++) {
+            point = GetPointOnCurve(curve, i / (float)steps);
+            length += Vector3.Distance(point, previousPoint);
+            previousPoint = point;
+        }
+
+        return length;
+    }
+
     public Vector3 GetVelocity(float t)
     {
         int i;
@@ -120,6 +157,10 @@ public class SplineCurve : MonoBehaviour {
             i *= 3;
         }
 
+        return transform.TransformPoint(Bezier.GetFirstDerivative(points[i], points[i + 1], points[i + 2], points[i + 3], t)) - transform.position;
+    }
+
+    public Vector3 GetVelocityOnCurve(int i, float t) {
         return transform.TransformPoint(Bezier.GetFirstDerivative(points[i], points[i + 1], points[i + 2], points[i + 3], t)) - transform.position;
     }
 
@@ -142,6 +183,17 @@ public class SplineCurve : MonoBehaviour {
         Array.Resize(ref modes, modes.Length + 1);
         modes[modes.Length - 1] = modes[modes.Length - 2];
         EnforceMode(points.Length - 4);
+
+        if (loop) {
+            points[points.Length - 1] = points[0];
+            modes[modes.Length - 1] = modes[0];
+            EnforceMode(0);
+        }
+    }
+
+    public void RemoveCurve() {
+        Array.Resize(ref points, points.Length - 3);
+        Array.Resize(ref modes, modes.Length - 1);
 
         if (loop) {
             points[points.Length - 1] = points[0];

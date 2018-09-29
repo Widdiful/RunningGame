@@ -209,9 +209,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 1774862078}
-  duration: 10
+  speed: 1
   progress: 0
   lookForward: 1
+  speedIncreaseCountdown: 0
+  speedIncreaseRate: 0
+  horizontalAdjust: -1
 --- !u!65 &383214947
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -383,7 +386,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1774862076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.52, y: 0, z: -0.89}
+  m_LocalPosition: {x: -1.06, y: -0.1, z: -0.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -401,12 +404,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 0.35026002, y: 0, z: 2.6915126}
-  - {x: 2.3923593, y: 0, z: 5.3643622}
-  - {x: 4.985599, y: 0, z: 1.4395808}
-  - {x: 3.557765, y: 0, z: -1.2705023}
-  - {x: 2.7103963, y: 0, z: -2.8788404}
-  - {x: -1.8644767, y: 0, z: -3.2860265}
-  - {x: 0.35026002, y: 0, z: 2.6915126}
-  modes: 010000000100000001000000
+  - {x: 4.790078, y: 0, z: -1.8221449}
+  - {x: 3.5298185, y: -4.9263573, z: -5.537456}
+  - {x: 5.263078, y: 0, z: -3.3483148}
+  - {x: 5.8635798, y: 0, z: -5.8591886}
+  - {x: 6.0020256, y: 0, z: -6.438071}
+  - {x: 8.345169, y: 0, z: -7.889226}
+  - {x: 10.683248, y: 0, z: -0.8819412}
+  - {x: 11.409481, y: 0, z: 1.2946001}
+  - {x: 6.2184715, y: 6.9755, z: 3.4080782}
+  - {x: 4.790078, y: 0, z: -1.8221449}
+  modes: 01000000010000000100000001000000
   loop: 1
+  splineLength: 25.98845

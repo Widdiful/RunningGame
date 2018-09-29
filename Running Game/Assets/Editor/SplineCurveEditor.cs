@@ -50,6 +50,7 @@ public class SplineCurveEditor : Editor
         }
 
         ShowDirections();
+        CalculateLength();
     }
 
     public override void OnInspectorGUI()
@@ -75,6 +76,11 @@ public class SplineCurveEditor : Editor
             curve.AddCurve();
             EditorUtility.SetDirty(curve);
         }
+        if (GUILayout.Button("Remove Curve")) {
+            Undo.RecordObject(curve, "Remove Curve");
+            curve.RemoveCurve();
+            EditorUtility.SetDirty(curve);
+        }
     }
 
     private void ShowDirections()
@@ -87,6 +93,18 @@ public class SplineCurveEditor : Editor
         {
             point = curve.GetPoint(i / (float)steps);
             Handles.DrawLine(point, point + curve.GetDirection(i / (float)steps) * directionScale);
+        }
+    }
+
+    private void CalculateLength() {
+        Vector3 point = curve.GetPoint(0f);
+        Vector3 previousPoint = point;
+        curve.splineLength = 0;
+        int steps = stepsPerCurve * curve.CurveCount;
+        for (int i = 1; i <= steps; i++) {
+            point = curve.GetPoint(i / (float)steps);
+            curve.splineLength += Vector3.Distance(point, previousPoint);
+            previousPoint = point;
         }
     }
 
