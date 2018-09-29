@@ -2,40 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DropInRound : MonoBehaviour {
+public class DropInRound : MonoBehaviour
+{
+    bool gameStarted;
+    const string playerJoin = "Join_";
+    Dictionary<string, bool> playersJoined;
 
-
-    int i = 1;
     // Use this for initialization
     void Start()
     {
-        //        string name = Input.GetJoystickNames()[0];
-        
-
+        playersJoined = new Dictionary<string, bool>();
     }
-        // Update is called once per frame
-        void Update () {
-        while (i < 3)
+    // Update is called once per frame
+    void Update()
+    {
+        if (!gameStarted)
         {
-            if (Input.GetButtonUp("Joy" + i + "B"))
+            CheckDropIns();
+        }     
+    }
+
+    //Checks if any controller pressed any key and adds the corresponding controller to the 
+    //player joining dictionary
+    private void CheckDropIns()
+    {
+        for (int i = 0; i < Input.GetJoystickNames().Length; i++)
+        {
+            if (!playersJoined.ContainsKey(playerJoin + (i + 1)))
             {
-
-                //Debug.Log(Input.GetJoystickNames()[i] + " is pressed");
+                for (int j = 0; j < 20; j++)
+                {
+                    if (Input.GetKeyUp("joystick " + (i + 1) + " button " + j))
+                    {
+                        playersJoined.Add(playerJoin + (i + 1), true);
+                        Debug.Log("Player " + (i + 1) + " joined");
+                    }
+                }
             }
-
-            i++;
-
- 
         }
-
-        if (Input.GetButtonUp("Joy3B"))
-            Debug.Log(Input.GetJoystickNames().ToString()[2]);
-        if (Input.GetButtonUp("Joy1B"))
-            Debug.Log(Input.GetJoystickNames().ToString()[0]);
-        
-        i = 1;
-        //if (Input.GetButtonDown("Test"))
-        //    Debug.Log("Button pressed");
-        //if()
     }
 }
