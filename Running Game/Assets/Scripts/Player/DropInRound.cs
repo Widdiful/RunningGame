@@ -10,12 +10,18 @@ public class DropInRound : MonoBehaviour
     Dictionary<string, bool> playersJoined;
     GameData gameData;
     public float proximity = 1;
+    private float screenX;
+    private float screenY;
+    private Camera cam;
 
     // Use this for initialization
     void Start()
     {
         gameData = gameObject.GetComponent<GameData>();
         playersJoined = new Dictionary<string, bool>();
+        //screenX = Screen.width;
+        //screenY = Screen.height;
+        cam = GameObject.Find("Player1Camera").GetComponent<Camera>();
     }
     // Update is called once per frame
     void Update()
@@ -25,7 +31,7 @@ public class DropInRound : MonoBehaviour
             CheckDropIns();
         } 
         
-        if(Input.GetKey("joystick 1 button 9") && playersJoined.Count > 0)
+        if(Input.GetKey("joystick 1 button 9") || Input.GetKey(KeyCode.Return) && playersJoined.Count > 0)
         {
             gameStarted = true;
         }
@@ -79,6 +85,7 @@ public class DropInRound : MonoBehaviour
         GameObject tmpPlayer = Instantiate(Resources.Load<GameObject>("Player") as GameObject);
         tmpPlayer.GetComponent<Posing>().ID = pNumber;
         tmpPlayer.name = "Player_" + pNumber;
+        //tmpPlayer.transform.position = new Vector3(screenX, screenY,0);
         gameData.players.Add(tmpPlayer);
     }
 }
