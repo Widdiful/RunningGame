@@ -13,7 +13,7 @@ public class Posing : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        CheckPoses();
+        //CheckPoses();
 	}
 
     private void CheckPoses()
