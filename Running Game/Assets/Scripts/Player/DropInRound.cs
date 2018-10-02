@@ -7,7 +7,7 @@ public class DropInRound : MonoBehaviour
 {
     bool gameStarted;
     const string playerJoin = "Join_";
-    Dictionary<string, bool> playersJoined;
+    private Dictionary<string, bool> playersJoined;
     GameData gameData;
     public float proximity = 1;
     private float screenX;
@@ -57,6 +57,7 @@ public class DropInRound : MonoBehaviour
     //player joining dictionary
     private void CheckDropIns()
     {
+        
         for (int i = 0; i < Input.GetJoystickNames().Length; i++)
         {
             if (!playersJoined.ContainsKey(playerJoin + (i + 1)))
