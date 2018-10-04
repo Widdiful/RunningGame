@@ -5,12 +5,14 @@ using UnityEngine;
 public class FollowTrack : MonoBehaviour {
 
     public SplineCurve spline;
-    public float speed;
+    public float stepSize;
+    public float stepDistance;
     public float progress;
     public bool lookForward;
     public float speedIncreaseCountdown;
     public float speedIncreaseRate;
     public float horizontalAdjust;
+    public float verticalAdjust;
     public float moveSpeed;
 
     private int currentCurve = 0;
@@ -22,16 +24,17 @@ public class FollowTrack : MonoBehaviour {
     }
 
     private void Update() {
+        stepDistance = 1 + Mathf.Abs(horizontalAdjust);
         if (speedIncreaseCountdown <= 0) {
-            speed += Time.deltaTime * speedIncreaseRate;
+            stepSize += Time.deltaTime * speedIncreaseRate;
         }
         else {
             speedIncreaseCountdown -= Time.deltaTime;
         }
         MoveTowardsTarget();
 
-        if (true) { 
-            MoveTarget(speed);
+        if (Vector3.Distance(transform.position, targetPosition) <= stepDistance) { 
+            MoveTarget(stepSize);
         }
 
     }
@@ -69,17 +72,22 @@ public class FollowTrack : MonoBehaviour {
 
     private void MoveTowardsTarget()
     {
-        Vector3 position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed);
-        transform.localPosition = position;
+        Vector3 tempTargetPosition = transform.InverseTransformPoint(targetPosition);
+        tempTargetPosition.x += horizontalAdjust;
+        tempTargetPosition.y += verticalAdjust;
+        tempTargetPosition = transform.TransformPoint(tempTargetPosition);
+        Vector3 position = Vector3.MoveTowards(transform.position, tempTargetPosition, moveSpeed);
 
         if (lookForward)
         {
-            transform.LookAt(targetPosition);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(tempTargetPosition - transform.position), 0.1f);
         }
-        transform.Translate(new Vector3(horizontalAdjust, 0, 0), Space.Self);
+        transform.localPosition = position;
+        Debug.DrawLine(transform.position, tempTargetPosition);
+        Debug.DrawLine(tempTargetPosition, targetPosition);
     }
 
     public void IncreaseSpeed(float amount) {
-        speed += amount;
+        stepSize += amount;
     }
 }
