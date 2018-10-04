@@ -26,7 +26,7 @@ public class SplineCurveEditor : Editor
         Color.cyan
     };
 
-    private void OnSceneGUI()
+    private void OnScene(SceneView sceneview)
     {
         // Initial setup
         curve = target as SplineCurve;
@@ -34,6 +34,22 @@ public class SplineCurveEditor : Editor
         handleRotation = Tools.pivotRotation == PivotRotation.Local ?
             handleTransform.rotation : Quaternion.identity;
 
+        if (curve.showSpline)
+        {
+            ShowPoints();
+        }
+        CalculateLength();
+    }
+
+    private void OnEnable()
+    {
+        SceneView.onSceneGUIDelegate -= OnScene;
+        SceneView.onSceneGUIDelegate += OnScene;
+    }
+
+
+    private void ShowPoints()
+    {
         Vector3 p0 = ShowPoint(0);
         for (int i = 1; i < curve.ControlPointCount; i += 3)
         {
@@ -48,9 +64,7 @@ public class SplineCurveEditor : Editor
             Handles.DrawBezier(p0, p3, p1, p2, Color.white, null, 2f);
             p0 = p3;
         }
-
         ShowDirections();
-        CalculateLength();
     }
 
     public override void OnInspectorGUI()

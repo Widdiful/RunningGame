@@ -14,6 +14,8 @@ public class SplineCurve : MonoBehaviour {
     [SerializeField]
     private bool loop;
 
+    public bool showSpline;
+
     public float splineLength;
 
     public int CurveCount { get

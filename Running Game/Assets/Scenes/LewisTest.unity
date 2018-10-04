@@ -210,11 +210,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spline: {fileID: 1774862078}
   speed: 1
-  progress: 0
+  progress: 3
   lookForward: 1
   speedIncreaseCountdown: 0
   speedIncreaseRate: 0
-  horizontalAdjust: -1
+  horizontalAdjust: 0
+  moveSpeed: 1
 --- !u!65 &383214947
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -276,7 +277,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 383214945}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.3233111, y: -2.657518, z: 1.2129531}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -386,9 +387,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1774862076}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.06, y: -0.1, z: -0.62}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2114401884}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -404,16 +406,66 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 4.790078, y: 0, z: -1.8221449}
-  - {x: 3.5298185, y: -4.9263573, z: -5.537456}
-  - {x: 5.263078, y: 0, z: -3.3483148}
-  - {x: 5.8635798, y: 0, z: -5.8591886}
-  - {x: 6.0020256, y: 0, z: -6.438071}
-  - {x: 8.345169, y: 0, z: -7.889226}
-  - {x: 10.683248, y: 0, z: -0.8819412}
-  - {x: 11.409481, y: 0, z: 1.2946001}
-  - {x: 6.2184715, y: 6.9755, z: 3.4080782}
-  - {x: 4.790078, y: 0, z: -1.8221449}
+  - {x: 0, y: 0, z: 0}
+  - {x: -1.279155, y: 0, z: 5.562753}
+  - {x: 1.9870241, y: 0, z: 7.144578}
+  - {x: 4.053441, y: 0, z: 6.766667}
+  - {x: 6.347872, y: 0, z: 6.347056}
+  - {x: 10.897314, y: 0, z: 0.07764435}
+  - {x: 9.52125, y: 0, z: -3.0105624}
+  - {x: 8.894217, y: 0, z: -4.4177704}
+  - {x: 3.0809221, y: 0, z: -7.3281484}
+  - {x: 0, y: 0, z: 0}
   modes: 01000000010000000100000001000000
   loop: 1
-  splineLength: 25.98845
+  showSpline: 1
+  splineLength: 33.772167
+--- !u!1 &2114401883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2114401884}
+  - component: {fileID: 2114401885}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2114401884
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2114401883}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.9, y: 0, z: 6.78}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1774862077}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2114401885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2114401883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec72f458f0703943bf31e6b15f749fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - {x: 0, y: 0, z: 0}
+  - {x: 3.1467538, y: 0, z: -1.0456891}
+  - {x: 4.87001, y: 0, z: -12.185972}
+  - {x: 0.114057064, y: 0, z: -10.778519}
+  modes: 0100000001000000
+  loop: 0
+  showSpline: 1
+  splineLength: 13.692782

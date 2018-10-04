@@ -35,7 +35,7 @@ InputManager:
     snap: 1
     invert: 0
     type: 2
-    axis: 2
+    axis: 1
     joyNum: 1
   - serializedVersion: 3
     m_Name: Joy1_RightStickHori
@@ -51,7 +51,7 @@ InputManager:
     snap: 1
     invert: 0
     type: 2
-    axis: 0
+    axis: 3
     joyNum: 1
   - serializedVersion: 3
     m_Name: Joy1_RightStickVert
@@ -67,10 +67,42 @@ InputManager:
     snap: 1
     invert: 0
     type: 2
+    axis: 4
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: Joy2_LeftStickHori
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 1
+    altNegativeButton: a
+    altPositiveButton: d
+    gravity: 3
+    dead: 0.001
+    sensitivity: 3
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 0
+    joyNum: 2
+  - serializedVersion: 3
+    m_Name: Joy2_LeftStickVert
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 1
+    altNegativeButton: a
+    altPositiveButton: d
+    gravity: 3
+    dead: 0.001
+    sensitivity: 3
+    snap: 1
+    invert: 0
+    type: 2
     axis: 1
-    joyNum: 1
+    joyNum: 2
   - serializedVersion: 3
-    m_Name: Joy1_LeftStickHori
+    m_Name: Joy2_RightStickHori
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -83,10 +115,10 @@ InputManager:
     snap: 1
     invert: 0
     type: 2
-    axis: 0
-    joyNum: 1
+    axis: 3
+    joyNum: 2
   - serializedVersion: 3
-    m_Name: Joy1_LeftStickHori
+    m_Name: Joy2_RightStickVert
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -99,40 +131,8 @@ InputManager:
     snap: 1
     invert: 0
     type: 2
-    axis: 0
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: Joy1_LeftStickHori
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 1
-    altNegativeButton: a
-    altPositiveButton: d
-    gravity: 3
-    dead: 0.001
-    sensitivity: 3
-    snap: 1
-    invert: 0
-    type: 2
-    axis: 0
-    joyNum: 1
-  - serializedVersion: 3
-    m_Name: Joy1_LeftStickHori
-    descriptiveName: 
-    descriptiveNegativeName: 
-    negativeButton: 
-    positiveButton: 1
-    altNegativeButton: a
-    altPositiveButton: d
-    gravity: 3
-    dead: 0.001
-    sensitivity: 3
-    snap: 1
-    invert: 0
-    type: 2
-    axis: 0
-    joyNum: 1
+    axis: 4
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Joy1_LeftStickHori
     descriptiveName: 
