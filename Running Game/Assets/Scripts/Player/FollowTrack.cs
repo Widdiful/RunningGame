@@ -5,8 +5,10 @@ using UnityEngine;
 public class FollowTrack : MonoBehaviour {
 
     public SplineCurve spline;
+    public SplineCurve secondSpline;
     public float stepSize;
     public float stepDistance;
+    public int currentCurve = 0;
     public float progress;
     public bool lookForward;
     public float speedIncreaseCountdown;
@@ -15,8 +17,7 @@ public class FollowTrack : MonoBehaviour {
     public float verticalAdjust;
     public float moveSpeed;
 
-    private int currentCurve = 0;
-    private Vector3 targetPosition;
+    public Vector3 targetPosition;
 
     private void Start()
     {
@@ -37,26 +38,42 @@ public class FollowTrack : MonoBehaviour {
             MoveTarget(stepSize);
         }
 
+        if (Input.GetKeyDown("a"))
+        {
+            ChangeSpline(secondSpline);
+        }
     }
 
     private void MoveTarget(float amount) {
-        progress += (Time.deltaTime / spline.GetLengthOfCurve(currentCurve / 3)) * amount;
-        if (progress >= 1f) {
-            if (currentCurve / 3 < spline.CurveCount - 1) {
+        if (progress >= 1f)
+        {
+            if (currentCurve / 3 < spline.CurveCount - 1)
+            {
                 currentCurve += 3;
                 progress -= 1f;
             }
-            else {
-                if (spline.Loop) {
+            else
+            {
+                if (spline.Loop)
+                {
                     currentCurve = 0;
                     progress -= 1f;
                 }
-                else {
-                    currentCurve = spline.CurveCount;
-                    progress = 1f;
+                else
+                {
+                    if (spline.gameObject.GetComponent<SubPath>())
+                    {
+                        spline.gameObject.GetComponent<SubPath>().LeaveSpline(this);
+                    }
+                    else
+                    {
+                        currentCurve = spline.CurveCount;
+                        progress = 1f;
+                    }
                 }
             }
         }
+        progress += (Time.deltaTime / spline.GetLengthOfCurve(currentCurve / 3)) * amount;
         targetPosition = spline.GetPointOnCurve(currentCurve, progress);
 
         /*
@@ -80,7 +97,10 @@ public class FollowTrack : MonoBehaviour {
 
         if (lookForward)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(tempTargetPosition - transform.position), 0.1f);
+            if (tempTargetPosition - transform.position != Vector3.zero)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(tempTargetPosition - transform.position), 0.1f);
+            }
         }
         transform.localPosition = position;
         Debug.DrawLine(transform.position, tempTargetPosition);
@@ -89,5 +109,18 @@ public class FollowTrack : MonoBehaviour {
 
     public void IncreaseSpeed(float amount) {
         stepSize += amount;
+    }
+
+    public void ChangeSpline(SplineCurve newSpline)
+    {
+        spline = newSpline;
+        progress = 0;
+        currentCurve = 0;
+    }
+
+    public void ChangeSpline(SplineCurve newSpline, Vector3 position)
+    {
+        spline = newSpline;
+
     }
 }

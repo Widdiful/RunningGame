@@ -210,8 +210,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 1774862078}
+  secondSpline: {fileID: 2114401885}
   stepSize: 50
   stepDistance: 1
+  currentCurve: 0
   progress: 0
   lookForward: 1
   speedIncreaseCountdown: 0
@@ -219,6 +221,7 @@ MonoBehaviour:
   horizontalAdjust: 0
   verticalAdjust: 0
   moveSpeed: 0.1
+  targetPosition: {x: 0, y: 0, z: 0}
 --- !u!65 &383214947
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -397,7 +400,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1774862077
 Transform:
   m_ObjectHideFlags: 0
@@ -432,12 +435,12 @@ MonoBehaviour:
   - {x: 10.897314, y: 0, z: 0.07764435}
   - {x: 9.52125, y: 0, z: -3.0105624}
   - {x: 8.894217, y: 0, z: -4.4177704}
-  - {x: 3.0809221, y: 0, z: -7.3281484}
+  - {x: 1.6702287, y: 0, z: -8.578405}
   - {x: 0, y: 0, z: 0}
   modes: 01000000010000000100000001000000
   loop: 1
   showSpline: 1
-  splineLength: 33.772167
+  splineLength: 34.67826
 --- !u!1 &2114401883
 GameObject:
   m_ObjectHideFlags: 0
@@ -447,13 +450,14 @@ GameObject:
   m_Component:
   - component: {fileID: 2114401884}
   - component: {fileID: 2114401885}
+  - component: {fileID: 2114401886}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2114401884
 Transform:
   m_ObjectHideFlags: 0
@@ -481,9 +485,21 @@ MonoBehaviour:
   points:
   - {x: 0, y: 0, z: 0}
   - {x: 3.1467538, y: 0, z: -1.0456891}
-  - {x: 4.87001, y: 0, z: -12.185972}
-  - {x: 0.114057064, y: 0, z: -10.778519}
+  - {x: 6.419683, y: 0, z: -11.574659}
+  - {x: 0.30791807, y: 0, z: -11.735393}
   modes: 0100000001000000
   loop: 0
   showSpline: 1
-  splineLength: 13.692782
+  splineLength: 14.8917465
+--- !u!114 &2114401886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2114401883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9e0c775ac192046a8da3712ecf72a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectedSpline: {fileID: 1774862078}

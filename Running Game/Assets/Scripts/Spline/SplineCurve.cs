@@ -124,7 +124,14 @@ public class SplineCurve : MonoBehaviour {
     }
 
     public Vector3 GetPointOnCurve(int i, float t) {
-        return transform.TransformPoint(Bezier.GetPoint(points[i], points[i + 1], points[i + 2], points[i + 3], t));
+        if (points.Length >= i + 3)
+        {
+            return transform.TransformPoint(Bezier.GetPoint(points[i], points[i + 1], points[i + 2], points[i + 3], t));
+        }
+        else
+        {
+            return transform.TransformPoint(Bezier.GetPoint(points[points.Length - 4], points[points.Length - 3], points[points.Length - 2], points[points.Length - 1], 1f));
+        }
     }
 
     public float GetLengthOfCurve(int curve) {
@@ -141,6 +148,38 @@ public class SplineCurve : MonoBehaviour {
         }
 
         return length;
+    }
+
+    public List<Vector3> GetAllMainPoints()
+    {
+        List<Vector3> allPoints = new List<Vector3>();
+
+        for (int i = 0; i < points.Length - 1; i++)
+        {
+            if (i % 3 == 0)
+            {
+                allPoints.Add(points[i]);
+            }
+        }
+
+        return allPoints;
+    }
+
+    public float GetNearestPointFromVector(Vector3 vector)
+    {
+        float result = 0f;
+
+        for (float i = 0; i < 1; i += 0.001f)
+        {
+            if (Vector3.Distance(vector, GetPoint(i)) < Vector3.Distance(vector, GetPoint(result)))
+            {
+                result = i;
+            }
+        }
+
+        print(result * CurveCount);
+
+        return result * CurveCount;
     }
 
     public Vector3 GetVelocity(float t)
