@@ -182,6 +182,11 @@ public class SplineCurve : MonoBehaviour {
         return result * CurveCount;
     }
 
+    public float GetPositionOnSpline(Vector3 vector)
+    {
+        return GetNearestPointFromVector(vector) / CurveCount;
+    }
+
     public Vector3 GetVelocity(float t)
     {
         int i;
