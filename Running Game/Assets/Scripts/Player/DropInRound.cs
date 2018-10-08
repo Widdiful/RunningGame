@@ -47,7 +47,7 @@ public class DropInRound : MonoBehaviour
         var players = gameData.players;
         for (int i = 0; i < gameData.players.Count; i++)
         {
-            players[i].transform.position = new Vector3(0, players[i].GetComponent<MeshFilter>().transform.lossyScale.y, players[i].GetComponent<MeshFilter>().transform.lossyScale.z * i + proximity * i);
+            players[i].transform.position = new Vector3(0, players[i].transform.lossyScale.y, players[i].transform.lossyScale.z * i + proximity * i);
         }
 
         //Debug.Log("round started");
