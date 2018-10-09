@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class SubPath : MonoBehaviour {
 
-    public SplineCurve connectedSpline;
-	private SplineCurve spline;
+    [Tooltip("This is the spline that is connected to the start of this spline")]
+    public SplineCurve startingSpline;
+    [Tooltip("This is the spline that is connected to the end of this spline")]
+    public SplineCurve exitSpline;
+
+    public enum BranchDirection { Left, Right, None };
+    public BranchDirection direction;
+
+    private SplineCurve spline;
 
     private void Start()
     {
@@ -14,13 +21,10 @@ public class SubPath : MonoBehaviour {
 
     public void LeaveSpline(FollowTrack followInfo)
     {
-        followInfo.spline = connectedSpline;
-        float newProgress = connectedSpline.GetNearestPointFromVector(spline.GetPoint(1));
+        followInfo.spline = exitSpline;
+        float newProgress = exitSpline.GetNearestPointFromVector(spline.GetPoint(1));
         followInfo.currentCurve = Mathf.FloorToInt(newProgress) * 3;
         followInfo.progress = newProgress - Mathf.FloorToInt(newProgress);
-        print(newProgress);
-        print(followInfo.currentCurve);
-        print(followInfo.progress);
-        followInfo.targetPosition = connectedSpline.GetPointOnCurve(followInfo.currentCurve, followInfo.progress);
+        followInfo.targetPosition = exitSpline.GetPointOnCurve(followInfo.currentCurve, followInfo.progress);
     }
 }

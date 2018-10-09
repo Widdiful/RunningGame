@@ -177,8 +177,6 @@ public class SplineCurve : MonoBehaviour {
             }
         }
 
-        print(result * CurveCount);
-
         return result * CurveCount;
     }
 

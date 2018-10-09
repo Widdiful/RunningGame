@@ -5,7 +5,6 @@ using UnityEngine;
 public class FollowTrack : MonoBehaviour {
 
     public SplineCurve spline;
-    public SplineCurve secondSpline;
     public float stepSize;
     public float stepDistance;
     public int currentCurve = 0;
@@ -17,13 +16,18 @@ public class FollowTrack : MonoBehaviour {
     public float horizontalAdjust;
     public float verticalAdjust;
     public float moveSpeed;
+    public float distanceFromNewPath;
 
     public Vector3 targetPosition;
     private Vector3 adjustedTargetPosition;
+    public SplineCurve leftSpline;
+    public SplineCurve rightSpline;
+    private SubPath[] subPaths;
 
     private void Start()
     {
         MoveTarget(1);
+        subPaths = FindObjectsOfType<SubPath>();
     }
 
     private void Update() {
@@ -39,12 +43,47 @@ public class FollowTrack : MonoBehaviour {
             MoveTarget(stepSize);
         }
 
-        if (Input.GetKeyDown("a"))
+        if (Input.GetKeyDown("z"))
         {
-            ChangeSpline(secondSpline);
+            if (leftSpline && leftSpline != spline) ChangeSpline(leftSpline);
+        }
+        if (Input.GetKeyDown("x")) {
+            if (rightSpline && rightSpline != spline) ChangeSpline(rightSpline);
+        }
+
+        // Detect nearby splines
+        leftSpline = null;
+        rightSpline = null;
+        foreach(SubPath path in subPaths) {
+            if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <= distanceFromNewPath &&
+                path.startingSpline == spline && Vector3.Dot(path.transform.position, transform.forward) > 0) {
+                if (path.direction == SubPath.BranchDirection.Right) {
+                    if (rightSpline) {
+                        if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <
+                            Vector3.Distance(adjustedTargetPosition, rightSpline.transform.position)) {
+                            rightSpline = path.GetComponent<SplineCurve>();
+                        }
+                    }
+                    else {
+                        rightSpline = path.GetComponent<SplineCurve>();
+                    }
+                }
+                else {
+                    if (leftSpline) {
+                        if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <
+                            Vector3.Distance(adjustedTargetPosition, leftSpline.transform.position)) {
+                            leftSpline = path.GetComponent<SplineCurve>();
+                        }
+                    }
+                    else if (path.direction == SubPath.BranchDirection.Left) {
+                        leftSpline = path.GetComponent<SplineCurve>();
+                    }
+                }
+            }
         }
     }
 
+    // Moves the target point along the spline
     private void MoveTarget(float amount) {
         if (progress >= 1f)
         {
@@ -122,6 +161,7 @@ public class FollowTrack : MonoBehaviour {
     public void ChangeSpline(SplineCurve newSpline, Vector3 position)
     {
         spline = newSpline;
-
+        leftSpline = null;
+        rightSpline = null;
     }
 }
