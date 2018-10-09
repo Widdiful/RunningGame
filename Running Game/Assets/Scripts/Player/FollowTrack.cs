@@ -13,11 +13,13 @@ public class FollowTrack : MonoBehaviour {
     public bool lookForward;
     public float speedIncreaseCountdown;
     public float speedIncreaseRate;
+    public float maximumSpeed;
     public float horizontalAdjust;
     public float verticalAdjust;
     public float moveSpeed;
 
     public Vector3 targetPosition;
+    private Vector3 adjustedTargetPosition;
 
     private void Start()
     {
@@ -25,16 +27,15 @@ public class FollowTrack : MonoBehaviour {
     }
 
     private void Update() {
-        stepDistance = 1 + Mathf.Abs(horizontalAdjust);
         if (speedIncreaseCountdown <= 0) {
-            stepSize += Time.deltaTime * speedIncreaseRate;
+            moveSpeed = Mathf.Clamp(moveSpeed + Time.deltaTime * speedIncreaseRate, 0, maximumSpeed);
         }
         else {
             speedIncreaseCountdown -= Time.deltaTime;
         }
         MoveTowardsTarget();
 
-        if (Vector3.Distance(transform.position, targetPosition) <= stepDistance) { 
+        if (Vector3.Distance(transform.position, adjustedTargetPosition) <= stepDistance) { 
             MoveTarget(stepSize);
         }
 
@@ -89,22 +90,22 @@ public class FollowTrack : MonoBehaviour {
 
     private void MoveTowardsTarget()
     {
-        Vector3 tempTargetPosition = transform.InverseTransformPoint(targetPosition);
-        tempTargetPosition.x += horizontalAdjust;
-        tempTargetPosition.y += verticalAdjust;
-        tempTargetPosition = transform.TransformPoint(tempTargetPosition);
-        Vector3 position = Vector3.MoveTowards(transform.position, tempTargetPosition, moveSpeed);
+        adjustedTargetPosition = transform.InverseTransformPoint(targetPosition);
+        adjustedTargetPosition.x += horizontalAdjust;
+        adjustedTargetPosition.y += verticalAdjust;
+        adjustedTargetPosition = transform.TransformPoint(adjustedTargetPosition);
+        Vector3 position = Vector3.MoveTowards(transform.position, adjustedTargetPosition, moveSpeed);
 
         if (lookForward)
         {
-            if (tempTargetPosition - transform.position != Vector3.zero)
+            if (adjustedTargetPosition - transform.position != Vector3.zero)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(tempTargetPosition - transform.position), 0.1f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(adjustedTargetPosition - transform.position), 0.1f);
             }
         }
         transform.localPosition = position;
-        Debug.DrawLine(transform.position, tempTargetPosition);
-        Debug.DrawLine(tempTargetPosition, targetPosition);
+        Debug.DrawLine(transform.position, adjustedTargetPosition);
+        Debug.DrawLine(adjustedTargetPosition, targetPosition);
     }
 
     public void IncreaseSpeed(float amount) {
