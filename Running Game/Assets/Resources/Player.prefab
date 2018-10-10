@@ -1557,8 +1557,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 114991373236055498, guid: 9ca2450dbf5567848b9058bf6537d45d, type: 2}
-  stepSize: 1
-  stepDistance: 2
+  stepSize: 50
+  stepDistance: 1
   currentCurve: 0
   progress: 0
   lookForward: 1
@@ -1567,7 +1567,7 @@ MonoBehaviour:
   maximumSpeed: 10
   horizontalAdjust: 0
   verticalAdjust: 0
-  moveSpeed: 0.0001
+  moveSpeed: 0.1
   distanceFromNewPath: 0
   targetPosition: {x: 0, y: 0, z: 0}
   leftSpline: {fileID: 0}

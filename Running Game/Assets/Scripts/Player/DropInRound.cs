@@ -19,6 +19,7 @@ public class DropInRound : MonoBehaviour
     private Canvas spawnCanvas;
     private float playerScaleX;
     private float playerScaleY;
+    public SplineCurve startingSpline;
 
 
     // Use this for initialization
@@ -58,9 +59,8 @@ public class DropInRound : MonoBehaviour
         {
             players[i].transform.position = new Vector3(0, players[i].transform.lossyScale.y * 2, players[i].transform.lossyScale.z * i + proximity * i);
             players[i].transform.rotation = Quaternion.identity;
-            ///////////////////////////////////////////////NOTE: comment this in again, when splines are working correctly//////////////////////////////////////////////
-            //players[i].GetComponent<FollowTrack>().enabled = true;
-            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            players[i].GetComponent<FollowTrack>().enabled = true;
+            players[i].GetComponent<FollowTrack>().InitialiseRunner(startingSpline, i * 0.002f);
 
         }
 

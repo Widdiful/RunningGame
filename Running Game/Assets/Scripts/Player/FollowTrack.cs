@@ -147,6 +147,16 @@ public class FollowTrack : MonoBehaviour {
         Debug.DrawLine(adjustedTargetPosition, targetPosition);
     }
 
+    public void InitialiseRunner(SplineCurve startingSpline, float startingPosition) {
+        currentCurve = 0;
+        spline = startingSpline;
+        progress = startingPosition;
+        transform.localPosition = spline.GetPointOnCurve(0, progress);
+        transform.LookAt(spline.GetVelocity(progress));
+        targetPosition = spline.GetPointOnCurve(0, progress);
+        MoveTarget(stepSize);
+    }
+
     public void IncreaseSpeed(float amount) {
         stepSize += amount;
     }
