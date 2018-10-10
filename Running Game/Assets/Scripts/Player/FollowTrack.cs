@@ -56,7 +56,7 @@ public class FollowTrack : MonoBehaviour {
         rightSpline = null;
         foreach(SubPath path in subPaths) {
             if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <= distanceFromNewPath &&
-                path.startingSpline == spline && Vector3.Dot(path.transform.position, transform.forward) > 0) {
+                path.startingSpline == spline /*&& Vector3.Dot(path.transform.position, transform.forward) > 0*/) {
                 if (path.direction == SubPath.BranchDirection.Right) {
                     if (rightSpline) {
                         if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <
