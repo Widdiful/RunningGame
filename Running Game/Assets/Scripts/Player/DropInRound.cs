@@ -60,13 +60,16 @@ public class DropInRound : MonoBehaviour
             players[i].transform.position = new Vector3(0, players[i].transform.lossyScale.y * 2, players[i].transform.lossyScale.z * i + proximity * i);
             players[i].transform.rotation = Quaternion.identity;
             players[i].GetComponent<FollowTrack>().enabled = true;
+            gameData.cam.transform.parent = gameData.players[0].transform;
             players[i].GetComponent<FollowTrack>().InitialiseRunner(startingSpline, i * 0.002f);
 
         }
 
+        
+        
+   
 
 
-        gameData.cam.transform.parent = gameData.players[0].transform;
 
         Destroy(GetComponent<DropInRound>());
     }
