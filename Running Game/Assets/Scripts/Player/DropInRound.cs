@@ -9,7 +9,7 @@ public class DropInRound : MonoBehaviour
     bool gameStarted;
     const string playerJoin = "Join_";
     private Dictionary<string, bool> playersJoined;
-    GameData gameData;
+    private GameData gameData;
     private float camdistance = 10;
     public float proximity = 1;
     private float screenX;
@@ -17,6 +17,8 @@ public class DropInRound : MonoBehaviour
     private float margin = 0.1f;
     private Camera cam;
     private Canvas spawnCanvas;
+    private float playerScaleX;
+    private float playerScaleY;
 
 
     // Use this for initialization
@@ -25,6 +27,8 @@ public class DropInRound : MonoBehaviour
         gameData = gameObject.GetComponent<GameData>();
         playersJoined = new Dictionary<string, bool>();
         cam = GameObject.Find("Player1Camera").GetComponent<Camera>();
+        playerScaleX = Resources.Load<GameObject>("Player").gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.bounds.size.x;
+        playerScaleY = Resources.Load<GameObject>("Player").gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.bounds.size.y;
     }
 
     // Update is called once per frame
@@ -35,7 +39,7 @@ public class DropInRound : MonoBehaviour
             CheckDropIns();
         }
 
-        if (Input.GetKey("joystick 1 button 9") || Input.GetKey(KeyCode.Return) && playersJoined.Count > 0)
+        if (Input.GetKey("joystick 1 button 9") || Input.GetKey(KeyCode.Return) && gameData.players.Count > 0)
         {
             gameStarted = true;
         }
@@ -46,18 +50,25 @@ public class DropInRound : MonoBehaviour
         }
     }
 
+    //Set the start position of all players and attach main camera to player one to follow. finally destroy this script to save resources and update cycles
     private void SetStart()
     {
         var players = gameData.players;
         for (int i = 0; i < gameData.players.Count; i++)
         {
-            players[i].transform.position = new Vector3(0, players[i].transform.lossyScale.y, players[i].transform.lossyScale.z * i + proximity * i);
+            players[i].transform.position = new Vector3(0, players[i].transform.lossyScale.y * 2, players[i].transform.lossyScale.z * i + proximity * i);
             players[i].transform.rotation = Quaternion.identity;
-            players[i].GetComponent<FollowTrack>().enabled = true;
+            ///////////////////////////////////////////////NOTE: comment this in again, when splines are working correctly//////////////////////////////////////////////
+            //players[i].GetComponent<FollowTrack>().enabled = true;
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
         }
 
-        Destroy(GetComponent <DropInRound>());
-        //Debug.Log("round started");
+
+
+        gameData.cam.transform.parent = gameData.players[0].transform;
+
+        Destroy(GetComponent<DropInRound>());
     }
 
     //Checks if any controller pressed any key and adds the corresponding controller to the 
@@ -67,30 +78,37 @@ public class DropInRound : MonoBehaviour
 
         for (int i = 0; i < Input.GetJoystickNames().Length; i++)
         {
-            if (!playersJoined.ContainsKey(playerJoin + (i + 1)))
+            try
             {
-                for (int j = 0; j < 20; j++)
+                if (!playersJoined.ContainsKey(playerJoin + (i + 1)))
                 {
-                    if (j != 9 && Input.GetKeyUp("joystick " + (i + 1) + " button " + j))
+                    for (int j = 0; j < 20; j++)
                     {
-                        SpawnPlayer(i + 1);
+                        if (j != 9 && Input.GetKeyUp("joystick " + (i + 1) + " button " + j))
+                        {
+                            SpawnPlayer(i + 1);
+                        }
                     }
                 }
+            }catch(Exception e)
+            {
+                Debug.Log(e.Message);
             }
         }
 
         //TESTING
-        if (Input.GetKeyUp(KeyCode.Alpha1)) { SpawnPlayer(1); }
-        if (Input.GetKeyUp(KeyCode.Alpha2)) { SpawnPlayer(2); }
-        if (Input.GetKeyUp(KeyCode.Alpha3)) { SpawnPlayer(3); }
-        if (Input.GetKeyUp(KeyCode.Alpha4)) { SpawnPlayer(4); }
+        if (Input.GetKeyUp(KeyCode.Alpha1) && !playersJoined.ContainsKey(playerJoin  + 1)) { SpawnPlayer(1); }
+        if (Input.GetKeyUp(KeyCode.Alpha2) && !playersJoined.ContainsKey(playerJoin + 2)) { SpawnPlayer(2); }
+        if (Input.GetKeyUp(KeyCode.Alpha3) && !playersJoined.ContainsKey(playerJoin + 3)) { SpawnPlayer(3); }
+        if (Input.GetKeyUp(KeyCode.Alpha4) && !playersJoined.ContainsKey(playerJoin + 4)) { SpawnPlayer(4); }
 
         for (int i = 0; i < gameData.players.Count; i++)
         {
-            UpdateDropInPosition(gameData.players,i);
+            UpdateDropInPosition(gameData.players, i);
         }
     }
 
+    //Spawns player and adds him to the player list in gamedata 
     private void SpawnPlayer(int pNumber)
     {
         playersJoined.Add(playerJoin + pNumber, true);
@@ -99,11 +117,7 @@ public class DropInRound : MonoBehaviour
         tmpPlayer.GetComponent<Posing>().ID = pNumber;
         tmpPlayer.name = "Player_" + pNumber;
         tmpPlayer.gameObject.transform.LookAt(cam.transform.position);
-        //float scaleX = tmpPlayer.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.bounds.size.x;
-        //float scaleY = tmpPlayer.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.bounds.size.y;
-        ////Debug.Log(scaleX);
 
-        //tmpPlayer.gameObject.transform.position = cam.ViewportToWorldPoint(new Vector3((1.0f/maxplayers ) * (pNumber - 1) + (scaleX / camdistance),margin + scaleY * 2 / camdistance, camdistance));
         UpdateDropInPosition(tmpPlayer, pNumber);
 
         gameData.players.Add(tmpPlayer);
@@ -111,17 +125,12 @@ public class DropInRound : MonoBehaviour
 
     private void UpdateDropInPosition(List<GameObject> ps, int number)
     {
-        //float scaleX = ps[number].gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.bounds.size.x;
-        //float scaleY = ps[number].gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.bounds.size.y;
-        //ps[number].gameObject.transform.position = cam.ViewportToWorldPoint(new Vector3((1.0f / maxplayers) * (number - 1) + (scaleX / camdistance), margin + scaleY * 2 / camdistance, camdistance));
-
         UpdateDropInPosition(ps[number], number);
     }
 
     private void UpdateDropInPosition(GameObject player, int number)
     {
-        float scaleX = player.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.bounds.size.x;
-        float scaleY = player.gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.bounds.size.y;
-        player.gameObject.transform.position = cam.ViewportToWorldPoint(new Vector3((1.0f / maxplayers) * number + (scaleX / camdistance), margin + scaleY * 2 / camdistance, camdistance));
+
+        player.gameObject.transform.position = cam.ViewportToWorldPoint(new Vector3((1.0f / maxplayers) * number + (playerScaleX / camdistance), margin + playerScaleY * 2 / camdistance, camdistance));
     }
 }

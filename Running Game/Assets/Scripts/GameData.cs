@@ -5,9 +5,11 @@ using UnityEngine;
 public class GameData : MonoBehaviour {
 
     public List<GameObject> players;
+    public Camera cam;
 	// Use this for initialization
 	void Start () {
         players = new List<GameObject>();
+        cam = GameObject.Find("Player1Camera").GetComponent<Camera>();
 	}
 	
 	// Update is called once per frame
