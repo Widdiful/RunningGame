@@ -95,6 +95,16 @@ public class SplineCurveEditor : Editor
             curve.RemoveCurve();
             EditorUtility.SetDirty(curve);
         }
+        if (GUILayout.Button("Randomise")) {
+            Undo.RecordObject(curve, "Randomise Spline");
+            curve.RandomiseAll(100);
+            EditorUtility.SetDirty(curve);
+        }
+        if (GUILayout.Button("Flatten")) {
+            Undo.RecordObject(curve, "Flatten Spline");
+            curve.Flatten();
+            EditorUtility.SetDirty(curve);
+        }
     }
 
     private void ShowDirections()

@@ -246,6 +246,27 @@ public class SplineCurve : MonoBehaviour {
         }
     }
 
+    public void RandomiseAll(int scale) {
+        for(int i = 0; i < points.Length; i++) {
+            Vector3 newVector;
+            newVector.x = UnityEngine.Random.Range(-scale, scale);
+            newVector.y = UnityEngine.Random.Range(-scale, scale);
+            newVector.z = UnityEngine.Random.Range(-scale, scale);
+            points[i] = newVector;
+        }
+        if (loop) {
+            points[points.Length - 1] = points[0];
+        }
+    }
+
+    public void Flatten() {
+        for (int i = 0; i < points.Length; i++) {
+            Vector3 newVector = points[i];
+            newVector.y = 0;
+            points[i] = newVector;
+        }
+    }
+
     public BezierControlPointMode GetControlPointMode(int index) {
         return modes[(index + 1) / 3];
     }
