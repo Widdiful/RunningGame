@@ -116,14 +116,16 @@ public class DropInRound : MonoBehaviour
     {
         playersJoined.Add(playerJoin + pNumber, true);
         Debug.Log("Player " + pNumber + " joined");
-        GameObject tmpPlayer = Instantiate(Resources.Load<GameObject>("Player") as GameObject);
+        GameObject tmpPlayer = Instantiate(Resources.Load<GameObject>("Player") as GameObject);		
         tmpPlayer.GetComponent<Posing>().ID = pNumber;
+		
         tmpPlayer.name = "Player_" + pNumber;
         tmpPlayer.gameObject.transform.LookAt(cam.transform.position);
 
         UpdateDropInPosition(tmpPlayer, pNumber);
 
         gameData.players.Add(tmpPlayer);
+		Debug.Log(tmpPlayer.GetComponent<Posing>().ID);
     }
 
     private void UpdateDropInPosition(List<GameObject> ps, int number)
