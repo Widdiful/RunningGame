@@ -19,15 +19,17 @@ public class FollowTrack : MonoBehaviour {
     public float distanceFromNewPath;
 
     public Vector3 targetPosition;
-    private Vector3 adjustedTargetPosition;
     public SplineCurve leftSpline;
     public SplineCurve rightSpline;
+    private Vector3 adjustedTargetPosition;
     private SubPath[] subPaths;
+    private float baseSpeed;
 
     private void Start()
     {
         MoveTarget(1);
         subPaths = FindObjectsOfType<SubPath>();
+        baseSpeed = moveSpeed;
     }
 
     private void Update() {
@@ -158,7 +160,7 @@ public class FollowTrack : MonoBehaviour {
     }
 
     public void IncreaseSpeed(float amount) {
-        stepSize += amount;
+        moveSpeed += amount;
     }
 
     public void ChangeSpline(SplineCurve newSpline)
@@ -173,5 +175,26 @@ public class FollowTrack : MonoBehaviour {
         spline = newSpline;
         leftSpline = null;
         rightSpline = null;
+    }
+
+    public void TemporaryBoost(float amount, float duration)
+    {
+        StartCoroutine(TemporaryBoostIE(amount, duration));
+    }
+
+    private IEnumerator TemporaryBoostIE(float amount, float duration)
+    {
+        IncreaseSpeed(amount);
+        yield return new WaitForSeconds(duration);
+        IncreaseSpeed(-amount);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Obstacle"))
+        {
+            moveSpeed = baseSpeed;
+            TemporaryBoost(-(baseSpeed / 2), 1);
+        }
     }
 }
