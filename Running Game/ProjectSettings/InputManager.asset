@@ -182,7 +182,7 @@ InputManager:
     axis: 3
     joyNum: 3
   - serializedVersion: 3
-    m_Name: Joy3_RightStickHori
+    m_Name: Joy3_RightStickVert
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
@@ -230,7 +230,7 @@ InputManager:
     axis: 1
     joyNum: 4
   - serializedVersion: 3
-    m_Name: Joy4_RighttStickHori
+    m_Name: Joy4_RightStickHori
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
