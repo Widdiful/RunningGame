@@ -63,19 +63,19 @@ public class Posing : MonoBehaviour
 
     private void L_PoseOut()
     {
-        animator.SetInteger("CurrentLeftPos", 0);
-        //animator.Play("LeftArmOut");
+       // animator.SetInteger("CurrentLeftPos", 0);
+       // animator.Play("LeftArmOut");
     }
 
     private void L_PoseUp()
     {
-        animator.SetInteger("CurrentLeftPos", 1);
+       // animator.SetInteger("CurrentLeftPos", 1);
        // animator.Play("LeftArmUp");
     }
 
     private void L_PoseDown()
     {
-        animator.SetInteger("CurrentLeftPos", 2);
-        //animator.Play("LeftArmDown");
+      // animator.SetInteger("CurrentLeftPos", 2);
+        animator.Play("LeftArmDown");
     }
 }

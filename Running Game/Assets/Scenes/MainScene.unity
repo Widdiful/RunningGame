@@ -198,13 +198,18 @@ Prefab:
         type: 2}
       propertyPath: spline
       value: 
-      objectReference: {fileID: 930960005}
+      objectReference: {fileID: 512334441}
+    - target: {fileID: 114805055471511986, guid: b752053e10d0f0741aaf300a51f49bd4,
+        type: 2}
+      propertyPath: ID
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
   m_IsPrefabParent: 0
---- !u!114 &930960005 stripped
+--- !u!114 &512334441 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114991382136793802, guid: fa232634669fb254b9d6f4687eb35535,
+  m_PrefabParentObject: {fileID: 114875171089081080, guid: fa232634669fb254b9d6f4687eb35535,
     type: 2}
   m_PrefabInternal: {fileID: 231498749}
   m_Script: {fileID: 11500000, guid: eec72f458f0703943bf31e6b15f749fe, type: 3}

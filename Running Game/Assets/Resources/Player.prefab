@@ -1556,7 +1556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07388b1aa786c4e41996e7cdf45406b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spline: {fileID: 114991373236055498, guid: 9ca2450dbf5567848b9058bf6537d45d, type: 2}
+  spline: {fileID: 0}
   stepSize: 1
   stepDistance: 2
   currentCurve: 0
@@ -1583,6 +1583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb3b53b83ae931642bb081dc3ef2bcec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ID: 1
 --- !u!136 &136220038292960076
 CapsuleCollider:
   m_ObjectHideFlags: 1
