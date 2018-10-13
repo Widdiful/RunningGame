@@ -202,7 +202,7 @@ MonoBehaviour:
   tunnelPrefab: {fileID: 100000, guid: 12d46d0fdc7422b4b8c03f6a418db654, type: 3}
   pathPrefab: {fileID: 100000, guid: 16fb769c0394c36469ed40a4f35c1eec, type: 3}
   buildPath: 1
-  buildTunnels: 1
+  buildTunnels: 0
   tunnelPercentage: 0.75
   allowRealTimeUpdating: 1
 --- !u!114 &114415735360886232

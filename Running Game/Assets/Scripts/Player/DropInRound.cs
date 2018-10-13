@@ -65,12 +65,6 @@ public class DropInRound : MonoBehaviour
 
         }
 
-        
-        
-   
-
-
-
         Destroy(GetComponent<DropInRound>());
     }
 
