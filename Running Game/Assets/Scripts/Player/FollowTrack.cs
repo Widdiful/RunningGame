@@ -100,6 +100,7 @@ public class FollowTrack : MonoBehaviour {
                 {
                     currentCurve = 0;
                     progress -= 1f;
+                    GetComponent<PlayerStats>().laps++;
                 }
                 else
                 {
@@ -195,6 +196,27 @@ public class FollowTrack : MonoBehaviour {
         {
             moveSpeed = baseSpeed;
             TemporaryBoost(-(baseSpeed / 2), 1);
+        }
+
+        if (other.CompareTag("Wall")) {
+            Vector3 lastPosition = Vector3.zero;
+            float lastPositionFloat = 10000;
+            float lastProgress = 10000;
+            int lastCurve = 10000;
+            foreach(PlayerStats stat in FindObjectsOfType<PlayerStats>()) {
+                print(stat.GetPosition());
+                if (stat.GetPosition() < lastPositionFloat) {
+                    print("fuckass");
+                    lastPositionFloat = stat.GetPosition();
+                    lastPosition = stat.transform.position;
+                    lastProgress = stat.GetComponent<FollowTrack>().progress;
+                    lastCurve = stat.GetComponent<FollowTrack>().currentCurve;
+                }
+            }
+            targetPosition = spline.GetPoint(spline.GetPositionOnSpline(lastPosition));
+            currentCurve = lastCurve;
+            progress = lastProgress;
+            transform.position = targetPosition;
         }
     }
 }

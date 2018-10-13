@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour {
 
     public int health;
+    public int laps;
     public float positionOnSpline;
 
     private FollowTrack track;
@@ -26,5 +27,9 @@ public class PlayerStats : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+    }
+
+    public float GetPosition() {
+        return laps + positionOnSpline;
     }
 }
