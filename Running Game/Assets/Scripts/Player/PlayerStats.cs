@@ -18,7 +18,7 @@ public class PlayerStats : MonoBehaviour {
 
     private void Update()
     {
-        positionOnSpline = track.spline.GetPositionOnSpline(transform.position);
+        //positionOnSpline = track.spline.GetPositionOnSpline(transform.position);
     }
 
     public void TakeHit()

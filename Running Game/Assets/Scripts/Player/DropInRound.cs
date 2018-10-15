@@ -43,6 +43,7 @@ public class DropInRound : MonoBehaviour
         if (Input.GetKey("joystick 1 button 9") || Input.GetKey(KeyCode.Return) && gameData.players.Count > 0)
         {
             gameStarted = true;
+            FindObjectOfType<SplitscreenManager>().SetSplitscreen(gameData.players.Count);
         }
 
         if (gameStarted)
