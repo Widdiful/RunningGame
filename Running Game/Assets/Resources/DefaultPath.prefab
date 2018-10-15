@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 114875171089081080}
   - component: {fileID: 114059158149513880}
   - component: {fileID: 120032269717470932}
+  - component: {fileID: 114837862987606814}
   m_Layer: 0
   m_Name: DefaultPath
   m_TagString: Path
@@ -291,6 +292,19 @@ MonoBehaviour:
   startingSpline: {fileID: 114754428318307330}
   exitSpline: {fileID: 114562536622268510}
   direction: 2
+--- !u!114 &114837862987606814
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1750953487268642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f3f76bf6f77ce40b993ede90743ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallPrefab: {fileID: 1519976658437904, guid: 00fca45126e728e44afe18a2cd914fb5, type: 2}
+  numberOfWalls: 10
 --- !u!114 &114875171089081080
 MonoBehaviour:
   m_ObjectHideFlags: 1

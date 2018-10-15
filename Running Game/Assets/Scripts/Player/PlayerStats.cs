@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,5 +32,17 @@ public class PlayerStats : MonoBehaviour {
 
     public float GetPosition() {
         return laps + positionOnSpline;
+    }
+
+    internal void Passed()
+    {
+        //TODO: Play sound or do some visuals to let the player know he passed the wall
+        Debug.Log("passed");
+    }
+
+    internal void Failed()
+    {
+        Debug.Log("failed");
+        health -= 1;
     }
 }

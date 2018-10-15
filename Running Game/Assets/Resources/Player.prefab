@@ -53,9 +53,10 @@ GameObject:
   - component: {fileID: 136220038292960076}
   - component: {fileID: 114805055471511986}
   - component: {fileID: 114384617019595866}
+  - component: {fileID: 114732243093172510}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -419,7 +420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1558381490984706
 GameObject:
   m_ObjectHideFlags: 1
@@ -690,7 +691,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1870041541119824
 GameObject:
   m_ObjectHideFlags: 1
@@ -1022,7 +1023,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1542410957003354}
   m_LocalRotation: {x: 2.7755576e-17, y: 3.5527137e-15, z: -4.656613e-10, w: 1}
-  m_LocalPosition: {x: -0.26229593, y: -0.000000038146972, z: -2.2737367e-15}
+  m_LocalPosition: {x: -0.26229593, y: -0.00000003814697, z: -2.273737e-15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4354039149895656}
@@ -1258,7 +1259,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1992576002743464}
   m_LocalRotation: {x: 3.698761e-15, y: -7.305637e-15, z: 0.24740091, w: 0.9689132}
-  m_LocalPosition: {x: -0.16945, y: 0, z: 0}
+  m_LocalPosition: {x: -0.16945, y: 0.033, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4370690464031752}
@@ -1551,27 +1552,42 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1057119082097530}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 07388b1aa786c4e41996e7cdf45406b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spline: {fileID: 0}
-  stepSize: 1
+  stepSize: 18.24
   stepDistance: 2
   currentCurve: 0
   progress: 0
   lookForward: 1
+  slopeSpeedModifier: 0
   speedIncreaseCountdown: 0
   speedIncreaseRate: 0.01
   maximumSpeed: 10
   horizontalAdjust: 0
   verticalAdjust: 0
-  moveSpeed: 0.0001
+  moveSpeed: 7.66
   distanceFromNewPath: 0
   targetPosition: {x: 0, y: 0, z: 0}
   leftSpline: {fileID: 0}
   rightSpline: {fileID: 0}
+--- !u!114 &114732243093172510
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1057119082097530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d39e99398d8030f4989dc53b0ca79f81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  laps: 0
+  positionOnSpline: 0
 --- !u!114 &114805055471511986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1591,8 +1607,8 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1057119082097530}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
+  m_IsTrigger: 1
+  m_Enabled: 1
   m_Radius: 0.5
   m_Height: 4.64
   m_Direction: 1

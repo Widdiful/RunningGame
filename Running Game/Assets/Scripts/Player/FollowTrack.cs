@@ -1,8 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowTrack : MonoBehaviour {
+public class FollowTrack : MonoBehaviour
+{
 
     public SplineCurve spline;
     public float stepSize;
@@ -25,25 +27,32 @@ public class FollowTrack : MonoBehaviour {
     private Vector3 adjustedTargetPosition;
     private SubPath[] subPaths;
     private float baseSpeed;
+    private bool leader;
+    private Posing posing;
 
     private void Start()
     {
         MoveTarget(1);
         subPaths = FindObjectsOfType<SubPath>();
         baseSpeed = moveSpeed;
+        posing = gameObject.GetComponent<Posing>();
     }
 
-    private void Update() {
-        if (speedIncreaseCountdown <= 0) {
+    private void Update()
+    {
+        if (speedIncreaseCountdown <= 0)
+        {
             moveSpeed = Mathf.Clamp(moveSpeed + Time.deltaTime * speedIncreaseRate, 0, maximumSpeed);
             baseSpeed = Mathf.Clamp(baseSpeed + Time.deltaTime * speedIncreaseRate, 0, maximumSpeed);
         }
-        else {
+        else
+        {
             speedIncreaseCountdown -= Time.deltaTime;
         }
         MoveTowardsTarget();
 
-        if (Vector3.Distance(transform.position, adjustedTargetPosition) <= stepDistance) { 
+        if (Vector3.Distance(transform.position, adjustedTargetPosition) <= stepDistance)
+        {
             MoveTarget(stepSize);
         }
 
@@ -51,35 +60,46 @@ public class FollowTrack : MonoBehaviour {
         {
             if (leftSpline && leftSpline != spline) ChangeSpline(leftSpline);
         }
-        if (Input.GetKeyDown("x")) {
+        if (Input.GetKeyDown("x"))
+        {
             if (rightSpline && rightSpline != spline) ChangeSpline(rightSpline);
         }
 
         // Detect nearby splines
         leftSpline = null;
         rightSpline = null;
-        foreach(SubPath path in subPaths) {
+        foreach (SubPath path in subPaths)
+        {
             if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <= distanceFromNewPath &&
-                path.startingSpline == spline /*&& Vector3.Dot(path.transform.position, transform.forward) > 0*/) {
-                if (path.direction == SubPath.BranchDirection.Right) {
-                    if (rightSpline) {
+                path.startingSpline == spline /*&& Vector3.Dot(path.transform.position, transform.forward) > 0*/)
+            {
+                if (path.direction == SubPath.BranchDirection.Right)
+                {
+                    if (rightSpline)
+                    {
                         if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <
-                            Vector3.Distance(adjustedTargetPosition, rightSpline.transform.position)) {
+                            Vector3.Distance(adjustedTargetPosition, rightSpline.transform.position))
+                        {
                             rightSpline = path.GetComponent<SplineCurve>();
                         }
                     }
-                    else {
+                    else
+                    {
                         rightSpline = path.GetComponent<SplineCurve>();
                     }
                 }
-                else {
-                    if (leftSpline) {
+                else
+                {
+                    if (leftSpline)
+                    {
                         if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <
-                            Vector3.Distance(adjustedTargetPosition, leftSpline.transform.position)) {
+                            Vector3.Distance(adjustedTargetPosition, leftSpline.transform.position))
+                        {
                             leftSpline = path.GetComponent<SplineCurve>();
                         }
                     }
-                    else if (path.direction == SubPath.BranchDirection.Left) {
+                    else if (path.direction == SubPath.BranchDirection.Left)
+                    {
                         leftSpline = path.GetComponent<SplineCurve>();
                     }
                 }
@@ -88,7 +108,8 @@ public class FollowTrack : MonoBehaviour {
     }
 
     // Moves the target point along the spline
-    private void MoveTarget(float amount) {
+    private void MoveTarget(float amount)
+    {
         if (progress >= 1f)
         {
             if (currentCurve / 3 < spline.CurveCount - 1)
@@ -152,7 +173,8 @@ public class FollowTrack : MonoBehaviour {
         Debug.DrawLine(adjustedTargetPosition, targetPosition);
     }
 
-    public void InitialiseRunner(SplineCurve startingSpline, float startingPosition) {
+    public void InitialiseRunner(SplineCurve startingSpline, float startingPosition)
+    {
         currentCurve = 0;
         spline = startingSpline;
         progress = startingPosition;
@@ -162,7 +184,8 @@ public class FollowTrack : MonoBehaviour {
         MoveTarget(stepSize);
     }
 
-    public void IncreaseSpeed(float amount) {
+    public void IncreaseSpeed(float amount)
+    {
         moveSpeed += amount;
     }
 
@@ -194,19 +217,23 @@ public class FollowTrack : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.CompareTag("Obstacle"))
         {
             moveSpeed = baseSpeed;
             TemporaryBoost(-(baseSpeed / 2), 1);
         }
 
-        if (other.CompareTag("Wall")) {
+        if (other.CompareTag("Wall"))
+        {
             Vector3 lastPosition = Vector3.zero;
             float lastPositionFloat = 10000;
             float lastProgress = 10000;
             int lastCurve = 10000;
-            foreach(PlayerStats stat in FindObjectsOfType<PlayerStats>()) {
-                if (stat.GetPosition() < lastPositionFloat) {
+            foreach (PlayerStats stat in FindObjectsOfType<PlayerStats>())
+            {
+                if (stat.GetPosition() < lastPositionFloat)
+                {
                     lastPositionFloat = stat.GetPosition();
                     lastPosition = stat.transform.position;
                     lastProgress = stat.GetComponent<FollowTrack>().progress;
@@ -218,6 +245,32 @@ public class FollowTrack : MonoBehaviour {
             currentCurve = lastCurve;
             progress = lastProgress;
             transform.position = targetPosition;
+
+            //if (other.transform.gameObject.name.Contains(posing.GetPose()))
+            //{
+            //    PlayerPassed();                
+            //}
+            //else
+            //{                 
+            //    if (!leader && !other.transform.gameObject.name.Contains("Wall "))
+            //        PunishPlayer();
+            //    else BreakWall();
+            //}
         }
+    }
+
+    private void BreakWall()
+    {
+        
+    }
+
+    private void PunishPlayer()
+    {
+        
+    }
+
+    private void PlayerPassed()
+    {
+        
     }
 }

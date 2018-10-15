@@ -8,11 +8,22 @@ public class Posing : MonoBehaviour
     public int ID;
     private const float threshold = 0.6f;
     private Animator animator;
+    private RaycastHit hit;
+    private const float checkRange = 20.0f;
+    private GameObject currentWall;    
+    private string leftPose = "";
+    private string rightPose = "";
+    private int startPose;
+
+
     // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
         //ID = 1;
+        startPose = Random.Range(0, 9);
+        R_PoseUp();
+        L_PoseUp();
     }
 
     // Update is called once per frame
@@ -36,6 +47,16 @@ public class Posing : MonoBehaviour
         if (Input.GetAxis("Joy" + ID + "_RightStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.DownArrow)) {  Debug.Log("Player " + ID + " right arm down"); R_PoseDown(); }
     }
 
+    private void CheckNextWall()
+    {
+        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward) * checkRange, out hit))
+        {
+            Debug.Log("Hit Wall");
+            currentWall = hit.transform.gameObject;
+            Debug.Log(currentWall.name);
+        }
+    }
+
     private void TurnLeft()
     {
 
@@ -49,33 +70,61 @@ public class Posing : MonoBehaviour
     private void R_PoseOut()
     {
         animator.Play("RightArmOut");
+        rightPose = "RO";
     }
 
     private void R_PoseDown()
     {
         animator.Play("RightArmDown");
+        rightPose = "RD";
     }
 
     private void R_PoseUp()
     {
         animator.Play("RightArmUp");
+        rightPose = "RU";
     }
 
     private void L_PoseOut()
     {
        // animator.SetInteger("CurrentLeftPos", 0);
-       // animator.Play("LeftArmOut");
+       animator.Play("LeftArmOut");
+        leftPose = "LO";
     }
 
     private void L_PoseUp()
     {
        // animator.SetInteger("CurrentLeftPos", 1);
-       // animator.Play("LeftArmUp");
+       animator.Play("LeftArmUp");
+        leftPose = "LU";
     }
 
     private void L_PoseDown()
     {
       // animator.SetInteger("CurrentLeftPos", 2);
         animator.Play("LeftArmDown");
+        leftPose = "LD";
+    }
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    //if(collision.transform.gameObject.CompareTag("Wall"))
+    //    //{
+    //    // //   if(collision.transform.gameObject.name == "Wall")
+    //    //    for (int i = 0; i < poses.Length; i++)
+    //    //    {
+    //    //        if(collision.transform.gameObject.name.Contains(poses[i]))
+    //    //        {
+
+    //    //        }
+
+    //    //    }
+    //    //}
+    //    //Debug.Log("test");
+    //}
+
+    public string GetPose()
+    {
+        return leftPose + "_" + rightPose;
     }
 }
