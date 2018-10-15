@@ -10,6 +10,7 @@ public class FollowTrack : MonoBehaviour {
     public int currentCurve = 0;
     public float progress;
     public bool lookForward;
+    public float slopeSpeedModifier;
     public float speedIncreaseCountdown;
     public float speedIncreaseRate;
     public float maximumSpeed;
@@ -35,6 +36,7 @@ public class FollowTrack : MonoBehaviour {
     private void Update() {
         if (speedIncreaseCountdown <= 0) {
             moveSpeed = Mathf.Clamp(moveSpeed + Time.deltaTime * speedIncreaseRate, 0, maximumSpeed);
+            baseSpeed = Mathf.Clamp(baseSpeed + Time.deltaTime * speedIncreaseRate, 0, maximumSpeed);
         }
         else {
             speedIncreaseCountdown -= Time.deltaTime;
@@ -136,7 +138,7 @@ public class FollowTrack : MonoBehaviour {
         adjustedTargetPosition.x += horizontalAdjust;
         adjustedTargetPosition.y += verticalAdjust;
         adjustedTargetPosition = transform.TransformPoint(adjustedTargetPosition);
-        Vector3 position = Vector3.MoveTowards(transform.position, adjustedTargetPosition, moveSpeed);
+        Vector3 position = Vector3.MoveTowards(transform.position, adjustedTargetPosition, moveSpeed - (Vector3.Dot(transform.forward, Vector3.up) * slopeSpeedModifier));
 
         if (lookForward)
         {
@@ -204,9 +206,7 @@ public class FollowTrack : MonoBehaviour {
             float lastProgress = 10000;
             int lastCurve = 10000;
             foreach(PlayerStats stat in FindObjectsOfType<PlayerStats>()) {
-                print(stat.GetPosition());
                 if (stat.GetPosition() < lastPositionFloat) {
-                    print("fuckass");
                     lastPositionFloat = stat.GetPosition();
                     lastPosition = stat.transform.position;
                     lastProgress = stat.GetComponent<FollowTrack>().progress;
@@ -214,6 +214,7 @@ public class FollowTrack : MonoBehaviour {
                 }
             }
             targetPosition = spline.GetPoint(spline.GetPositionOnSpline(lastPosition));
+            adjustedTargetPosition = spline.GetPoint(spline.GetPositionOnSpline(lastPosition));
             currentCurve = lastCurve;
             progress = lastProgress;
             transform.position = targetPosition;

@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-guid: 27f3f76bf6f77ce40b993ede90743ef9
+guid: 1a1fdf6d34489e740805b5c54fdafd12
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - wallPrefab: {fileID: 1519976658437904, guid: 00fca45126e728e44afe18a2cd914fb5,
-      type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
