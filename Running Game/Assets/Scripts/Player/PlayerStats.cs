@@ -38,11 +38,13 @@ public class PlayerStats : MonoBehaviour {
     {
         //TODO: Play sound or do some visuals to let the player know he passed the wall
         Debug.Log("passed");
+        track.IncreaseSpeed(0.1f);
     }
 
     internal void Failed()
     {
         Debug.Log("failed");
-        health -= 1;
+        TakeHit();
+        track.FailObstacle();
     }
 }

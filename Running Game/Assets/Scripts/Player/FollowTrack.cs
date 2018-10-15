@@ -26,12 +26,14 @@ public class FollowTrack : MonoBehaviour
     public SplineCurve rightSpline;
     private Vector3 adjustedTargetPosition;
     private SubPath[] subPaths;
-    private float baseSpeed;
+    public float baseSpeed;
     private bool leader;
     private Posing posing;
+    private GameManager gm;
 
     private void Start()
     {
+        gm = FindObjectOfType<GameManager>();
         MoveTarget(1);
         subPaths = FindObjectsOfType<SubPath>();
         baseSpeed = moveSpeed;
@@ -40,10 +42,11 @@ public class FollowTrack : MonoBehaviour
 
     private void Update()
     {
+        stepSize = Mathf.Clamp(Mathf.FloorToInt(moveSpeed) * 10, 50, 200);
         if (speedIncreaseCountdown <= 0)
         {
-            moveSpeed = Mathf.Clamp(moveSpeed + Time.deltaTime * speedIncreaseRate, 0, maximumSpeed);
-            baseSpeed = Mathf.Clamp(baseSpeed + Time.deltaTime * speedIncreaseRate, 0, maximumSpeed);
+            moveSpeed = Mathf.Clamp(moveSpeed + Time.deltaTime * speedIncreaseRate, 0, gm.globalSpeedCap);
+            //baseSpeed = Mathf.Clamp(baseSpeed + Time.deltaTime * (speedIncreaseRate / 4), 0, gm.globalSpeedCap);
         }
         else
         {
@@ -189,6 +192,10 @@ public class FollowTrack : MonoBehaviour
         moveSpeed += amount;
     }
 
+    public void ResetSpeed() {
+        moveSpeed = baseSpeed;
+    }
+
     public void ChangeSpline(SplineCurve newSpline)
     {
         spline = newSpline;
@@ -215,6 +222,11 @@ public class FollowTrack : MonoBehaviour
         IncreaseSpeed(-amount);
     }
 
+    public void FailObstacle() {
+        moveSpeed = baseSpeed;
+        TemporaryBoost(-(baseSpeed / 2), 1);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         
@@ -226,25 +238,25 @@ public class FollowTrack : MonoBehaviour
 
         if (other.CompareTag("Wall"))
         {
-            Vector3 lastPosition = Vector3.zero;
-            float lastPositionFloat = 10000;
-            float lastProgress = 10000;
-            int lastCurve = 10000;
-            foreach (PlayerStats stat in FindObjectsOfType<PlayerStats>())
-            {
-                if (stat.GetPosition() < lastPositionFloat)
-                {
-                    lastPositionFloat = stat.GetPosition();
-                    lastPosition = stat.transform.position;
-                    lastProgress = stat.GetComponent<FollowTrack>().progress;
-                    lastCurve = stat.GetComponent<FollowTrack>().currentCurve;
-                }
-            }
-            targetPosition = spline.GetPoint(spline.GetPositionOnSpline(lastPosition));
-            adjustedTargetPosition = spline.GetPoint(spline.GetPositionOnSpline(lastPosition));
-            currentCurve = lastCurve;
-            progress = lastProgress;
-            transform.position = targetPosition;
+            //Vector3 lastPosition = Vector3.zero;
+            //float lastPositionFloat = 10000;
+            //float lastProgress = 10000;
+            //int lastCurve = 10000;
+            //foreach (PlayerStats stat in FindObjectsOfType<PlayerStats>())
+            //{
+            //    if (stat.GetPosition() < lastPositionFloat)
+            //    {
+            //        lastPositionFloat = stat.GetPosition();
+            //        lastPosition = stat.transform.position;
+            //        lastProgress = stat.GetComponent<FollowTrack>().progress;
+            //        lastCurve = stat.GetComponent<FollowTrack>().currentCurve;
+            //    }
+            //}
+            //targetPosition = spline.GetPoint(spline.GetPositionOnSpline(lastPosition));
+            //adjustedTargetPosition = spline.GetPoint(spline.GetPositionOnSpline(lastPosition));
+            //currentCurve = lastCurve;
+            //progress = lastProgress;
+            //transform.position = targetPosition;
 
             //if (other.transform.gameObject.name.Contains(posing.GetPose()))
             //{

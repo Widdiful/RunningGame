@@ -31,6 +31,7 @@ public class Wall : MonoBehaviour
             if (!broken)
             {
                 BreakWall(other.gameObject.GetComponent<Posing>().GetPose());
+                other.gameObject.GetComponent<PlayerStats>().Passed();
                 //Debug.Log("broken");
             }
             else
