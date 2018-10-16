@@ -14,6 +14,7 @@ public class Posing : MonoBehaviour
     private string leftPose = "";
     private string rightPose = "";
     private int startPose;
+    private FollowTrack track;
 
 
     // Use this for initialization
@@ -24,6 +25,7 @@ public class Posing : MonoBehaviour
         startPose = Random.Range(0, 9);
         R_PoseUp();
         L_PoseUp();
+        track = GetComponent<FollowTrack>();
     }
 
     // Update is called once per frame
@@ -59,12 +61,16 @@ public class Posing : MonoBehaviour
 
     private void TurnLeft()
     {
-
+        if (track) {
+            track.TurnLeft();
+        }
     }
 
     private void TurnRight()
     {
-
+        if (track) {
+            track.TurnRight();
+        }
     }
 
     private void R_PoseOut()
