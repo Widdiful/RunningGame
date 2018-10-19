@@ -150,7 +150,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4975261353101658, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1057119082097530, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
       propertyPath: m_IsActive
@@ -238,6 +238,7 @@ MonoBehaviour:
   buildTunnels: 0
   tunnelPercentage: 0.75
   allowRealTimeUpdating: 1
+  pathVerticalOffset: 0
 --- !u!4 &794851487
 Transform:
   m_ObjectHideFlags: 0
@@ -251,7 +252,7 @@ Transform:
   m_Children:
   - {fileID: 1745022834}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1198425744
 GameObject:
@@ -283,7 +284,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   proximity: 1
-  startingSpline: {fileID: 512334441}
+  startingSpline: {fileID: 1302391116}
+  playerselect: 1
 --- !u!4 &1198425746
 Transform:
   m_ObjectHideFlags: 0
@@ -388,6 +390,95 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1302391113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1813978363051298, guid: fa232634669fb254b9d6f4687eb35535,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1302391117}
+  - component: {fileID: 1302391116}
+  - component: {fileID: 1302391115}
+  - component: {fileID: 1302391114}
+  m_Layer: 0
+  m_Name: Start
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1302391114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114415735360886232, guid: fa232634669fb254b9d6f4687eb35535,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1302391113}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdc9d0486f6649c4eb2c7730734b7561, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfPoints: 100
+  tunnelPrefab: {fileID: 100000, guid: 12d46d0fdc7422b4b8c03f6a418db654, type: 3}
+  pathPrefab: {fileID: 100000, guid: 16fb769c0394c36469ed40a4f35c1eec, type: 3}
+  buildPath: 1
+  buildTunnels: 0
+  tunnelPercentage: 0
+  allowRealTimeUpdating: 1
+  pathVerticalOffset: 0
+--- !u!114 &1302391115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114957226392751558, guid: fa232634669fb254b9d6f4687eb35535,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1302391113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b9e0c775ac192046a8da3712ecf72a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingSpline: {fileID: 0}
+  exitSpline: {fileID: 512334441}
+  direction: 2
+--- !u!114 &1302391116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 114991382136793802, guid: fa232634669fb254b9d6f4687eb35535,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1302391113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eec72f458f0703943bf31e6b15f749fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  points:
+  - {x: 0, y: 0, z: 0}
+  - {x: -10.847041, y: 0, z: -11.1001215}
+  - {x: -23.73193, y: 0, z: 5.5920296}
+  - {x: -10.85135, y: 0, z: 14.311378}
+  modes: 0100000001000000
+  loop: 0
+  showSpline: 1
+  splineLength: 33.28078
+--- !u!4 &1302391117
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4010544790620052, guid: fa232634669fb254b9d6f4687eb35535,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1302391113}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11.336, y: 0, z: -15.974}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1415991276
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +492,7 @@ GameObject:
   - component: {fileID: 1415991277}
   - component: {fileID: 1415991281}
   m_Layer: 0
-  m_Name: Player1Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -561,7 +652,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4568201899885750, guid: e5057cb4ab1a5964fa97711d9ec190f6, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1978719622328462, guid: e5057cb4ab1a5964fa97711d9ec190f6, type: 2}
       propertyPath: m_Name
@@ -622,6 +713,7 @@ MonoBehaviour:
   buildTunnels: 0
   tunnelPercentage: 0
   allowRealTimeUpdating: 1
+  pathVerticalOffset: 0
 --- !u!114 &1745022836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -695,7 +787,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 162d7b5e6351ffd439183aac48f9ae54, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: 162d7b5e6351ffd439183aac48f9ae54, type: 3}
       propertyPath: m_Materials.Array.data[0]

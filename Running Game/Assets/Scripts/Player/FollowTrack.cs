@@ -51,6 +51,10 @@ public class FollowTrack : MonoBehaviour
                 rightPointer = img;
             }
         }
+
+        currentCurve = Mathf.FloorToInt(spline.GetPositionOnSpline(transform.position));
+        progress = spline.GetPositionOnSpline(transform.position) - currentCurve;
+        targetPosition = spline.GetPointOnCurve(currentCurve, progress);
     }
 
     private void Update()

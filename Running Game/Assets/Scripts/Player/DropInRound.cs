@@ -63,7 +63,7 @@ public class DropInRound : MonoBehaviour
             players[i].transform.rotation = Quaternion.identity;
             players[i].GetComponent<FollowTrack>().enabled = true;
             gameData.cam.transform.parent = gameData.players[0].transform;
-            players[i].GetComponent<FollowTrack>().InitialiseRunner(startingSpline, i * 0.002f);
+            players[i].GetComponent<FollowTrack>().InitialiseRunner(startingSpline, (float)i / (float)gameData.players.Count);
 
         }
 

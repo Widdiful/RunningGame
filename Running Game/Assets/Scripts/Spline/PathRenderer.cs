@@ -11,6 +11,7 @@ public class PathRenderer : MonoBehaviour {
     public bool buildTunnels;
     public float tunnelPercentage;
     public bool allowRealTimeUpdating;
+    public float pathVerticalOffset;
 
     private SplineCurve spline;
     private LineRenderer line;
@@ -62,7 +63,9 @@ public class PathRenderer : MonoBehaviour {
             Transform newPath = Instantiate(pathPrefab, pathParent.transform).transform;
             newPath.localScale *= 0.5f;
             Vector3 position = spline.GetPoint((float)i / (float)numberOfPoints);
+            position.y += pathVerticalOffset;
             Vector3 nextPosition = spline.GetPoint((float)(i + 1) / (float)numberOfPoints);
+            nextPosition.y += pathVerticalOffset;
             newPath.position = position;
             newPath.LookAt(nextPosition);
             Vector3 newScale = newPath.localScale;
@@ -106,7 +109,9 @@ public class PathRenderer : MonoBehaviour {
         for (int i = 0; i < numberOfPoints; i++) {
             Transform newPath = pathParts[i];
             Vector3 position = spline.GetPoint((float)i / (float)numberOfPoints);
+            position.y += pathVerticalOffset;
             Vector3 nextPosition = spline.GetPoint((float)(i + 1) / (float)numberOfPoints);
+            nextPosition.y += pathVerticalOffset;
             newPath.position = position;
             newPath.LookAt(nextPosition);
             Vector3 newScale = newPath.localScale;
