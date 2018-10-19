@@ -27,4 +27,9 @@ public class SubPath : MonoBehaviour {
         followInfo.progress = newProgress - Mathf.FloorToInt(newProgress);
         followInfo.targetPosition = exitSpline.GetPointOnCurve(followInfo.currentCurve, followInfo.progress);
     }
+
+    public float GetPositionOnStartingSpline()
+    {
+        return startingSpline.GetPositionOnSpline(transform.position);
+    }
 }

@@ -16,6 +16,8 @@ public class PathRenderer : MonoBehaviour {
     private LineRenderer line;
     private List<Transform> tunnelParts = new List<Transform>();
     private List<Transform> pathParts = new List<Transform>();
+    private GameObject tunnelParent;
+    private GameObject pathParent;
 
     private void Start() {
         spline = GetComponentInParent<SplineCurve>();
@@ -47,6 +49,9 @@ public class PathRenderer : MonoBehaviour {
     }
 
     private void GeneratePath() {
+        pathParent = new GameObject("Paths");
+        pathParent.transform.SetParent(transform);
+
         foreach (Transform path in pathParts) {
             if (path) {
                 Destroy(path.gameObject);
@@ -54,7 +59,7 @@ public class PathRenderer : MonoBehaviour {
         }
 
         for (int i = 0; i < numberOfPoints; i++) {
-            Transform newPath = Instantiate(pathPrefab, Vector3.zero, Quaternion.identity).transform;
+            Transform newPath = Instantiate(pathPrefab, pathParent.transform).transform;
             newPath.localScale *= 0.5f;
             Vector3 position = spline.GetPoint((float)i / (float)numberOfPoints);
             Vector3 nextPosition = spline.GetPoint((float)(i + 1) / (float)numberOfPoints);
@@ -70,7 +75,10 @@ public class PathRenderer : MonoBehaviour {
     }
 
     private void GenerateTunnel() {
-        foreach(Transform tunnel in tunnelParts) {
+        tunnelParent = new GameObject("Tunnels");
+        tunnelParent.transform.SetParent(transform);
+
+        foreach (Transform tunnel in tunnelParts) {
             if (tunnel) {
                 Destroy(tunnel.gameObject);
             }
@@ -78,7 +86,7 @@ public class PathRenderer : MonoBehaviour {
 
         for (int i = 0; i < numberOfPoints; i++) {
             if ((float)i / (float)numberOfPoints <= tunnelPercentage) {
-                Transform newTunnel = Instantiate(tunnelPrefab, Vector3.zero, Quaternion.identity).transform;
+                Transform newTunnel = Instantiate(tunnelPrefab, tunnelParent.transform).transform;
                 newTunnel.localScale *= 0.5f;
                 Vector3 position = spline.GetPoint((float)i / (float)numberOfPoints);
                 Vector3 nextPosition = spline.GetPoint((float)(i + 1) / (float)numberOfPoints);

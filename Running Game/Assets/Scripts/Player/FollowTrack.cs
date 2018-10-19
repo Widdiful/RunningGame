@@ -20,11 +20,13 @@ public class FollowTrack : MonoBehaviour
     public float horizontalAdjust;
     public float verticalAdjust;
     public float moveSpeed;
-    public float distanceFromNewPath;
+    public float pathDetectionRadius;
+    public float pathChangeRadius;
 
     public Vector3 targetPosition;
-    public SplineCurve leftSpline;
-    public SplineCurve rightSpline;
+    private SplineCurve leftSpline; // Left spline found on detection
+    private SplineCurve rightSpline; // Right spline found on detection
+    private SplineCurve nextSpline; // Selected spline to select automatically
     private Vector3 adjustedTargetPosition;
     private SubPath[] subPaths;
     public float baseSpeed;
@@ -75,8 +77,8 @@ public class FollowTrack : MonoBehaviour
         rightSpline = null;
         if (subPaths.Length > 0) {
             foreach (SubPath path in subPaths) {
-                if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <= distanceFromNewPath &&
-                    path.startingSpline == spline /*&& Vector3.Dot(path.transform.position, transform.forward) > 0*/) {
+                if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <= pathDetectionRadius &&
+                    path.startingSpline == spline && !nextSpline && spline.GetPositionOnSpline(transform.position) <= path.GetPositionOnStartingSpline()) {
                     if (path.direction == SubPath.BranchDirection.Right) {
                         if (rightSpline) {
                             if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <
@@ -105,6 +107,19 @@ public class FollowTrack : MonoBehaviour
 
         else {
             subPaths = FindObjectsOfType<SubPath>();
+        }
+
+        if (nextSpline)
+        {
+            if (Vector3.Distance(targetPosition, nextSpline.transform.position) <= pathChangeRadius)
+            {
+                ChangeSpline(nextSpline);
+                nextSpline = null;
+            }
+            if (Vector3.Distance(targetPosition, nextSpline.transform.position) >= pathDetectionRadius)
+            {
+                nextSpline = null;
+            }
         }
 
         if (leftSpline) {
@@ -294,13 +309,17 @@ public class FollowTrack : MonoBehaviour
 
     public void TurnLeft() {
         if (leftSpline && leftSpline != spline) {
-            ChangeSpline(leftSpline);
+            nextSpline = leftSpline;
+            leftSpline = null;
+            rightSpline = null;
         }
     }
 
     public void TurnRight() {
         if (rightSpline && rightSpline != spline) {
-            ChangeSpline(rightSpline);
+            nextSpline = rightSpline;
+            leftSpline = null;
+            rightSpline = null;
         }
     }
 }

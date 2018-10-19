@@ -1586,7 +1586,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1057119082097530}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.45, z: 0}
+  m_LocalPosition: {x: 0.12, y: -0.24, z: -0.47}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4135189311431864}
@@ -1782,10 +1782,9 @@ MonoBehaviour:
   horizontalAdjust: 0
   verticalAdjust: 0
   moveSpeed: 0.25
-  distanceFromNewPath: 10
+  pathDetectionRadius: 40
+  pathChangeRadius: 10
   targetPosition: {x: 0, y: 0, z: 0}
-  leftSpline: {fileID: 0}
-  rightSpline: {fileID: 0}
   baseSpeed: 0
 --- !u!114 &114398110361618012
 MonoBehaviour:
