@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 8
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: e4dd174b13fc69345b7948e321189d3a, type: 2}
@@ -172,20 +172,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 0, y: 0, z: 0}
-  - {x: -1.279155, y: 0, z: 5.562753}
-  - {x: 7.4293127, y: 0, z: 25.788063}
-  - {x: 17.087795, y: 0, z: 20.477087}
-  - {x: 37.54262, y: 0, z: 9.229454}
-  - {x: 33.706345, y: 0, z: -34.629723}
-  - {x: 15.022817, y: 0, z: -19.165373}
-  - {x: 14.989852, y: 0, z: -19.138088}
-  - {x: 1.6702287, y: 0, z: -8.578405}
-  - {x: 0, y: 0, z: 0}
+  - {x: -57.80386, y: 86, z: 5.6392183}
+  - {x: 73.52942, y: 76.99569, z: 7.457198}
+  - {x: -95, y: -46, z: 99}
+  - {x: -28.456501, y: -3, z: 118.389786}
+  - {x: 107.779465, y: 85.034836, z: 158.08691}
+  - {x: 37, y: 24, z: -37}
+  - {x: -49.45243, y: -47, z: 51.43248}
+  - {x: -139.89449, y: -121.27653, z: 143.94595}
+  - {x: -220.74428, y: 115.74733, z: 17.637024}
+  - {x: -57.80386, y: 86, z: 5.6392183}
   modes: 01000000010000000100000001000000
   loop: 1
   showSpline: 1
-  splineLength: 114.90533
+  splineLength: 793.8916
 --- !u!1 &794851483
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,13 +212,13 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 794851483}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27f3f76bf6f77ce40b993ede90743ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   wallPrefab: {fileID: 1799410377804714, guid: 00fca45126e728e44afe18a2cd914fb5, type: 2}
-  numberOfWalls: 10
+  numberOfWalls: 5
 --- !u!114 &794851486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -673,6 +673,7 @@ GameObject:
   - component: {fileID: 1745022837}
   - component: {fileID: 1745022836}
   - component: {fileID: 1745022835}
+  - component: {fileID: 1745022838}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -688,7 +689,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1745022833}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.336, y: 0, z: -15.974}
+  m_LocalPosition: {x: -19.152, y: 3.24, z: 119.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 794851487}
@@ -728,7 +729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingSpline: {fileID: 512334441}
   exitSpline: {fileID: 512334441}
-  direction: 0
+  direction: 1
 --- !u!114 &1745022837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -742,14 +743,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 0, y: 0, z: 0}
-  - {x: -10.847041, y: 0, z: -11.1001215}
-  - {x: -23.73193, y: 0, z: 5.5920296}
-  - {x: -10.85135, y: 0, z: 14.311378}
+  - {x: 0.35931778, y: 0, z: 1.8073044}
+  - {x: 37.098648, y: 20.654892, z: 0.8720398}
+  - {x: 43.1973, y: 24.28627, z: -63.291252}
+  - {x: 46.84307, y: 20.539345, z: -73.41997}
   modes: 0100000001000000
   loop: 0
   showSpline: 1
-  splineLength: 33.28078
+  splineLength: 99.00827
+--- !u!114 &1745022838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1745022833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27f3f76bf6f77ce40b993ede90743ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wallPrefab: {fileID: 1799410377804714, guid: 00fca45126e728e44afe18a2cd914fb5, type: 2}
+  numberOfWalls: 2
 --- !u!1001 &1924657104
 Prefab:
   m_ObjectHideFlags: 0
