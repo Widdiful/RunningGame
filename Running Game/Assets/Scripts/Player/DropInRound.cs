@@ -83,7 +83,7 @@ public class DropInRound : MonoBehaviour
                 {
                     for (int j = 0; j < 20; j++)
                     {
-                        if (j != 9 && Input.GetKeyUp("joystick " + (i + 1) + " button " + j))
+                        if (j != 8 && Input.GetKeyUp("joystick " + (i + 1) + " button " + j))
                         {
                             SpawnPlayer(i + 1);
                         }
