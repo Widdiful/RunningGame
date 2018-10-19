@@ -9,7 +9,7 @@ public class GameData : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         players = new List<GameObject>();
-        cam = GameObject.Find("Player1Camera").GetComponent<Camera>();
+        cam = GameObject.Find("MainCamera").GetComponent<Camera>();
 	}
 	
 	// Update is called once per frame

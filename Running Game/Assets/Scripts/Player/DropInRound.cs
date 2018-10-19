@@ -20,6 +20,7 @@ public class DropInRound : MonoBehaviour
     private float playerScaleX;
     private float playerScaleY;
     public SplineCurve startingSpline;
+	public bool playerselect;
 
 
     // Use this for initialization
@@ -27,7 +28,7 @@ public class DropInRound : MonoBehaviour
     {
         gameData = gameObject.GetComponent<GameData>();
         playersJoined = new Dictionary<string, bool>();
-        cam = GameObject.Find("Player1Camera").GetComponent<Camera>();
+        cam = GameObject.Find("MainCamera").GetComponent<Camera>();
         playerScaleX = Resources.Load<GameObject>("Player").gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.bounds.size.x;
         playerScaleY = Resources.Load<GameObject>("Player").gameObject.GetComponentInChildren<SkinnedMeshRenderer>().sharedMesh.bounds.size.y;
     }
@@ -35,7 +36,7 @@ public class DropInRound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameStarted)
+        if (!gameStarted && playerselect)
         {
             CheckDropIns();
         }
@@ -115,7 +116,7 @@ public class DropInRound : MonoBehaviour
         tmpPlayer.GetComponent<Posing>().ID = pNumber;
 		
         tmpPlayer.name = "Player_" + pNumber;
-        tmpPlayer.gameObject.transform.LookAt(cam.transform.position);
+        tmpPlayer.gameObject.transform.LookAt(-cam.transform.position);
 
         UpdateDropInPosition(tmpPlayer, pNumber);
 
