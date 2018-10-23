@@ -35,6 +35,8 @@ public class FollowTrack : MonoBehaviour
     private GameManager gm;
     private Image leftPointer;
     private Image rightPointer;
+    public Transform targetPositionObj;
+    public Transform adjustedTargetPositionObj;
 
     private void Start()
     {
@@ -183,10 +185,15 @@ public class FollowTrack : MonoBehaviour
 
     private void MoveTowardsTarget()
     {
-        adjustedTargetPosition = transform.InverseTransformPoint(targetPosition);
-        adjustedTargetPosition.x += horizontalAdjust;
-        adjustedTargetPosition.y += verticalAdjust;
-        adjustedTargetPosition = transform.TransformPoint(adjustedTargetPosition);
+        targetPositionObj.position = targetPosition;
+        targetPositionObj.LookAt(spline.GetPoint(spline.GetNearestPointFromVector(targetPosition) + 0.01f));
+        targetPositionObj.LookAt(targetPosition + spline.GetVelocityOnCurve(currentCurve, progress).normalized);
+        adjustedTargetPositionObj.localPosition = new Vector3(horizontalAdjust, verticalAdjust, 0);
+        adjustedTargetPosition = adjustedTargetPositionObj.position;
+        //adjustedTargetPosition = transform.InverseTransformPoint(targetPosition);
+        //adjustedTargetPosition.x += horizontalAdjust;
+        //adjustedTargetPosition.y += verticalAdjust;
+        //adjustedTargetPosition = transform.TransformPoint(adjustedTargetPosition);
         Vector3 position = Vector3.MoveTowards(transform.position, adjustedTargetPosition, moveSpeed - (Vector3.Dot(transform.forward, Vector3.up) * slopeSpeedModifier));
 
         if (lookForward)
@@ -247,8 +254,7 @@ public class FollowTrack : MonoBehaviour
         IncreaseSpeed(-amount);
     }
 
-    public void FailObstacle()
-    {
+    public void FailObstacle() {
         moveSpeed = baseSpeed;
         TemporaryBoost(-(baseSpeed / 2), 1);
     }

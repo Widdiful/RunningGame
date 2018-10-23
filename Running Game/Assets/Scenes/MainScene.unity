@@ -238,7 +238,7 @@ MonoBehaviour:
   buildTunnels: 0
   tunnelPercentage: 0.75
   allowRealTimeUpdating: 1
-  pathVerticalOffset: 0
+  pathVerticalOffset: -2
 --- !u!4 &794851487
 Transform:
   m_ObjectHideFlags: 0
@@ -714,7 +714,7 @@ MonoBehaviour:
   buildTunnels: 0
   tunnelPercentage: 0
   allowRealTimeUpdating: 1
-  pathVerticalOffset: 0
+  pathVerticalOffset: -2
 --- !u!114 &1745022836
 MonoBehaviour:
   m_ObjectHideFlags: 0
