@@ -10,17 +10,28 @@ public class Wall : MonoBehaviour
     [Range(0, 1)]
     public float positionOnSpline;
     private bool broken;
+    private float repairTime = 30.0f;
+    public float timer;
+    //private System.Random rnd;
 
     void Start()
     {
+        //rnd = new System.Random();
         positionOnSpline = attachedSpline.GetPositionOnSpline(transform.position);
         transform.position = attachedSpline.GetPoint(positionOnSpline);
         transform.LookAt(transform.position + attachedSpline.GetDirection(positionOnSpline));
+        //rndTime = rnd.Next();
+
     }
 
     void Update()
     {
-
+        if(timer > repairTime)
+        {
+            RepairWall();
+            timer = 0;
+        }
+        timer += Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -55,5 +66,12 @@ public class Wall : MonoBehaviour
         gameObject.GetComponent<MeshFilter>().sharedMesh =
             Resources.Load<GameObject>("Walls\\Wall_" + pose).GetComponent<MeshFilter>().sharedMesh;
         broken = true;
+    }
+
+    private void RepairWall()
+    {
+        gameObject.GetComponent<MeshFilter>().sharedMesh =
+    Resources.Load<GameObject>("Walls\\Wall").GetComponent<MeshFilter>().sharedMesh;
+        broken = false;
     }
 }

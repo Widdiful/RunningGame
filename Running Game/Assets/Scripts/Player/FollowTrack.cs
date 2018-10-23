@@ -247,7 +247,8 @@ public class FollowTrack : MonoBehaviour
         IncreaseSpeed(-amount);
     }
 
-    public void FailObstacle() {
+    public void FailObstacle()
+    {
         moveSpeed = baseSpeed;
         TemporaryBoost(-(baseSpeed / 2), 1);
     }

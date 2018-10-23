@@ -29,6 +29,8 @@ public class SplineCurveEditor : Editor
     private void OnScene(SceneView sceneview)
     {
         // Initial setup
+        if (target == null)
+            return;
         curve = target as SplineCurve;
         handleTransform = curve.transform;
         handleRotation = Tools.pivotRotation == PivotRotation.Local ?
