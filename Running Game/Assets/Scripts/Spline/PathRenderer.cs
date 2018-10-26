@@ -9,9 +9,11 @@ public class PathRenderer : MonoBehaviour {
     public GameObject pathPrefab;
     public bool buildPath;
     public bool buildTunnels;
-    public float tunnelPercentage;
+    public float tunnelStart;
+    public float tunnelEnd;
     public bool allowRealTimeUpdating;
     public float pathVerticalOffset;
+    public GameObject thing;
 
     private SplineCurve spline;
     private LineRenderer line;
@@ -19,6 +21,10 @@ public class PathRenderer : MonoBehaviour {
     private List<Transform> pathParts = new List<Transform>();
     private GameObject tunnelParent;
     private GameObject pathParent;
+
+    private Vector3[] pathVertices;
+    private Vector2[] pathUV;
+    private int[] pathTriangles;
 
     private void Start() {
         spline = GetComponentInParent<SplineCurve>();
@@ -31,9 +37,50 @@ public class PathRenderer : MonoBehaviour {
 
     private void Update() {
         if (allowRealTimeUpdating) {
-            UpdatePath();
-            UpdateTunnel();
+            //UpdatePath();
+            //UpdateTunnel();
         }
+    }
+
+    private void GeneratePathMesh()
+    {
+        float width = 3;
+        GameObject obj1 = new GameObject();
+        obj1.transform.position = transform.position + new Vector3(-width, 0, 0);
+        GameObject obj2 = new GameObject();
+        obj2.transform.position = transform.position + new Vector3(width, 0, 0);
+
+        Vector3 nextPoint = spline.GetPoint(0.1f);
+        GameObject obj3 = new GameObject();
+        float angle = Vector3.Angle(Vector3.forward, nextPoint + spline.GetDirection(0.1f));
+        print(angle);
+        obj3.transform.position = nextPoint + new Vector3(-width, 0, 0);
+        obj3.transform.RotateAround(nextPoint, Vector3.up, angle);
+
+        GameObject obj4 = new GameObject();
+        obj4.transform.position = nextPoint + new Vector3(width, 0, 0);
+        obj4.transform.RotateAround(nextPoint, Vector3.up, angle);
+
+
+
+        Mesh mesh = new Mesh();
+        GetComponent<MeshFilter>().mesh = mesh;
+
+        mesh.vertices = new Vector3[] {
+            new Vector3(0, 0, 0),
+            new Vector3(1, 0, 0),
+            new Vector3(0, 1, 0),
+            new Vector3(1, 1, 0)
+        };
+
+        mesh.uv = new Vector2[] {
+            new Vector2(0, 0),
+            new Vector2(1, 1),
+            new Vector2(0, 1),
+            new Vector2(1, 1)
+        };
+
+        mesh.triangles = new int[] { 0, 1, 2, 1, 3, 2};
     }
 
     private void GenerateLineRenderer() {
@@ -53,6 +100,9 @@ public class PathRenderer : MonoBehaviour {
         pathParent = new GameObject("Paths");
         pathParent.transform.SetParent(transform);
 
+        Vector3[] vertices = new Vector3[numberOfPoints * 2];
+        int[] triangles = new int[numberOfPoints * 12];
+
         foreach (Transform path in pathParts) {
             if (path) {
                 Destroy(path.gameObject);
@@ -70,11 +120,39 @@ public class PathRenderer : MonoBehaviour {
             newPath.LookAt(nextPosition);
             Vector3 newScale = newPath.localScale;
             float blockHeight = newPath.GetComponent<MeshFilter>().sharedMesh.bounds.size.z * 0.5f;
-            newScale.z = Vector3.Distance(newPath.position, nextPosition) /blockHeight;
+            newScale.z = Vector3.Distance(newPath.position, nextPosition) /blockHeight / 4;
             newPath.localScale = newScale;
+            vertices[i * 2] = newPath.transform.TransformPoint(newPath.GetComponent<MeshFilter>().sharedMesh.vertices[0]);
+            vertices[(i * 2) + 1] = newPath.transform.TransformPoint(newPath.GetComponent<MeshFilter>().sharedMesh.vertices[2]);
+            if (i > 0)
+            {
+                triangles[(i * 6) + 0] = (i * 2);
+                triangles[(i * 6) + 1] = (i * 2) + 1;
+                triangles[(i * 6) + 2] = (i * 2) - 2;
+                triangles[(i * 6) + 3] = (i * 2) - 1;
+                triangles[(i * 6) + 4] = (i * 2) - 2;
+                triangles[(i * 6) + 5] = (i * 2) + 1;
+            }
 
             pathParts.Add(newPath);
         }
+
+
+        int j = numberOfPoints - 1;
+        triangles[(j * 6) + 0] = 0;
+        triangles[(j * 6) + 1] = 1;
+        triangles[(j * 6) + 2] = (j * 2) - 2;
+        triangles[(j * 6) + 3] = (j * 2) - 1;
+        triangles[(j * 6) + 4] = (j * 2) - 2;
+        triangles[(j * 6) + 5] = 1;
+
+        Mesh mesh = new Mesh();
+        mesh.name = gameObject.name;
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+
+        GetComponent<MeshFilter>().mesh = mesh;
+        Destroy(pathParent);
     }
 
     private void GenerateTunnel() {
@@ -88,7 +166,7 @@ public class PathRenderer : MonoBehaviour {
         }
 
         for (int i = 0; i < numberOfPoints; i++) {
-            if ((float)i / (float)numberOfPoints <= tunnelPercentage) {
+            if ((float)i / (float)numberOfPoints <= tunnelEnd) {
                 Transform newTunnel = Instantiate(tunnelPrefab, tunnelParent.transform).transform;
                 newTunnel.localScale *= 0.5f;
                 Vector3 position = spline.GetPoint((float)i / (float)numberOfPoints);

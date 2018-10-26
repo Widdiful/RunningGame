@@ -409,7 +409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &429614177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -635,6 +635,8 @@ GameObject:
   - component: {fileID: 1774862078}
   - component: {fileID: 1774862080}
   - component: {fileID: 1774862079}
+  - component: {fileID: 1774862081}
+  - component: {fileID: 1774862082}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -670,9 +672,9 @@ MonoBehaviour:
   points:
   - {x: 0, y: 0, z: 0}
   - {x: -1.279155, y: 0, z: 5.562753}
-  - {x: 7.4800987, y: 0, z: 54.710686}
+  - {x: 129.60695, y: 0, z: -14.916733}
   - {x: 57.312374, y: 0, z: 33.682335}
-  - {x: 62.438034, y: 0, z: 31.519396}
+  - {x: 52.695312, y: 0, z: 36.786095}
   - {x: 155.18796, y: 0, z: -261.3089}
   - {x: 11.367784, y: 0, z: -48.44062}
   - {x: 9.26898, y: 0, z: -45.33418}
@@ -681,7 +683,7 @@ MonoBehaviour:
   modes: 01000000010000000100000001000000
   loop: 1
   showSpline: 1
-  splineLength: 404.95956
+  splineLength: 434.5096
 --- !u!114 &1774862079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -711,9 +713,52 @@ MonoBehaviour:
   pathPrefab: {fileID: 100000, guid: 16fb769c0394c36469ed40a4f35c1eec, type: 3}
   buildPath: 1
   buildTunnels: 0
-  tunnelPercentage: 0.5
+  tunnelStart: 0
+  tunnelEnd: 0
   allowRealTimeUpdating: 1
   pathVerticalOffset: -2
+--- !u!33 &1774862081
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1774862076}
+  m_Mesh: {fileID: 0}
+--- !u!23 &1774862082
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1774862076}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &2114401883
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,7 +776,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2114401884
 Transform:
   m_ObjectHideFlags: 0
@@ -795,6 +840,7 @@ MonoBehaviour:
   pathPrefab: {fileID: 100000, guid: 16fb769c0394c36469ed40a4f35c1eec, type: 3}
   buildPath: 1
   buildTunnels: 0
-  tunnelPercentage: 0
+  tunnelStart: 0
+  tunnelEnd: 0
   allowRealTimeUpdating: 1
   pathVerticalOffset: -2
