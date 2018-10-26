@@ -331,7 +331,7 @@ public class FollowTrack : MonoBehaviour
 
     public void CenterPlayer()
     {
-        //horizontalAdjust = 0;
+        horizontalAdjust = 0;
     }
 
     public void TurnLeft() {
