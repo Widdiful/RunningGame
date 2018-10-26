@@ -37,16 +37,22 @@ public class Posing : MonoBehaviour
     private void CheckPoses()
     {
         //if(Input.GetAxis())
-			//Debug.Log(ID);
-        if (Input.GetAxis("Joy" + ID + "_LeftStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.D)) {    Debug.Log("Player " + ID + " turns right");     TurnRight(); }
+        //Debug.Log(ID);
+        bool turning = false;
+        if (Input.GetAxis("Joy" + ID + "_LeftStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.D)) {    Debug.Log("Player " + ID + " turns right"); turning = true;  TurnRight(); }
         if (Input.GetAxis("Joy" + ID + "_LeftStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.A)) {    Debug.Log("Player " + ID + " left arm out");   L_PoseOut(); }
         if (Input.GetAxis("Joy" + ID + "_LeftStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.W)) {    Debug.Log("Player " + ID + " left arm up")  ;  L_PoseUp(); }
         if (Input.GetAxis("Joy" + ID + "_LeftStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.S)) {     Debug.Log("Player " + ID + " left arm down");  L_PoseDown(); }
 
-        if (Input.GetAxis("Joy" + ID + "_RightStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.LeftArrow)) { Debug.Log("Player " + ID + " turns left");     TurnLeft(); }
+        if (Input.GetAxis("Joy" + ID + "_RightStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.LeftArrow)) { Debug.Log("Player " + ID + " turns left"); turning = true; TurnLeft(); }
         if (Input.GetAxis("Joy" + ID + "_RightStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.RightArrow)) { Debug.Log("Player " + ID + " right arm out");  R_PoseOut(); }
         if (Input.GetAxis("Joy" + ID + "_RightStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.UpArrow)) {    Debug.Log("Player " + ID + " right arm up");  R_PoseUp(); }
         if (Input.GetAxis("Joy" + ID + "_RightStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.DownArrow)) {  Debug.Log("Player " + ID + " right arm down"); R_PoseDown(); }
+
+        if (!turning)
+        {
+            CenterPlayer();
+        }
     }
 
     private void CheckNextWall()
@@ -56,6 +62,14 @@ public class Posing : MonoBehaviour
             Debug.Log("Hit Wall");
             currentWall = hit.transform.gameObject;
             Debug.Log(currentWall.name);
+        }
+    }
+
+    private void CenterPlayer()
+    {
+        if (track)
+        {
+            track.CenterPlayer();
         }
     }
 

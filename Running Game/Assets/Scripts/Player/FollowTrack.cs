@@ -194,7 +194,18 @@ public class FollowTrack : MonoBehaviour
         //adjustedTargetPosition.x += horizontalAdjust;
         //adjustedTargetPosition.y += verticalAdjust;
         //adjustedTargetPosition = transform.TransformPoint(adjustedTargetPosition);
-        Vector3 position = Vector3.MoveTowards(transform.position, adjustedTargetPosition, moveSpeed - (Vector3.Dot(transform.forward, Vector3.up) * slopeSpeedModifier));
+
+        float adjustedMoveSpeed = moveSpeed;
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1.0f))
+        {
+            if (hit.transform.GetComponent<FollowTrack>())
+            {
+                adjustedMoveSpeed = Mathf.Clamp(moveSpeed, 0, hit.transform.GetComponent<FollowTrack>().moveSpeed);
+            }
+        }
+
+        Vector3 position = Vector3.MoveTowards(transform.position, adjustedTargetPosition, adjustedMoveSpeed - (Vector3.Dot(transform.forward, Vector3.up) * slopeSpeedModifier));
 
         if (lookForward)
         {
@@ -318,11 +329,20 @@ public class FollowTrack : MonoBehaviour
         
     }
 
+    public void CenterPlayer()
+    {
+        //horizontalAdjust = 0;
+    }
+
     public void TurnLeft() {
         if (leftSpline && leftSpline != spline) {
             nextSpline = leftSpline;
             leftSpline = null;
             rightSpline = null;
+        }
+        else
+        {
+            horizontalAdjust = -2;
         }
     }
 
@@ -331,6 +351,10 @@ public class FollowTrack : MonoBehaviour
             nextSpline = rightSpline;
             leftSpline = null;
             rightSpline = null;
+        }
+        else
+        {
+            horizontalAdjust = 2;
         }
     }
 }
