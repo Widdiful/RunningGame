@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DropInRound : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class DropInRound : MonoBehaviour
     private float playerScaleX;
     private float playerScaleY;
     public SplineCurve startingSpline;
-	public bool playerselect;
+	public bool Playerselect { get; set; }
 
 
     // Use this for initialization
@@ -36,7 +37,7 @@ public class DropInRound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!gameStarted && playerselect)
+        if (!gameStarted && Playerselect)
         {
             CheckDropIns();
         }
@@ -55,7 +56,7 @@ public class DropInRound : MonoBehaviour
 
     //Set the start position of all players and attach main camera to player one to follow. finally destroy this script to save resources and update cycles
     private void SetStart()
-    {
+    {        
         var players = gameData.players;
         for (int i = 0; i < gameData.players.Count; i++)
         {

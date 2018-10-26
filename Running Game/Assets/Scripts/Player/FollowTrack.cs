@@ -61,6 +61,7 @@ public class FollowTrack : MonoBehaviour
 
     private void Update()
     {
+
         stepSize = Mathf.Clamp(Mathf.FloorToInt(moveSpeed) * 10, 50, 200);
         if (speedIncreaseCountdown <= 0)
         {
