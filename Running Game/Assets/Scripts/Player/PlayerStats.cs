@@ -37,7 +37,7 @@ public class PlayerStats : MonoBehaviour {
     internal void Passed()
     {
         //TODO: Play sound or do some visuals to let the player know he passed the wall
-        Debug.Log("passed");
+        //Debug.Log("passed");
         track.IncreaseSpeed(0.1f);
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class PathRenderer : MonoBehaviour {
 
     public int numberOfPoints;
+    private const float texScale = 10;
     public GameObject tunnelPrefab;
     public GameObject pathPrefab;
     public bool buildPath;
@@ -21,14 +22,18 @@ public class PathRenderer : MonoBehaviour {
     private List<Transform> pathParts = new List<Transform>();
     private GameObject tunnelParent;
     private GameObject pathParent;
+    private Material rainbow;
 
     private Vector3[] pathVertices;
     private Vector2[] pathUV;
     private int[] pathTriangles;
 
     private void Start() {
+
         spline = GetComponentInParent<SplineCurve>();
         line = GetComponent<LineRenderer>();
+
+        rainbow = Resources.Load<Material>("Materials\\Rainbow") as Material;
 
         //GenerateLineRenderer();
         if (buildPath) GeneratePath();
@@ -122,6 +127,7 @@ public class PathRenderer : MonoBehaviour {
             float blockHeight = newPath.GetComponent<MeshFilter>().sharedMesh.bounds.size.z * 0.5f;
             newScale.z = Vector3.Distance(newPath.position, nextPosition) /blockHeight / 4;
             newPath.localScale = newScale;
+
             vertices[i * 2] = newPath.transform.TransformPoint(newPath.GetComponent<MeshFilter>().sharedMesh.vertices[0]);
             vertices[(i * 2) + 1] = newPath.transform.TransformPoint(newPath.GetComponent<MeshFilter>().sharedMesh.vertices[2]);
             if (i > 0)
@@ -137,19 +143,36 @@ public class PathRenderer : MonoBehaviour {
             pathParts.Add(newPath);
         }
 
+        if (spline.Loop)
+        {
+            int j = numberOfPoints - 1;
+            triangles[(j * 6) + 0] = 0;
+            triangles[(j * 6) + 1] = 1;
+            triangles[(j * 6) + 2] = (j * 2) - 2;
+            triangles[(j * 6) + 3] = (j * 2) - 1;
+            triangles[(j * 6) + 4] = (j * 2) - 2;
+            triangles[(j * 6) + 5] = 1;
+        }
 
-        int j = numberOfPoints - 1;
-        triangles[(j * 6) + 0] = 0;
-        triangles[(j * 6) + 1] = 1;
-        triangles[(j * 6) + 2] = (j * 2) - 2;
-        triangles[(j * 6) + 3] = (j * 2) - 1;
-        triangles[(j * 6) + 4] = (j * 2) - 2;
-        triangles[(j * 6) + 5] = 1;
 
         Mesh mesh = new Mesh();
         mesh.name = gameObject.name;
         mesh.vertices = vertices;
         mesh.triangles = triangles;
+
+        Vector2[] uvs = new Vector2[vertices.Length];
+
+        for (int i = 0; i < uvs.Length; i++)
+        {
+            uvs[i] = new Vector2(vertices[i].x / texScale, vertices[i].y / texScale);
+        }
+        mesh.uv = uvs;
+
+
+        //gameObject.AddComponent<MeshRenderer>();
+        var renderer = gameObject.GetComponent<MeshRenderer>();
+
+        renderer.material = rainbow;
 
         GetComponent<MeshFilter>().mesh = mesh;
         Destroy(pathParent);
