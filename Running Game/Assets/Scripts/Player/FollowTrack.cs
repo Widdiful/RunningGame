@@ -29,6 +29,8 @@ public class FollowTrack : MonoBehaviour
     private SplineCurve nextSpline; // Selected spline to select automatically
     private Vector3 adjustedTargetPosition;
     private SubPath[] subPaths;
+    private Wall[] walls;
+    private Vector3 nextWallPos;
     public float baseSpeed;
     private bool leader;
     private Posing posing;
@@ -37,12 +39,15 @@ public class FollowTrack : MonoBehaviour
     private Image rightPointer;
     public Transform targetPositionObj;
     public Transform adjustedTargetPositionObj;
+    public float distanceToNextWall;
+
 
     private void Start()
     {
         gm = FindObjectOfType<GameManager>();
         MoveTarget(1);
         subPaths = FindObjectsOfType<SubPath>();
+        walls = FindObjectsOfType<Wall>();
         baseSpeed = moveSpeed;
         posing = gameObject.GetComponent<Posing>();
         foreach(Image img in GetComponentsInChildren<Image>()) {
@@ -57,6 +62,8 @@ public class FollowTrack : MonoBehaviour
         currentCurve = Mathf.FloorToInt(spline.GetPositionOnSpline(transform.position));
         progress = spline.GetPositionOnSpline(transform.position) - currentCurve;
         targetPosition = spline.GetPointOnCurve(currentCurve, progress);
+
+        nextWallPos = GetNextWallPosition();
     }
 
     private void Update()
@@ -78,6 +85,11 @@ public class FollowTrack : MonoBehaviour
         {
             MoveTarget(stepSize);
         }
+
+        // Detect next wall
+        float positionOnSpline = spline.GetPositionOnSpline(transform.position);
+        nextWallPos = GetNextWallPosition();
+        distanceToNextWall = Vector3.Distance(nextWallPos, transform.position);
 
         // Detect nearby splines
         leftSpline = null;
@@ -282,6 +294,8 @@ public class FollowTrack : MonoBehaviour
 
         if (other.CompareTag("Wall"))
         {
+            nextWallPos = GetNextWallPosition();
+
             //Vector3 lastPosition = Vector3.zero;
             //float lastPositionFloat = 10000;
             //float lastProgress = 10000;
@@ -341,9 +355,13 @@ public class FollowTrack : MonoBehaviour
             leftSpline = null;
             rightSpline = null;
         }
-        else
+        else if (distanceToNextWall >= 20)
         {
             horizontalAdjust = -2;
+        }
+        else
+        {
+            horizontalAdjust = 0;
         }
     }
 
@@ -353,9 +371,37 @@ public class FollowTrack : MonoBehaviour
             leftSpline = null;
             rightSpline = null;
         }
-        else
+        else if (distanceToNextWall >= 20)
         {
             horizontalAdjust = 2;
         }
+        else
+        {
+            horizontalAdjust = 0;
+        }
+    }
+
+    private Vector3 GetNextWallPosition()
+    {
+        float tempClosest = 2;
+        float positionOnSpline = spline.GetPositionOnSpline(transform.position);
+        Vector3 wallPos = new Vector3();
+        foreach (Wall wall in walls)
+        {
+            if (wall.positionOnSpline < tempClosest && wall.positionOnSpline > positionOnSpline)
+            {
+                tempClosest = wall.positionOnSpline;
+                wallPos = wall.transform.position;
+            }
+        }
+        foreach (Wall wall in walls)
+        {
+            if (wall.positionOnSpline + 1 < tempClosest && wall.positionOnSpline + 1 > positionOnSpline)
+            {
+                tempClosest = wall.positionOnSpline + 1;
+                wallPos = wall.transform.position;
+            }
+        }
+        return wallPos;
     }
 }

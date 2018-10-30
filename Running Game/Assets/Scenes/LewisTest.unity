@@ -228,7 +228,7 @@ Prefab:
       objectReference: {fileID: 429614177}
     - target: {fileID: 1057119082097530, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
         type: 2}
@@ -383,7 +383,7 @@ Prefab:
       objectReference: {fileID: 429614177}
     - target: {fileID: 1057119082097530, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
         type: 2}
@@ -549,7 +549,7 @@ Prefab:
       objectReference: {fileID: 429614177}
     - target: {fileID: 1057119082097530, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
         type: 2}
@@ -690,13 +690,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1774862076}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27f3f76bf6f77ce40b993ede90743ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   wallPrefab: {fileID: 1799410377804714, guid: 00fca45126e728e44afe18a2cd914fb5, type: 2}
-  numberOfWalls: 0
+  numberOfWalls: 2
 --- !u!114 &1774862080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -717,6 +717,7 @@ MonoBehaviour:
   tunnelEnd: 0
   allowRealTimeUpdating: 1
   pathVerticalOffset: -2
+  thing: {fileID: 0}
 --- !u!33 &1774862081
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -844,3 +845,4 @@ MonoBehaviour:
   tunnelEnd: 0
   allowRealTimeUpdating: 1
   pathVerticalOffset: -2
+  thing: {fileID: 0}
