@@ -409,7 +409,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &429614177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,6 +620,11 @@ Prefab:
         type: 2}
       propertyPath: moveSpeed
       value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}

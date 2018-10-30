@@ -30,7 +30,7 @@ public class FollowTrack : MonoBehaviour
     private Vector3 adjustedTargetPosition;
     private SubPath[] subPaths;
     private Wall[] walls;
-    private Vector3 nextWallPos;
+    public Vector3 nextWallPos;
     public float baseSpeed;
     private bool leader;
     private Posing posing;
@@ -63,7 +63,7 @@ public class FollowTrack : MonoBehaviour
         progress = spline.GetPositionOnSpline(transform.position) - currentCurve;
         targetPosition = spline.GetPointOnCurve(currentCurve, progress);
 
-        nextWallPos = GetNextWallPosition();
+        //nextWallPos = GetNextWallPosition();
     }
 
     private void Update()
@@ -72,7 +72,7 @@ public class FollowTrack : MonoBehaviour
         stepSize = Mathf.Clamp(Mathf.FloorToInt(moveSpeed) * 10, 50, 200);
         if (speedIncreaseCountdown <= 0)
         {
-            moveSpeed = Mathf.Clamp(moveSpeed + Time.deltaTime * speedIncreaseRate, 0, gm.globalSpeedCap);
+            moveSpeed = Mathf.Clamp(moveSpeed + Time.deltaTime * speedIncreaseRate, baseSpeed, gm.globalSpeedCap);
             //baseSpeed = Mathf.Clamp(baseSpeed + Time.deltaTime * (speedIncreaseRate / 4), 0, gm.globalSpeedCap);
         }
         else
@@ -89,7 +89,18 @@ public class FollowTrack : MonoBehaviour
         // Detect next wall
         float positionOnSpline = spline.GetPositionOnSpline(transform.position);
         nextWallPos = GetNextWallPosition();
+        print(nextWallPos);
         distanceToNextWall = Vector3.Distance(nextWallPos, transform.position);
+
+        if (distanceToNextWall <= 80 && !posing.posePromptActive)
+        {
+            posing.RandomPosePrompt();
+        }
+        else if (distanceToNextWall > 80 && posing.posePromptActive)
+        {
+            posing.posePromptActive = false;
+            posing.posePromptPossible = true;
+        }
 
         // Detect nearby splines
         leftSpline = null;
@@ -294,7 +305,7 @@ public class FollowTrack : MonoBehaviour
 
         if (other.CompareTag("Wall"))
         {
-            nextWallPos = GetNextWallPosition();
+            //nextWallPos = GetNextWallPosition();
 
             //Vector3 lastPosition = Vector3.zero;
             //float lastPositionFloat = 10000;
@@ -388,6 +399,7 @@ public class FollowTrack : MonoBehaviour
         Vector3 wallPos = new Vector3();
         foreach (Wall wall in walls)
         {
+            print("fuck");
             if (wall.positionOnSpline < tempClosest && wall.positionOnSpline > positionOnSpline)
             {
                 tempClosest = wall.positionOnSpline;
