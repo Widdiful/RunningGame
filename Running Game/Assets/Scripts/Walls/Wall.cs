@@ -6,6 +6,8 @@ using UnityEngine;
 public class Wall : MonoBehaviour
 {
 
+    public AudioClip crash;
+    public AudioClip thud; 
     public SplineCurve attachedSpline;
     [Range(0, 1)]
     public float positionOnSpline;
@@ -50,10 +52,12 @@ public class Wall : MonoBehaviour
                 if (gameObject.GetComponent<MeshFilter>().sharedMesh.name.Contains(other.gameObject.GetComponent<Posing>().GetPose()))
                 {
                     other.gameObject.GetComponent<PlayerStats>().Passed();
+                    AudioSource.PlayClipAtPoint(thud, transform.position, 0.9f);
                 }
                 else
                 {
                     other.gameObject.GetComponent<PlayerStats>().Failed();
+                    AudioSource.PlayClipAtPoint(crash, transform.position, 0.9f);
                 }
             }
         }
