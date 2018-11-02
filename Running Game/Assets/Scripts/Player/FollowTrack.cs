@@ -22,6 +22,7 @@ public class FollowTrack : MonoBehaviour
     public float moveSpeed;
     public float pathDetectionRadius;
     public float pathChangeRadius;
+    public float positionOnSpline = 0;
 
     public Vector3 targetPosition;
     private SplineCurve leftSpline; // Left spline found on detection
@@ -40,6 +41,8 @@ public class FollowTrack : MonoBehaviour
     public Transform targetPositionObj;
     public Transform adjustedTargetPositionObj;
     public float distanceToNextWall;
+    public Text speedText;
+    private float speedometerHue;
 
 
     private void Start()
@@ -68,7 +71,7 @@ public class FollowTrack : MonoBehaviour
 
     private void Update()
     {
-
+        positionOnSpline = spline.GetPositionOnSpline(transform.position);
         stepSize = Mathf.Clamp(Mathf.FloorToInt(moveSpeed) * 10, 50, 200);
         if (speedIncreaseCountdown <= 0)
         {
@@ -87,9 +90,7 @@ public class FollowTrack : MonoBehaviour
         }
 
         // Detect next wall
-        float positionOnSpline = spline.GetPositionOnSpline(transform.position);
         nextWallPos = GetNextWallPosition();
-        print(nextWallPos);
         distanceToNextWall = Vector3.Distance(nextWallPos, transform.position);
 
         if (distanceToNextWall <= 80 && !posing.posePromptActive)
@@ -108,7 +109,7 @@ public class FollowTrack : MonoBehaviour
         if (subPaths.Length > 0) {
             foreach (SubPath path in subPaths) {
                 if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <= pathDetectionRadius &&
-                    path.startingSpline == spline && !nextSpline && spline.GetPositionOnSpline(transform.position) <= path.GetPositionOnStartingSpline()) {
+                    path.startingSpline == spline && !nextSpline && positionOnSpline <= path.GetPositionOnStartingSpline()) {
                     if (path.direction == SubPath.BranchDirection.Right) {
                         if (rightSpline) {
                             if (Vector3.Distance(adjustedTargetPosition, path.transform.position) <
@@ -164,6 +165,8 @@ public class FollowTrack : MonoBehaviour
         else {
             rightPointer.enabled = false;
         }
+
+        UpdateSpeedUI();
     }
 
     // Moves the target point along the spline
@@ -239,8 +242,8 @@ public class FollowTrack : MonoBehaviour
             }
         }
         transform.localPosition = position;
-        Debug.DrawLine(transform.position, adjustedTargetPosition);
-        Debug.DrawLine(adjustedTargetPosition, targetPosition);
+        //Debug.DrawLine(transform.position, adjustedTargetPosition);
+        //Debug.DrawLine(adjustedTargetPosition, targetPosition);
     }
 
     public void InitialiseRunner(SplineCurve startingSpline, float startingPosition)
@@ -395,11 +398,9 @@ public class FollowTrack : MonoBehaviour
     private Vector3 GetNextWallPosition()
     {
         float tempClosest = 2;
-        float positionOnSpline = spline.GetPositionOnSpline(transform.position);
         Vector3 wallPos = new Vector3();
         foreach (Wall wall in walls)
         {
-            print("fuck");
             if (wall.positionOnSpline < tempClosest && wall.positionOnSpline > positionOnSpline)
             {
                 tempClosest = wall.positionOnSpline;
@@ -415,5 +416,19 @@ public class FollowTrack : MonoBehaviour
             }
         }
         return wallPos;
+    }
+
+    private void UpdateSpeedUI()
+    {
+        speedText.text = Mathf.FloorToInt(moveSpeed * 100).ToString();
+        if (moveSpeed >= 10)
+        {
+            speedText.color = Color.HSVToRGB(speedometerHue, 0.9f, 0.9f);
+            speedometerHue = (speedometerHue + 0.1f) % 1;
+        }
+        else
+        {
+            speedText.color = new Color(1, 1, 1 - (moveSpeed * 0.1f), 1);
+        }
     }
 }

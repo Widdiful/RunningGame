@@ -228,11 +228,21 @@ Prefab:
       objectReference: {fileID: 429614177}
     - target: {fileID: 1057119082097530, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
         type: 2}
       propertyPath: speedIncreaseRate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224003831222649022, guid: b752053e10d0f0741aaf300a51f49bd4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 45.19995
+      objectReference: {fileID: 0}
+    - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -383,11 +393,21 @@ Prefab:
       objectReference: {fileID: 429614177}
     - target: {fileID: 1057119082097530, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
         type: 2}
       propertyPath: speedIncreaseRate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224003831222649022, guid: b752053e10d0f0741aaf300a51f49bd4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 45.19995
+      objectReference: {fileID: 0}
+    - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -549,11 +569,21 @@ Prefab:
       objectReference: {fileID: 429614177}
     - target: {fileID: 1057119082097530, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
         type: 2}
       propertyPath: speedIncreaseRate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224003831222649022, guid: b752053e10d0f0741aaf300a51f49bd4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 45.19995
+      objectReference: {fileID: 0}
+    - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -607,24 +637,10 @@ Prefab:
       propertyPath: m_Name
       value: Player_1
       objectReference: {fileID: 0}
-    - target: {fileID: 4658362713861866, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
         type: 2}
       propertyPath: speedIncreaseRate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
-        type: 2}
-      propertyPath: moveSpeed
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
@@ -701,7 +717,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallPrefab: {fileID: 1799410377804714, guid: 00fca45126e728e44afe18a2cd914fb5, type: 2}
-  numberOfWalls: 2
+  numberOfWalls: 10
 --- !u!114 &1774862080
 MonoBehaviour:
   m_ObjectHideFlags: 0

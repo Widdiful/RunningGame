@@ -13,7 +13,7 @@ public class PlayerCamera : MonoBehaviour {
 	void Update () {
 		if (track) {
             if (track.spline) {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(track.spline.GetPoint(track.spline.GetPositionOnSpline(track.targetPosition) + 0.01f) - transform.position), 0.1f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(track.spline.GetPoint(track.positionOnSpline + 0.01f) - transform.position), 0.1f);
             }
         }
 	}
