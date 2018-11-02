@@ -47,15 +47,15 @@ public class Posing : MonoBehaviour
         //if(Input.GetAxis())
         //Debug.Log(ID);
         bool turning = false;
-        if (Input.GetAxis("Joy" + ID + "_LeftStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.D)) {    Debug.Log("Player " + ID + " turns right"); turning = true;  TurnRight(); }
-        if (Input.GetAxis("Joy" + ID + "_LeftStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.A)) {    Debug.Log("Player " + ID + " left arm out");   L_PoseOut(); }
-        if (Input.GetAxis("Joy" + ID + "_LeftStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.W)) {    Debug.Log("Player " + ID + " left arm up")  ;  L_PoseUp(); }
-        if (Input.GetAxis("Joy" + ID + "_LeftStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.S)) {     Debug.Log("Player " + ID + " left arm down");  L_PoseDown(); }
+        if (Input.GetAxis("Joy" + ID + "_LeftStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.D)) { turning = true;  TurnRight(); }
+        if (Input.GetAxis("Joy" + ID + "_LeftStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.A)) { L_PoseOut(); }
+        if (Input.GetAxis("Joy" + ID + "_LeftStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.W)) { L_PoseUp(); }
+        if (Input.GetAxis("Joy" + ID + "_LeftStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.S)) { L_PoseDown(); }
 
-        if (Input.GetAxis("Joy" + ID + "_RightStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.LeftArrow)) { Debug.Log("Player " + ID + " turns left"); turning = true; TurnLeft(); }
-        if (Input.GetAxis("Joy" + ID + "_RightStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.RightArrow)) { Debug.Log("Player " + ID + " right arm out");  R_PoseOut(); }
-        if (Input.GetAxis("Joy" + ID + "_RightStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.UpArrow)) {    Debug.Log("Player " + ID + " right arm up");  R_PoseUp(); }
-        if (Input.GetAxis("Joy" + ID + "_RightStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.DownArrow)) {  Debug.Log("Player " + ID + " right arm down"); R_PoseDown(); }
+        if (Input.GetAxis("Joy" + ID + "_RightStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.LeftArrow)) { turning = true; TurnLeft(); }
+        if (Input.GetAxis("Joy" + ID + "_RightStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.RightArrow)) { R_PoseOut(); }
+        if (Input.GetAxis("Joy" + ID + "_RightStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.UpArrow)) { R_PoseUp(); }
+        if (Input.GetAxis("Joy" + ID + "_RightStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.DownArrow)) { R_PoseDown(); }
 
         if (posePromptActive && posePromptPossible && CheckPosePrompt())
         {
@@ -75,9 +75,9 @@ public class Posing : MonoBehaviour
     {
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward) * checkRange, out hit))
         {
-            Debug.Log("Hit Wall");
+            //Debug.Log("Hit Wall");
             currentWall = hit.transform.gameObject;
-            Debug.Log(currentWall.name);
+            //Debug.Log(currentWall.name);
         }
     }
 

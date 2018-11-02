@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.06339267, g: 0.06109097, b: 0.070247404, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0.19562069, b: 0.29132524, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -570,7 +570,7 @@ MonoBehaviour:
   tunnelStart: 0
   tunnelEnd: 0
   allowRealTimeUpdating: 1
-  pathVerticalOffset: -2
+  pathVerticalOffset: -2.5
   thing: {fileID: 0}
 --- !u!4 &794851487
 Transform:
@@ -948,7 +948,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1.5
   m_Range: 10
   m_SpotAngle: 30
@@ -1431,7 +1431,8 @@ Prefab:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 81400646945578990, guid: e5057cb4ab1a5964fa97711d9ec190f6, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: e5057cb4ab1a5964fa97711d9ec190f6, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1745022833
