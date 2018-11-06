@@ -17,6 +17,21 @@ public class SpectatorCamera : MonoBehaviour {
             target = FindObjectsOfType<FollowTrack>()[Random.Range(0, FindObjectsOfType<FollowTrack>().Length)].transform;
         }
 
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.position - transform.position), lerpSpeed);
+        if (target) {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(target.position - transform.position), lerpSpeed);
+        }
+
+        int playerCount = 0;
+        Vector3 centrePoint = Vector3.zero;
+        foreach(PlayerStats player in FindObjectsOfType<PlayerStats>()) {
+            if (player.gameObject.name.Contains("Player")) {
+                centrePoint += player.transform.position;
+                playerCount++;
+            }
+        }
+
+        if (playerCount > 1) {
+            transform.position = (centrePoint / playerCount) + new Vector3(0, 10, 0);
+        }
     }
 }

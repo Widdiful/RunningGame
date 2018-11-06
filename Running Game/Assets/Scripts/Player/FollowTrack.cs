@@ -46,6 +46,7 @@ public class FollowTrack : MonoBehaviour
     private float deFactoSpeed;
     private Vector3 previousPosition;
     private bool canConfetti = true;
+    private ParticleSystem speedLines;
 
 
     private void Start()
@@ -69,6 +70,7 @@ public class FollowTrack : MonoBehaviour
         progress = spline.GetPositionOnSpline(transform.position) - currentCurve;
         targetPosition = spline.GetPointOnCurve(currentCurve, progress);
         previousPosition = transform.position;
+        speedLines = GameObject.Find(transform.name + "/Canvas/SpeedLines").GetComponent<ParticleSystem>();
 
         //nextWallPos = GetNextWallPosition();
     }
@@ -171,6 +173,12 @@ public class FollowTrack : MonoBehaviour
         else {
             rightPointer.enabled = false;
         }
+
+        ParticleSystem.MainModule psMain = speedLines.main;
+        psMain.startColor = new Color(1, 1, 1, Mathf.Clamp01((moveSpeed - 5) / 5f));
+        psMain.startSpeed = ((moveSpeed - 5) / 5f) * 50;
+        ParticleSystem.EmissionModule emission = speedLines.emission;
+        emission.rateOverTime = ((moveSpeed - 5) / 5f) * 500;
 
         UpdateSpeedUI();
     }

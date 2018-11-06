@@ -15,6 +15,8 @@ public class Wall : MonoBehaviour
     private float repairTime = 30.0f;
     public float timer;
     //private System.Random rnd;
+    private ParticleSystem particles;
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -23,7 +25,8 @@ public class Wall : MonoBehaviour
         transform.position = attachedSpline.GetPoint(positionOnSpline);
         transform.LookAt(transform.position + attachedSpline.GetDirection(positionOnSpline));
         //rndTime = rnd.Next();
-
+        particles = GetComponentInChildren<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -46,18 +49,22 @@ public class Wall : MonoBehaviour
                 BreakWall(other.gameObject.GetComponent<Posing>().GetPose());
                 other.gameObject.GetComponent<PlayerStats>().Passed();
                 //Debug.Log("broken");
+                particles.Play();
+                audioSource.PlayOneShot(thud, 0.9f);
             }
             else
             {
                 if (gameObject.GetComponent<MeshFilter>().sharedMesh.name.Contains(other.gameObject.GetComponent<Posing>().GetPose()))
                 {
                     other.gameObject.GetComponent<PlayerStats>().Passed();
-                    AudioSource.PlayClipAtPoint(thud, transform.position, 0.9f);
+                    particles.Play();
+                    audioSource.PlayOneShot(thud, 0.9f);
                 }
                 else
                 {
                     other.gameObject.GetComponent<PlayerStats>().Failed();
-                    AudioSource.PlayClipAtPoint(crash, transform.position, 0.9f);
+                    particles.Play();
+                    audioSource.PlayOneShot(crash, 0.9f);
                 }
             }
         }
