@@ -50,8 +50,12 @@ public class PlayerStats : MonoBehaviour {
         comboText.text = combo.ToString();
         bounce.Bounce(2);
         
-        if (combo < 100)
+        if (combo <= 100)
         {
+            if (combo == 100)
+            {
+                comboText.transform.parent.GetComponentInChildren<ParticleSystem>().Play();
+            }
             comboText.color = new Color(1, 1, 1 - (combo * 0.01f), 1);
         }
     }

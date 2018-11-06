@@ -132,12 +132,18 @@ public class PathRenderer : MonoBehaviour {
             vertices[(i * 2) + 1] = newPath.transform.TransformPoint(newPath.GetComponent<MeshFilter>().sharedMesh.vertices[2]);
             if (i > 0)
             {
-                triangles[(i * 6) + 0] = (i * 2);
-                triangles[(i * 6) + 1] = (i * 2) + 1;
-                triangles[(i * 6) + 2] = (i * 2) - 2;
-                triangles[(i * 6) + 3] = (i * 2) - 1;
-                triangles[(i * 6) + 4] = (i * 2) - 2;
-                triangles[(i * 6) + 5] = (i * 2) + 1;
+                triangles[(i * 12) + 0] = (i * 2);
+                triangles[(i * 12) + 1] = (i * 2) + 1;
+                triangles[(i * 12) + 2] = (i * 2) - 2;
+                triangles[(i * 12) + 3] = (i * 2) - 1;
+                triangles[(i * 12) + 4] = (i * 2) - 2;
+                triangles[(i * 12) + 5] = (i * 2) + 1;
+                triangles[(i * 12) + 6] = (i * 2);
+                triangles[(i * 12) + 7] = (i * 2) - 2;
+                triangles[(i * 12) + 8] = (i * 2) + 1;
+                triangles[(i * 12) + 9] = (i * 2) - 1;
+                triangles[(i * 12) + 10] = (i * 2) + 1;
+                triangles[(i * 12) + 11] = (i * 2) - 2;
             }
 
             pathParts.Add(newPath);
@@ -146,12 +152,18 @@ public class PathRenderer : MonoBehaviour {
         if (spline.Loop)
         {
             int j = numberOfPoints - 1;
-            triangles[(j * 6) + 0] = 0;
-            triangles[(j * 6) + 1] = 1;
-            triangles[(j * 6) + 2] = (j * 2) - 2;
-            triangles[(j * 6) + 3] = (j * 2) - 1;
-            triangles[(j * 6) + 4] = (j * 2) - 2;
-            triangles[(j * 6) + 5] = 1;
+            triangles[(j * 12) + 0] = 0;
+            triangles[(j * 12) + 1] = 1;
+            triangles[(j * 12) + 2] = (j * 2) - 2;
+            triangles[(j * 12) + 3] = (j * 2) - 1;
+            triangles[(j * 12) + 4] = (j * 2) - 2;
+            triangles[(j * 12) + 5] = 1;
+            triangles[(j * 12) + 6] = 0;
+            triangles[(j * 12) + 7] = (j * 2) - 2;
+            triangles[(j * 12) + 8] = 1;
+            triangles[(j * 12) + 9] = (j * 2) - 1;
+            triangles[(j * 12) + 10] = 1;
+            triangles[(j * 12) + 11] = (j * 2) - 2;
         }
 
 

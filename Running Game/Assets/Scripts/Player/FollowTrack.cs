@@ -43,6 +43,9 @@ public class FollowTrack : MonoBehaviour
     public float distanceToNextWall;
     public Text speedText;
     private float speedometerHue;
+    private float deFactoSpeed;
+    private Vector3 previousPosition;
+    private bool canConfetti = true;
 
 
     private void Start()
@@ -65,12 +68,15 @@ public class FollowTrack : MonoBehaviour
         currentCurve = Mathf.FloorToInt(spline.GetPositionOnSpline(transform.position));
         progress = spline.GetPositionOnSpline(transform.position) - currentCurve;
         targetPosition = spline.GetPointOnCurve(currentCurve, progress);
+        previousPosition = transform.position;
 
         //nextWallPos = GetNextWallPosition();
     }
 
     private void Update()
     {
+        deFactoSpeed = Vector3.Distance(transform.position, previousPosition);
+        previousPosition = transform.position;
         positionOnSpline = spline.GetPositionOnSpline(transform.position);
         stepSize = Mathf.Clamp(Mathf.FloorToInt(moveSpeed) * 10, 50, 200);
         if (speedIncreaseCountdown <= 0)
@@ -423,12 +429,18 @@ public class FollowTrack : MonoBehaviour
         speedText.text = Mathf.FloorToInt(moveSpeed * 100).ToString();
         if (moveSpeed >= 10)
         {
+            if (canConfetti)
+            {
+                speedText.transform.parent.GetComponentInChildren<ParticleSystem>().Play();
+                canConfetti = false;
+            }
             speedText.color = Color.HSVToRGB(speedometerHue, 0.9f, 0.9f);
             speedometerHue = (speedometerHue + 0.1f) % 1;
         }
         else
         {
             speedText.color = new Color(1, 1, 1 - (moveSpeed * 0.1f), 1);
+            canConfetti = true;
         }
     }
 }
