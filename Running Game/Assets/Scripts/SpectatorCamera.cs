@@ -7,6 +7,11 @@ public class SpectatorCamera : MonoBehaviour {
     public float lerpSpeed;
     private float changeTimer;
     private Transform target;
+    private GameManager gm;
+
+    private void Start() {
+        gm = FindObjectOfType<GameManager>();
+    }
 
     private void Update()
     {
@@ -14,7 +19,7 @@ public class SpectatorCamera : MonoBehaviour {
         if (changeTimer <= 0)
         {
             changeTimer = changeTime;
-            target = FindObjectsOfType<FollowTrack>()[Random.Range(0, FindObjectsOfType<FollowTrack>().Length)].transform;
+            if (gm.activePlayers.Length > 0) target = gm.activePlayers[Random.Range(0, gm.activePlayers.Length)].transform;
         }
 
         if (target) {
@@ -23,11 +28,9 @@ public class SpectatorCamera : MonoBehaviour {
 
         int playerCount = 0;
         Vector3 centrePoint = Vector3.zero;
-        foreach(PlayerStats player in FindObjectsOfType<PlayerStats>()) {
-            if (player.gameObject.name.Contains("Player")) {
-                centrePoint += player.transform.position;
-                playerCount++;
-            }
+        foreach(FollowTrack player in gm.activePlayers) {
+            centrePoint += player.transform.position;
+            playerCount++;
         }
 
         if (playerCount > 1) {

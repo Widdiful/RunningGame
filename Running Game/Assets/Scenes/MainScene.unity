@@ -1194,7 +1194,7 @@ CanvasRenderer:
 Camera:
   m_PrefabParentObject: {fileID: 20216241990272150, guid: 048c496bc4eeebc4986112a206a0ea47,
     type: 2}
-  m_PrefabInternal: {fileID: 1469963179}
+  m_PrefabInternal: {fileID: 1473044872}
 --- !u!1 &1431623989
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,7 +1257,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1469963179
+--- !u!1001 &1473044872
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1296,10 +1296,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 20216241990272150, guid: 048c496bc4eeebc4986112a206a0ea47,
+    - target: {fileID: 224649169028909296, guid: 048c496bc4eeebc4986112a206a0ea47,
         type: 2}
-      propertyPath: far clip plane
-      value: 500
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 048c496bc4eeebc4986112a206a0ea47, type: 2}
@@ -1801,7 +1801,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}

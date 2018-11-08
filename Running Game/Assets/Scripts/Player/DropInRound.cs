@@ -22,11 +22,13 @@ public class DropInRound : MonoBehaviour
     private float playerScaleY;
     public SplineCurve startingSpline;
 	public bool Playerselect { get; set; }
+    private GameManager gm;
 
 
     // Use this for initialization
     void Start()
     {
+        gm = FindObjectOfType<GameManager>();
         gameData = gameObject.GetComponent<GameData>();
         playersJoined = new Dictionary<string, bool>();
         cam = GameObject.Find("MainCamera").GetComponent<Camera>();
@@ -65,9 +67,9 @@ public class DropInRound : MonoBehaviour
             players[i].GetComponent<FollowTrack>().enabled = true;
             //gameData.cam.transform.parent = gameData.players[0].transform;
             players[i].GetComponent<FollowTrack>().InitialiseRunner(startingSpline, (float)i / (float)gameData.players.Count);
-
         }
 
+        if (gameData.players.Count > 1) gm.gameStarted = true;
         Destroy(GetComponent<DropInRound>());
     }
 
