@@ -58,7 +58,23 @@ public class Menu : MonoBehaviour {
         
 
         GameObject.Find("GameUpdates").GetComponent<DropInRound>().Playerselect = true;
-	}
+
+        foreach(FollowTrack runner in FindObjectsOfType<FollowTrack>())
+        {
+            Destroy(runner.gameObject);
+        }
+
+        foreach(Wall wall in FindObjectsOfType<Wall>())
+        {
+            wall.RepairWall();
+        }
+
+        SpectatorCamera spectator = FindObjectOfType<SpectatorCamera>();
+
+        spectator.transform.position = new Vector3(0, 10, -10);
+        spectator.transform.rotation = Quaternion.Euler(30, 0, 0);
+        spectator.enabled = false;
+    }
 	
 	void ShowOptions()
 	{

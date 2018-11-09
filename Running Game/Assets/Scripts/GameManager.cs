@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
             activePlayers[0].GetComponent<PlayerStats>().health = 100000;
             mainCamera.transform.Find("Canvas").gameObject.SetActive(true);
             mainCamera.transform.Find("Canvas/PlayerWin").GetComponent<Text>().text = activePlayers[0].name.Replace("_", " ");
+            mainCamera.GetComponent<SpectatorCamera>().target = activePlayers[0].transform;
             foreach(ParticleSystem ps in mainCamera.GetComponentsInChildren<ParticleSystem>()) {
                 ps.Play();
             }

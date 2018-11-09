@@ -23,6 +23,7 @@ public class FollowTrack : MonoBehaviour
     public float pathDetectionRadius;
     public float pathChangeRadius;
     public float positionOnSpline = 0;
+    public bool randomStart;
 
     public Vector3 targetPosition;
     private SplineCurve leftSpline; // Left spline found on detection
@@ -70,9 +71,18 @@ public class FollowTrack : MonoBehaviour
         progress = spline.GetPositionOnSpline(transform.position) - currentCurve;
         targetPosition = spline.GetPointOnCurve(currentCurve, progress);
         previousPosition = transform.position;
-        speedLines = GameObject.Find(transform.name + "/Canvas/SpeedLines").GetComponent<ParticleSystem>();
+        if (GameObject.Find(transform.name + "/Canvas/SpeedLines"))
+            speedLines = GameObject.Find(transform.name + "/Canvas/SpeedLines").GetComponent<ParticleSystem>();
 
         //nextWallPos = GetNextWallPosition();
+        if (randomStart)
+        {
+            transform.position = spline.GetPoint(UnityEngine.Random.Range(0.0f, 1.0f));
+            float newProgress = spline.GetNearestPointFromVector(transform.position);
+            currentCurve = Mathf.FloorToInt(newProgress) * 3;
+            progress = newProgress - Mathf.FloorToInt(newProgress);
+            targetPosition = spline.GetPointOnCurve(currentCurve, progress);
+        }
     }
 
     private void Update()
@@ -162,23 +172,26 @@ public class FollowTrack : MonoBehaviour
         }
 
         if (leftSpline) {
-            leftPointer.enabled = true;
+            if (leftPointer) leftPointer.enabled = true;
         }
         else {
-            leftPointer.enabled = false;
+            if (leftPointer) leftPointer.enabled = false;
         }
         if (rightSpline) {
-            rightPointer.enabled = true;
+            if (rightPointer) rightPointer.enabled = true;
         }
         else {
-            rightPointer.enabled = false;
+            if (rightPointer) rightPointer.enabled = false;
         }
 
-        ParticleSystem.MainModule psMain = speedLines.main;
-        psMain.startColor = new Color(1, 1, 1, Mathf.Clamp01((moveSpeed - 5) / 5f));
-        psMain.startSpeed = ((moveSpeed - 5) / 5f) * 50;
-        ParticleSystem.EmissionModule emission = speedLines.emission;
-        emission.rateOverTime = ((moveSpeed - 5) / 5f) * 500;
+        if (speedLines)
+        {
+            ParticleSystem.MainModule psMain = speedLines.main;
+            psMain.startColor = new Color(1, 1, 1, Mathf.Clamp01((moveSpeed - 5) / 5f));
+            psMain.startSpeed = ((moveSpeed - 5) / 5f) * 50;
+            ParticleSystem.EmissionModule emission = speedLines.emission;
+            emission.rateOverTime = ((moveSpeed - 5) / 5f) * 500;
+        }
 
         UpdateSpeedUI();
     }
@@ -434,21 +447,24 @@ public class FollowTrack : MonoBehaviour
 
     private void UpdateSpeedUI()
     {
-        speedText.text = Mathf.FloorToInt(moveSpeed * 100).ToString();
-        if (moveSpeed >= 10)
+        if (speedText)
         {
-            if (canConfetti)
+            speedText.text = Mathf.FloorToInt(moveSpeed * 100).ToString();
+            if (moveSpeed >= 10)
             {
-                speedText.transform.parent.GetComponentInChildren<ParticleSystem>().Play();
-                canConfetti = false;
+                if (canConfetti)
+                {
+                    speedText.transform.parent.GetComponentInChildren<ParticleSystem>().Play();
+                    canConfetti = false;
+                }
+                speedText.color = Color.HSVToRGB(speedometerHue, 0.9f, 0.9f);
+                speedometerHue = (speedometerHue + 0.1f) % 1;
             }
-            speedText.color = Color.HSVToRGB(speedometerHue, 0.9f, 0.9f);
-            speedometerHue = (speedometerHue + 0.1f) % 1;
-        }
-        else
-        {
-            speedText.color = new Color(1, 1, 1 - (moveSpeed * 0.1f), 1);
-            canConfetti = true;
+            else
+            {
+                speedText.color = new Color(1, 1, 1 - (moveSpeed * 0.1f), 1);
+                canConfetti = true;
+            }
         }
     }
 

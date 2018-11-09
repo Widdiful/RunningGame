@@ -49,22 +49,22 @@ public class Wall : MonoBehaviour
                 BreakWall(other.gameObject.GetComponent<Posing>().GetPose());
                 other.gameObject.GetComponent<PlayerStats>().Passed();
                 //Debug.Log("broken");
-                particles.Play();
-                audioSource.PlayOneShot(thud, 0.9f);
+                if (particles) particles.Play();
+                if (audioSource) audioSource.PlayOneShot(crash, 0.9f);
             }
             else
             {
                 if (gameObject.GetComponent<MeshFilter>().sharedMesh.name.Contains(other.gameObject.GetComponent<Posing>().GetPose()))
                 {
                     other.gameObject.GetComponent<PlayerStats>().Passed();
-                    particles.Play();
-                    audioSource.PlayOneShot(thud, 0.9f);
+                    if (particles) particles.Play();
+                    if (audioSource) audioSource.PlayOneShot(crash, 0.9f);
                 }
                 else
                 {
                     other.gameObject.GetComponent<PlayerStats>().Failed();
-                    particles.Play();
-                    audioSource.PlayOneShot(crash, 0.9f);
+                    if (particles) particles.Play();
+                    if (audioSource) audioSource.PlayOneShot(thud, 0.9f);
                 }
             }
         }
@@ -79,7 +79,7 @@ public class Wall : MonoBehaviour
         broken = true;
     }
 
-    private void RepairWall()
+    public void RepairWall()
     {
         gameObject.GetComponent<MeshFilter>().sharedMesh =
     Resources.Load<GameObject>("Walls\\Wall").GetComponent<MeshFilter>().sharedMesh;

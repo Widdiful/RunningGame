@@ -19,7 +19,7 @@ public class PlayerStats : MonoBehaviour {
     private void Start()
     {
         track = GetComponent<FollowTrack>();
-        bounce = comboText.GetComponent<BounceUI>();
+        if (comboText) bounce = comboText.GetComponent<BounceUI>();
     }
 
     private void Update()
@@ -47,16 +47,19 @@ public class PlayerStats : MonoBehaviour {
 
     private void UpdateComboUI()
     {
-        comboText.text = combo.ToString();
-        bounce.Bounce(2);
-        
-        if (combo <= 100)
+        if (comboText)
         {
-            if (combo == 100)
+            comboText.text = combo.ToString();
+            bounce.Bounce(2);
+
+            if (combo <= 100)
             {
-                comboText.transform.parent.GetComponentInChildren<ParticleSystem>().Play();
+                if (combo == 100)
+                {
+                    comboText.transform.parent.GetComponentInChildren<ParticleSystem>().Play();
+                }
+                comboText.color = new Color(1, 1, 1 - (combo * 0.01f), 1);
             }
-            comboText.color = new Color(1, 1, 1 - (combo * 0.01f), 1);
         }
     }
 

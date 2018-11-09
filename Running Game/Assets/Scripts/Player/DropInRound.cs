@@ -67,9 +67,14 @@ public class DropInRound : MonoBehaviour
             players[i].GetComponent<FollowTrack>().enabled = true;
             //gameData.cam.transform.parent = gameData.players[0].transform;
             players[i].GetComponent<FollowTrack>().InitialiseRunner(startingSpline, (float)i / (float)gameData.players.Count);
+            foreach (Camera camera in players[i].GetComponentsInChildren<Camera>())
+            {
+                camera.enabled = true;
+            }
         }
 
         if (gameData.players.Count > 1) gm.gameStarted = true;
+        cam.GetComponent<SpectatorCamera>().enabled = true;
         Destroy(GetComponent<DropInRound>());
     }
 

@@ -6,11 +6,12 @@ public class SpectatorCamera : MonoBehaviour {
     public float changeTime;
     public float lerpSpeed;
     private float changeTimer;
-    private Transform target;
+    public Transform target;
     private GameManager gm;
 
     private void Start() {
         gm = FindObjectOfType<GameManager>();
+        if (gm.activePlayers.Length > 0) target = gm.activePlayers[Random.Range(0, gm.activePlayers.Length)].transform;
     }
 
     private void Update()
