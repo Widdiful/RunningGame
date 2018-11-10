@@ -10,7 +10,7 @@ public class SplitscreenManager : MonoBehaviour {
 
     public void SetSplitscreen(int numberOfScreens) {
         numberOfScreens = Mathf.Clamp(numberOfScreens, 0, FindObjectsOfType<FollowTrack>().Length);
-        if (numberOfScreens <= 3) {
+        if (numberOfScreens <= 2) {
             if (GameObject.Find("Player_1")) {
                 foreach(Camera cam in GameObject.Find("Player_1").GetComponentsInChildren<Camera>())
                 {
@@ -21,12 +21,6 @@ public class SplitscreenManager : MonoBehaviour {
                 foreach (Camera cam in GameObject.Find("Player_2").GetComponentsInChildren<Camera>())
                 {
                     cam.rect = new Rect(1f / numberOfScreens, 0, 1f / numberOfScreens, 1);
-                }
-            }
-            if (GameObject.Find("Player_3")) {
-                foreach (Camera cam in GameObject.Find("Player_3").GetComponentsInChildren<Camera>())
-                {
-                    cam.rect = new Rect((1f / numberOfScreens) * 2, 0, 1f / numberOfScreens, 1);
                 }
             }
         }

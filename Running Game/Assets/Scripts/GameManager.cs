@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
     public FollowTrack[] activePlayers;
     public bool gameStarted;
     private GameObject mainCamera;
+    public int maxPlayers;
 
     private void Start() {
         mainCamera = FindObjectOfType<SpectatorCamera>().gameObject;

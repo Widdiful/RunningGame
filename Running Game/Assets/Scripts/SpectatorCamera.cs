@@ -8,9 +8,12 @@ public class SpectatorCamera : MonoBehaviour {
     private float changeTimer;
     public Transform target;
     private GameManager gm;
+    private Camera cam;
+    private int previousPlayerCount;
 
     private void Start() {
         gm = FindObjectOfType<GameManager>();
+        cam = GetComponent<Camera>();
         if (gm.activePlayers.Length > 0) target = gm.activePlayers[Random.Range(0, gm.activePlayers.Length)].transform;
     }
 
@@ -37,5 +40,84 @@ public class SpectatorCamera : MonoBehaviour {
         if (playerCount > 1) {
             transform.position = (centrePoint / playerCount) + new Vector3(0, 10, 0);
         }
+        else {
+            cam.rect = new Rect(new Vector2(0, 0), new Vector2(1, 1));
+        }
+
+        if (gm.gameStarted) UpdateSplitscreen();
+    }
+
+    public void UpdateSplitscreen() {
+        if (gm.activePlayers.Length != previousPlayerCount) {
+            float x = 0.0f, y = 0.0f, width = 1.0f, height = 1.0f;
+
+            if (gm.maxPlayers <= 2) {
+
+            }
+
+            else if (gm.maxPlayers == 3) {
+                bool p1 = GameObject.Find("Player_1");
+                bool p2 = GameObject.Find("Player_2");
+                bool p3 = GameObject.Find("Player_3");
+
+                x = 0.5f;
+                y = 0.0f;
+                width = 0.5f;
+                height = 0.5f;
+
+                if (!p2) {
+                    x = 0.5f;
+                    y = 0.0f;
+                    width = 0.5f;
+                    height = 1.0f;
+                }
+                else if (!p3) {
+                    x = 0.0f;
+                    y = 0.0f;
+                    width = 1.0f;
+                    height = 0.5f;
+                }
+            }
+
+            else {
+                bool p1 = GameObject.Find("Player_1");
+                bool p2 = GameObject.Find("Player_2");
+                bool p3 = GameObject.Find("Player_3");
+                bool p4 = GameObject.Find("Player_4");
+
+                if ((p1 && p3) ^ (p2 && p4)) {
+                    width = 0.5f;
+                    if (p1 && p3) {
+                        x = 0.5f;
+                    }
+                    else {
+                        x = 0.0f;
+                    }
+                }
+                if ((p1 && p2) ^ (p3 && p4)) {
+                    height = 0.5f;
+                    if (p1 && p2) {
+                        y = 0.0f;
+                    }
+                    else {
+                        y = 0.5f;
+                    }
+                }
+                if ((!p1 && !p4) ^ (!p2 && !p3)) {
+                    if (!p1 && !p4) {
+                        x = 0.5f;
+                    }
+                    if (!p2 && !p3) {
+                        x = 0.0f;
+                    }
+                    y = 0.0f;
+                    width = 0.5f;
+                    height = 0.5f;
+                }
+
+            }
+            cam.rect = new Rect(new Vector2(x, y), new Vector2(width, height));
+        }
+        previousPlayerCount = gm.activePlayers.Length;
     }
 }

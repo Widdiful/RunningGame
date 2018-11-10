@@ -5,6 +5,7 @@ using UnityEngine;
 public class PathRenderer : MonoBehaviour {
 
     public int numberOfPoints;
+    public float pathWidth;
     private const float texScale = 10;
     public GameObject tunnelPrefab;
     public GameObject pathPrefab;
@@ -126,10 +127,11 @@ public class PathRenderer : MonoBehaviour {
             Vector3 newScale = newPath.localScale;
             float blockHeight = newPath.GetComponent<MeshFilter>().sharedMesh.bounds.size.z * 0.5f;
             newScale.z = Vector3.Distance(newPath.position, nextPosition) /blockHeight / 4;
+            newScale.x = pathWidth;
             newPath.localScale = newScale;
 
-            vertices[i * 2] = newPath.transform.TransformPoint(newPath.GetComponent<MeshFilter>().sharedMesh.vertices[0]);
-            vertices[(i * 2) + 1] = newPath.transform.TransformPoint(newPath.GetComponent<MeshFilter>().sharedMesh.vertices[2]);
+            vertices[i * 2] = newPath.transform.TransformPoint(newPath.GetComponent<MeshFilter>().sharedMesh.vertices[0]) - transform.position;
+            vertices[(i * 2) + 1] = newPath.transform.TransformPoint(newPath.GetComponent<MeshFilter>().sharedMesh.vertices[2]) - transform.position;
             if (i > 0)
             {
                 triangles[(i * 12) + 0] = (i * 2);

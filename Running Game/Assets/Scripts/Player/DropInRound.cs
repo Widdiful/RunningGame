@@ -74,6 +74,7 @@ public class DropInRound : MonoBehaviour
         }
 
         if (gameData.players.Count > 1) gm.gameStarted = true;
+        gm.maxPlayers = gameData.players.Count;
         cam.GetComponent<SpectatorCamera>().enabled = true;
         Destroy(GetComponent<DropInRound>());
     }

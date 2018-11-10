@@ -50,7 +50,7 @@ public class Wall : MonoBehaviour
                 other.gameObject.GetComponent<PlayerStats>().Passed();
                 //Debug.Log("broken");
                 if (particles) particles.Play();
-                if (audioSource) audioSource.PlayOneShot(crash, 0.9f);
+                if (audioSource) audioSource.PlayOneShot(thud, 0.9f);
             }
             else
             {
