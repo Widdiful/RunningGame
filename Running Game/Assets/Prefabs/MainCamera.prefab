@@ -349,7 +349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changeTime: 5
-  lerpSpeed: 0.2
+  lerpSpeed: 0.1
   target: {fileID: 0}
 --- !u!114 &114800423398886958
 MonoBehaviour:

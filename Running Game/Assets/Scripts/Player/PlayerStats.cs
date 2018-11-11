@@ -15,6 +15,8 @@ public class PlayerStats : MonoBehaviour {
 
     private FollowTrack track;
     private float comboHue;
+    private bool dead;
+    private Vector3 deadRotation;
 
     private void Start()
     {
@@ -30,15 +32,34 @@ public class PlayerStats : MonoBehaviour {
             comboText.color = Color.HSVToRGB(comboHue, 0.9f, 0.9f);
             comboHue = (comboHue + 0.1f) % 1;
         }
+        if (dead) {
+            transform.Rotate(deadRotation);
+        }
     }
 
     public void TakeHit()
     {
         health--;
-        if (health <= 0)
+        if (health <= 0 && !dead)
         {
-            Destroy(gameObject);
+            Kill();
         }
+    }
+
+    private void Kill() {
+        GetComponent<Animator>().enabled = false;
+        track.moveSpeed = 0;
+        track.speedIncreaseRate = 0;
+        track.lookForward = false;
+        Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+        rb.AddForce(Vector3.ClampMagnitude((transform.up - transform.forward) + transform.right * UnityEngine.Random.Range(-0.5f, 0.5f), 1) * 20, ForceMode.Impulse);
+        deadRotation = new Vector3(UnityEngine.Random.Range(0.0f, 10.0f), UnityEngine.Random.Range(0.0f, 10.0f), UnityEngine.Random.Range(0.0f, 10.0f));
+        Transform playerCamera = transform.Find("Camera");
+        Destroy(playerCamera.gameObject, 3.0f);
+        transform.Find("Camera").GetComponent<PointAt>().enabled = true;
+        transform.Find("Camera").SetParent(null);
+        dead = true;
+        Destroy(gameObject, 3.0f);
     }
 
     public float GetPosition() {

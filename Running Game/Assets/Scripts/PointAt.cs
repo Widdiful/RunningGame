@@ -6,12 +6,15 @@ public class PointAt : MonoBehaviour {
 
     public Transform target;
     public Transform secondTarget;
+    private Vector3 pointTarget;
 
     void Update() {
-        Vector3 pointTarget = target.position;
-        if (secondTarget) {
-            pointTarget = target.position + (secondTarget.position - target.position) / 2;
+        if (target) {
+            pointTarget = target.position;
+            if (secondTarget) {
+                pointTarget = target.position + (secondTarget.position - target.position) / 2;
+            }
+            transform.LookAt(pointTarget);
         }
-        transform.LookAt(pointTarget);
     }
 }
