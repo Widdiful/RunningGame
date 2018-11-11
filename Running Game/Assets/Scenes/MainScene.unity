@@ -848,7 +848,7 @@ MonoBehaviour:
   tunnelStart: 0
   tunnelEnd: 0
   allowRealTimeUpdating: 1
-  pathVerticalOffset: -2.5
+  pathVerticalOffset: -3
   thing: {fileID: 0}
 --- !u!4 &794851487
 Transform:
@@ -1234,6 +1234,16 @@ Prefab:
       propertyPath: LightsModule.light
       value: 
       objectReference: {fileID: 1216866720}
+    - target: {fileID: 199604591779624598, guid: 02528b70fd7814e44b39b6c051e7c15e,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 198805076643505320, guid: 02528b70fd7814e44b39b6c051e7c15e,
+        type: 2}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 02528b70fd7814e44b39b6c051e7c15e, type: 2}
   m_IsPrefabParent: 0
@@ -2172,7 +2182,7 @@ MonoBehaviour:
   tunnelStart: 0
   tunnelEnd: 0
   allowRealTimeUpdating: 1
-  pathVerticalOffset: -2
+  pathVerticalOffset: -3
   thing: {fileID: 0}
 --- !u!114 &1745022836
 MonoBehaviour:
