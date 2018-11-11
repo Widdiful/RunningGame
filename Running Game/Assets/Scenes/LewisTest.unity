@@ -113,24 +113,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &58523656 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1337066314801600, guid: b752053e10d0f0741aaf300a51f49bd4,
-    type: 2}
-  m_PrefabInternal: {fileID: 894497444}
---- !u!114 &58523662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 58523656}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d2eb487673bcc54e8ffdeaae3e54603, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 1779839070}
-  secondTarget: {fileID: 0}
 --- !u!1 &68170039
 GameObject:
   m_ObjectHideFlags: 0
@@ -577,29 +559,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 1057119082097530, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
-      propertyPath: m_Name
-      value: Player_1
-      objectReference: {fileID: 0}
     - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
         type: 2}
       propertyPath: spline
       value: 
       objectReference: {fileID: 429614177}
-    - target: {fileID: 20903325271686456, guid: b752053e10d0f0741aaf300a51f49bd4,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 20766375555957764, guid: b752053e10d0f0741aaf300a51f49bd4,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114384617019595866, guid: b752053e10d0f0741aaf300a51f49bd4,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
+    - target: {fileID: 1057119082097530, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
+      propertyPath: m_Name
+      value: Player_1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
@@ -811,11 +778,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!4 &1779839070 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4975261353101658, guid: b752053e10d0f0741aaf300a51f49bd4,
-    type: 2}
-  m_PrefabInternal: {fileID: 894497444}
 --- !u!1001 &1998683935
 Prefab:
   m_ObjectHideFlags: 0

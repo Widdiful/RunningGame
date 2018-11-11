@@ -10,6 +10,8 @@ public class PlayerStats : MonoBehaviour {
     public int laps;
     public float positionOnSpline;
     public Text comboText;
+    public Image[] hearts;
+
     private int combo;
     private BounceUI bounce;
 
@@ -33,13 +35,19 @@ public class PlayerStats : MonoBehaviour {
             comboHue = (comboHue + 0.1f) % 1;
         }
         if (dead) {
+            deadRotation *= 1f + (Time.deltaTime / 4f);
             transform.Rotate(deadRotation);
+        }
+
+        if (Input.GetKeyDown("z")) {
+            Kill();
         }
     }
 
     public void TakeHit()
     {
         health--;
+        UpdateHealthUI();
         if (health <= 0 && !dead)
         {
             Kill();
@@ -51,6 +59,7 @@ public class PlayerStats : MonoBehaviour {
         track.moveSpeed = 0;
         track.speedIncreaseRate = 0;
         track.lookForward = false;
+        track.enabled = false;
         Rigidbody rb = gameObject.AddComponent<Rigidbody>();
         rb.AddForce(Vector3.ClampMagnitude((transform.up - transform.forward) + transform.right * UnityEngine.Random.Range(-0.5f, 0.5f), 1) * 20, ForceMode.Impulse);
         deadRotation = new Vector3(UnityEngine.Random.Range(0.0f, 10.0f), UnityEngine.Random.Range(0.0f, 10.0f), UnityEngine.Random.Range(0.0f, 10.0f));
@@ -81,6 +90,19 @@ public class PlayerStats : MonoBehaviour {
                 }
                 comboText.color = new Color(1, 1, 1 - (combo * 0.01f), 1);
             }
+
+            comboText.transform.parent.GetComponentInChildren<StarRotate>().speed = Mathf.Clamp(combo * 0.1f, 1, 10);
+        }
+    }
+
+    private void UpdateHealthUI() {
+        for (int i = 0; i < hearts.Length; i++) {
+            if (i <= health - 1) {
+                hearts[i].enabled = true;
+            }
+            else {
+                hearts[i].enabled = false;
+            }
         }
     }
 
@@ -88,7 +110,7 @@ public class PlayerStats : MonoBehaviour {
     {
         //TODO: Play sound or do some visuals to let the player know he passed the wall
         //Debug.Log("passed");
-        track.IncreaseSpeed(0.1f);
+        if (!dead) track.IncreaseSpeed(0.1f);
         combo++;
         UpdateComboUI();
     }

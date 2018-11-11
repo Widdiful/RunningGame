@@ -309,6 +309,7 @@ public class FollowTrack : MonoBehaviour
 
     public void TemporaryBoost(float amount, float duration)
     {
+        amount = Mathf.Clamp(amount, baseSpeed, gm.globalSpeedCap);
         StartCoroutine(TemporaryBoostIE(amount, duration));
     }
 
@@ -465,6 +466,8 @@ public class FollowTrack : MonoBehaviour
                 speedText.color = new Color(1, 1, 1 - (moveSpeed * 0.1f), 1);
                 canConfetti = true;
             }
+
+            speedText.transform.parent.GetComponentInChildren<StarRotate>().speed = -Mathf.Clamp(moveSpeed, 1, 10);
         }
     }
 
