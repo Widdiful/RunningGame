@@ -42,6 +42,9 @@ public class DropInRound : MonoBehaviour
         if (!gameStarted && Playerselect)
         {
             CheckDropIns();
+            if (Input.GetButtonDown("UICancel")) {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
 
         if (Input.GetKey("joystick 1 button 9") || Input.GetKey(KeyCode.Return) && gameData.players.Count > 0)

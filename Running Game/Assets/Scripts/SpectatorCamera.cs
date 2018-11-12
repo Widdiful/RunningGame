@@ -15,6 +15,7 @@ public class SpectatorCamera : MonoBehaviour {
         gm = FindObjectOfType<GameManager>();
         cam = GetComponent<Camera>();
         if (gm.activePlayers.Length > 0) target = gm.activePlayers[Random.Range(0, gm.activePlayers.Length)].transform;
+        changeTimer = 0;
     }
 
     private void Update()

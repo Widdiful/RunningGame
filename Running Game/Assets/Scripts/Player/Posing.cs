@@ -23,6 +23,7 @@ public class Posing : MonoBehaviour
     public ArmPositions rightArmPositionPrompt;
     public bool posePromptActive;
     public bool posePromptPossible;
+    public bool canPose = true;
 
 
     // Use this for initialization
@@ -47,15 +48,17 @@ public class Posing : MonoBehaviour
         //if(Input.GetAxis())
         //Debug.Log(ID);
         bool turning = false;
-        if (Input.GetAxis("Joy" + ID + "_LeftStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.D)) { turning = true;  TurnRight(); }
-        if (Input.GetAxis("Joy" + ID + "_LeftStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.A)) { L_PoseOut(); }
-        if (Input.GetAxis("Joy" + ID + "_LeftStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.W)) { L_PoseUp(); }
-        if (Input.GetAxis("Joy" + ID + "_LeftStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.S)) { L_PoseDown(); }
+        if (canPose) {
+            if (Input.GetAxisRaw("Joy" + ID + "_LeftStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.D)) { turning = true; TurnRight(); }
+            if (Input.GetAxisRaw("Joy" + ID + "_LeftStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.A)) { L_PoseOut(); }
+            if (Input.GetAxisRaw("Joy" + ID + "_LeftStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.W)) { L_PoseUp(); }
+            if (Input.GetAxisRaw("Joy" + ID + "_LeftStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.S)) { L_PoseDown(); }
 
-        if (Input.GetAxis("Joy" + ID + "_RightStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.LeftArrow)) { turning = true; TurnLeft(); }
-        if (Input.GetAxis("Joy" + ID + "_RightStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.RightArrow)) { R_PoseOut(); }
-        if (Input.GetAxis("Joy" + ID + "_RightStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.UpArrow)) { R_PoseUp(); }
-        if (Input.GetAxis("Joy" + ID + "_RightStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.DownArrow)) { R_PoseDown(); }
+            if (Input.GetAxisRaw("Joy" + ID + "_RightStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.LeftArrow)) { turning = true; TurnLeft(); }
+            if (Input.GetAxisRaw("Joy" + ID + "_RightStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.RightArrow)) { R_PoseOut(); }
+            if (Input.GetAxisRaw("Joy" + ID + "_RightStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.UpArrow)) { R_PoseUp(); }
+            if (Input.GetAxisRaw("Joy" + ID + "_RightStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.DownArrow)) { R_PoseDown(); }
+        }
 
         if (posePromptActive && posePromptPossible && CheckPosePrompt())
         {
