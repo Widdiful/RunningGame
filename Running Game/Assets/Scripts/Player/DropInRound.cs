@@ -67,9 +67,10 @@ public class DropInRound : MonoBehaviour
         {
             players[i].transform.position = new Vector3(0, players[i].transform.lossyScale.y * 2, players[i].transform.lossyScale.z * i + proximity * i);
             players[i].transform.rotation = Quaternion.identity;
-            players[i].GetComponent<FollowTrack>().enabled = true;
+            FollowTrack playerTrack = players[i].GetComponent<FollowTrack>();
+            playerTrack.enabled = true;
             //gameData.cam.transform.parent = gameData.players[0].transform;
-            players[i].GetComponent<FollowTrack>().InitialiseRunner(startingSpline, (float)i / (float)gameData.players.Count);
+            playerTrack.InitialiseRunner(startingSpline, (float)i / (float)gameData.players.Count);
             foreach (Camera camera in players[i].GetComponentsInChildren<Camera>())
             {
                 camera.enabled = true;
@@ -123,7 +124,7 @@ public class DropInRound : MonoBehaviour
     private void SpawnPlayer(int pNumber)
     {
         playersJoined.Add(playerJoin + pNumber, true);
-        Debug.Log("Player " + pNumber + " joined");
+        //Debug.Log("Player " + pNumber + " joined");
         GameObject tmpPlayer = Instantiate(Resources.Load<GameObject>("Player") as GameObject);		
         tmpPlayer.GetComponent<Posing>().ID = pNumber;
 		
@@ -132,8 +133,9 @@ public class DropInRound : MonoBehaviour
 
         UpdateDropInPosition(tmpPlayer, pNumber);
 
+        tmpPlayer.GetComponent<FollowTrack>().player_id = gameData.players.Count;
         gameData.players.Add(tmpPlayer);
-		Debug.Log(tmpPlayer.GetComponent<Posing>().ID);
+        //Debug.Log(tmpPlayer.GetComponent<Posing>().ID);
     }
 
     private void UpdateDropInPosition(List<GameObject> ps, int number)

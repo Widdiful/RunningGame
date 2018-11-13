@@ -24,6 +24,7 @@ public class FollowTrack : MonoBehaviour
     public float pathChangeRadius;
     public float positionOnSpline = 0;
     public bool randomStart;
+    public int player_id;
 
     public Vector3 targetPosition;
     private SplineCurve leftSpline; // Left spline found on detection
@@ -85,11 +86,12 @@ public class FollowTrack : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        deFactoSpeed = Vector3.Distance(transform.position, previousPosition);
-        previousPosition = transform.position;
+    private void FixedUpdate() {
         positionOnSpline = spline.GetPositionOnSpline(transform.position);
+    }
+
+    private void Update()
+    {        
         stepSize = Mathf.Clamp(Mathf.FloorToInt(moveSpeed) * 10, 50, 200);
         if (speedIncreaseCountdown <= 0)
         {
@@ -240,7 +242,7 @@ public class FollowTrack : MonoBehaviour
     private void MoveTowardsTarget()
     {
         targetPositionObj.position = targetPosition;
-        targetPositionObj.LookAt(spline.GetPoint(spline.GetNearestPointFromVector(targetPosition) + 0.01f));
+        targetPositionObj.LookAt(spline.GetPoint(positionOnSpline + 0.01f));
         targetPositionObj.LookAt(targetPosition + spline.GetVelocityOnCurve(currentCurve, progress).normalized);
         adjustedTargetPositionObj.localPosition = new Vector3(horizontalAdjust, verticalAdjust, 0);
         adjustedTargetPosition = adjustedTargetPositionObj.position;

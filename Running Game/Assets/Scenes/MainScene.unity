@@ -1551,6 +1551,8 @@ GameObject:
   - component: {fileID: 1302391116}
   - component: {fileID: 1302391115}
   - component: {fileID: 1302391114}
+  - component: {fileID: 1302391119}
+  - component: {fileID: 1302391118}
   m_Layer: 0
   m_Name: Start
   m_TagString: Untagged
@@ -1565,13 +1567,13 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1302391113}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdc9d0486f6649c4eb2c7730734b7561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfPoints: 100
-  pathWidth: 0
+  numberOfPoints: 10
+  pathWidth: 1
   tunnelPrefab: {fileID: 100000, guid: 12d46d0fdc7422b4b8c03f6a418db654, type: 3}
   pathPrefab: {fileID: 100000, guid: 16fb769c0394c36469ed40a4f35c1eec, type: 3}
   buildPath: 1
@@ -1579,7 +1581,7 @@ MonoBehaviour:
   tunnelStart: 0
   tunnelEnd: 0
   allowRealTimeUpdating: 1
-  pathVerticalOffset: 0
+  pathVerticalOffset: -3
   thing: {fileID: 0}
 --- !u!114 &1302391115
 MonoBehaviour:
@@ -1609,14 +1611,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   points:
-  - {x: 22.514332, y: 14.998584, z: 37.89993}
-  - {x: 18.198679, y: 11.185289, z: 34.928253}
+  - {x: 28.853325, y: 14.998584, z: 11.826712}
+  - {x: 23.44671, y: 11.185289, z: 26.457829}
   - {x: 6.2324843, y: 0.7324581, z: 26.869616}
   - {x: -8.13202, y: -11.407389, z: 28.286488}
   modes: 0100000001000000
   loop: 0
   showSpline: 1
-  splineLength: 42.121788
+  splineLength: 50.773724
 --- !u!4 &1302391117
 Transform:
   m_ObjectHideFlags: 0
@@ -1631,6 +1633,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1302391118
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1302391113}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1302391119
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1302391113}
+  m_Mesh: {fileID: 0}
 --- !u!1 &1324848463
 GameObject:
   m_ObjectHideFlags: 0
