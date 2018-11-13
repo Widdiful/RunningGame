@@ -140,7 +140,7 @@ public class SplineCurve : MonoBehaviour {
         float length = 0;
         Vector3 point = GetPointOnCurve(curve, 0f);
         Vector3 previousPoint = point;
-        int steps = 1000;
+        int steps = 100;
         for (int i = 1; i <= steps; i++) {
             point = GetPointOnCurve(curve, i / (float)steps);
             length += Vector3.Distance(point, previousPoint);
@@ -169,7 +169,7 @@ public class SplineCurve : MonoBehaviour {
     {
         float result = 0f;
 
-        for (float i = 0; i < 1; i += 0.001f)
+        for (float i = 0; i < 1; i += 0.01f)
         {
             if (Vector3.Distance(vector, GetPoint(i)) < Vector3.Distance(vector, GetPoint(result)))
             {

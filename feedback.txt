@@ -1,0 +1,12 @@
+drop-in not matching controllers: player id and controller id
+splitscreen is weird sometimes????
+readability - disable bloom, less sharp turns, camera position
+controller threshold
+new models with pose transitions and textures
+framerate
+one of the controllers didnt really work sometimes?
+new rainbow texture
+ui scaling
+remove pose prompt, change to stretch goal
+walls start with random holes
+remove first wall
