@@ -29,19 +29,17 @@ public class PlayerStats : MonoBehaviour {
     private void Update()
     {
         //positionOnSpline = track.spline.GetPositionOnSpline(transform.position);
-        if (combo >= 100)
-        {
-            comboText.color = Color.HSVToRGB(comboHue, 0.9f, 0.9f);
-            comboHue = (comboHue + 0.1f) % 1;
+        if (comboText) {
+            if (combo >= 100) {
+                comboText.color = Color.HSVToRGB(comboHue, 0.9f, 0.9f);
+                comboHue = (comboHue + 0.1f) % 1;
+            }
         }
         if (dead) {
             deadRotation *= 1f + (Time.deltaTime / 4f);
             transform.Rotate(deadRotation);
         }
 
-        if (Input.GetKeyDown("z")) {
-            Kill();
-        }
     }
 
     public void TakeHit()

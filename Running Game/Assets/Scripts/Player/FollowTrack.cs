@@ -87,7 +87,12 @@ public class FollowTrack : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        positionOnSpline = spline.GetPositionOnSpline(transform.position);
+        float newPos = spline.GetPositionOnSpline(transform.position);
+        if (newPos < positionOnSpline)
+            positionOnSpline = newPos;
+
+        else
+            positionOnSpline = Mathf.Lerp(positionOnSpline, spline.GetPositionOnSpline(transform.position), Mathf.Clamp(1 - ((spline.splineLength / 800f) + (-moveSpeed / 10f)), 0.1f, 1.0f));
     }
 
     private void Update()
@@ -167,7 +172,7 @@ public class FollowTrack : MonoBehaviour
                 ChangeSpline(nextSpline);
                 nextSpline = null;
             }
-            if (Vector3.Distance(targetPosition, nextSpline.transform.position) >= pathDetectionRadius)
+            else if (Vector3.Distance(targetPosition, nextSpline.transform.position) >= pathDetectionRadius)
             {
                 nextSpline = null;
             }
@@ -401,11 +406,11 @@ public class FollowTrack : MonoBehaviour
         }
         else if (distanceToNextWall >= 20)
         {
-            horizontalAdjust = -2;
+            horizontalAdjust = Mathf.Lerp(horizontalAdjust, -2, 0.5f);
         }
         else
         {
-            horizontalAdjust = 0;
+            horizontalAdjust = Mathf.Lerp(horizontalAdjust, 0, 0.5f);
         }
     }
 
@@ -417,11 +422,11 @@ public class FollowTrack : MonoBehaviour
         }
         else if (distanceToNextWall >= 20)
         {
-            horizontalAdjust = 2;
+            horizontalAdjust = Mathf.Lerp(horizontalAdjust, 2, 0.5f);
         }
         else
         {
-            horizontalAdjust = 0;
+            horizontalAdjust = Mathf.Lerp(horizontalAdjust, 0, 0.5f);
         }
     }
 

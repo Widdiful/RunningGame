@@ -37,6 +37,8 @@ public class Wall : MonoBehaviour
             timer = 0;
         }
         timer += Time.deltaTime;
+
+        //transform.position = attachedSpline.GetPoint(positionOnSpline);
     }
 
     private void OnTriggerEnter(Collider other)
