@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = System.Random;
 
 public class Wall : MonoBehaviour
 {
@@ -9,10 +10,11 @@ public class Wall : MonoBehaviour
     public AudioClip crash;
     public AudioClip thud; 
     public SplineCurve attachedSpline;
+    private string[] poses = new[] { "LD_RD", "LD_RO", "LD_RU", "LO_RD", "LO_RO", "LO_RU", "LU_RD", "LU_RO", "LU_RU" };
     [Range(0, 1)]
     public float positionOnSpline;
     private bool broken;
-    private float repairTime = 30.0f;
+    private float repairTime = 40.0f;
     public float timer;
     //private System.Random rnd;
     private ParticleSystem particles;
@@ -20,11 +22,12 @@ public class Wall : MonoBehaviour
 
     void Start()
     {
-        //rnd = new System.Random();
+        int rnd = UnityEngine.Random.Range(0, poses.Length);
+        BreakWall(poses[rnd]);
+        broken = true;
         positionOnSpline = attachedSpline.GetPositionOnSpline(transform.position);
         transform.position = attachedSpline.GetPoint(positionOnSpline);
         transform.LookAt(transform.position + attachedSpline.GetDirection(positionOnSpline));
-        //rndTime = rnd.Next();
         particles = GetComponentInChildren<ParticleSystem>();
         audioSource = GetComponent<AudioSource>();
     }
@@ -37,8 +40,6 @@ public class Wall : MonoBehaviour
             timer = 0;
         }
         timer += Time.deltaTime;
-
-        //transform.position = attachedSpline.GetPoint(positionOnSpline);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -73,9 +74,13 @@ public class Wall : MonoBehaviour
 
     }
 
-    private void BreakWall(string pose)
+    internal void BreakRandom()
     {
-       // Debug.Log("Wall_" + pose);
+        BreakWall(poses[UnityEngine.Random.Range(0,poses.Length)]);
+    }
+
+    public void BreakWall(string pose)
+    {
         gameObject.GetComponent<MeshFilter>().sharedMesh =
             Resources.Load<GameObject>("Walls\\Wall_" + pose).GetComponent<MeshFilter>().sharedMesh;
         broken = true;
@@ -86,5 +91,10 @@ public class Wall : MonoBehaviour
         gameObject.GetComponent<MeshFilter>().sharedMesh =
     Resources.Load<GameObject>("Walls\\Wall").GetComponent<MeshFilter>().sharedMesh;
         broken = false;
+    }
+
+    public void setBroken(bool broken)
+    {
+        this.broken = broken;
     }
 }

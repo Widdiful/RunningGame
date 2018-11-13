@@ -64,11 +64,6 @@ public class Menu : MonoBehaviour {
             Destroy(runner.gameObject);
         }
 
-        foreach(Wall wall in FindObjectsOfType<Wall>())
-        {
-            wall.RepairWall();
-        }
-
         SpectatorCamera spectator = FindObjectOfType<SpectatorCamera>();
 
         spectator.transform.position = new Vector3(0, 10, -10);

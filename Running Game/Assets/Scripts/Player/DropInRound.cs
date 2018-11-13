@@ -77,6 +77,12 @@ public class DropInRound : MonoBehaviour
             }
         }
 
+        foreach (Wall wall in FindObjectsOfType<Wall>())
+        {
+            wall.timer = 0;
+            wall.BreakRandom();
+        }
+
         if (gameData.players.Count > 1) gm.gameStarted = true;
         gm.maxPlayers = gameData.players.Count;
         cam.GetComponent<SpectatorCamera>().enabled = true;

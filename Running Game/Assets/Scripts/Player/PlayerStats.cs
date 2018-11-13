@@ -29,17 +29,19 @@ public class PlayerStats : MonoBehaviour {
     private void Update()
     {
         //positionOnSpline = track.spline.GetPositionOnSpline(transform.position);
-        if (comboText) {
-            if (combo >= 100) {
-                comboText.color = Color.HSVToRGB(comboHue, 0.9f, 0.9f);
-                comboHue = (comboHue + 0.1f) % 1;
-            }
+        if (combo >= 100)
+        {
+            comboText.color = Color.HSVToRGB(comboHue, 0.9f, 0.9f);
+            comboHue = (comboHue + 0.1f) % 1;
         }
         if (dead) {
             deadRotation *= 1f + (Time.deltaTime / 4f);
             transform.Rotate(deadRotation);
         }
 
+        if (Input.GetKeyDown("z")) {
+            Kill();
+        }
     }
 
     public void TakeHit()
@@ -107,7 +109,6 @@ public class PlayerStats : MonoBehaviour {
     internal void Passed()
     {
         //TODO: Play sound or do some visuals to let the player know he passed the wall
-        //Debug.Log("passed");
         if (!dead) track.IncreaseSpeed(0.1f);
         combo++;
         UpdateComboUI();
@@ -115,7 +116,6 @@ public class PlayerStats : MonoBehaviour {
 
     internal void Failed()
     {
-        Debug.Log("failed");
         TakeHit();
         track.FailObstacle();
         combo = 0;
