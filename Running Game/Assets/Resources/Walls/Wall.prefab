@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4007159657612164}
   - component: {fileID: 33196182067781766}
   - component: {fileID: 23748583077817608}
-  - component: {fileID: 65269811657367126}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -75,7 +74,7 @@ Transform:
   m_GameObject: {fileID: 1375162536506054}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 3.33}
-  m_LocalScale: {x: 6.1801796, y: 6.180171, z: 6.180171}
+  m_LocalScale: {x: 6.1801796, y: 6.180171, z: 0.1}
   m_Children: []
   m_Father: {fileID: 4096166466793162}
   m_RootOrder: 0
@@ -86,9 +85,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1799410377804714}
-  m_LocalRotation: {x: 0.00000008146034, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.66, y: -0, z: 6.68}
-  m_LocalScale: {x: 1, y: 1, z: 0.218304}
+  m_LocalRotation: {x: 0.3273689, y: -0.27962056, z: 0.10207476, w: 0.89678466}
+  m_LocalPosition: {x: -19.88706, y: 20.416498, z: 56.959747}
+  m_LocalScale: {x: 1, y: 1, z: 0.21830401}
   m_Children:
   - {fileID: 4007159657612164}
   - {fileID: 224526834544784638}
@@ -194,18 +193,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &65269811657367126
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1375162536506054}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65967390047388370
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -326,8 +313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crash: {fileID: 8300000, guid: 560400fc23752ed4491b655111eace72, type: 3}
   thud: {fileID: 8300000, guid: 4866a7491360ce04595e4cbc21b0c1b6, type: 3}
-  attachedSpline: {fileID: 114875171089081080, guid: fa232634669fb254b9d6f4687eb35535,
-    type: 2}
+  attachedSpline: {fileID: 0}
   positionOnSpline: 0
   timer: 0
 --- !u!198 &198653806142524122

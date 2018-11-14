@@ -18,10 +18,10 @@ public class WallPlacement : MonoBehaviour {
         wallParent.transform.SetParent(transform);
 
         spline = GetComponent<SplineCurve>();
-        for (int i = 0; i < numberOfWalls; i++)
+        for (int i = 1; i <= numberOfWalls; i++)
         {
            
-            GameObject newWall = Instantiate(wallPrefab, spline.GetPoint((float)i / (float)numberOfWalls), Quaternion.identity, wallParent.transform);           
+            GameObject newWall = Instantiate(wallPrefab, spline.GetPoint((float)i / (float)(numberOfWalls + 1)), Quaternion.identity, wallParent.transform);           
             newWall.GetComponent<Wall>().attachedSpline = spline;
         }
 	}

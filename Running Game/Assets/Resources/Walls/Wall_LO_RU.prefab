@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4229516151901678}
   - component: {fileID: 33162510262905696}
   - component: {fileID: 23505559328049434}
-  - component: {fileID: 65389921479104306}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -166,15 +165,3 @@ Skybox:
   m_GameObject: {fileID: 1832442879988204}
   m_Enabled: 1
   m_CustomSkybox: {fileID: 0}
---- !u!65 &65389921479104306
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1769045082041462}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

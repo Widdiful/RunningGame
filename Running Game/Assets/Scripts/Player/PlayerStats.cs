@@ -29,10 +29,11 @@ public class PlayerStats : MonoBehaviour {
     private void Update()
     {
         //positionOnSpline = track.spline.GetPositionOnSpline(transform.position);
-        if (combo >= 100)
-        {
-            comboText.color = Color.HSVToRGB(comboHue, 0.9f, 0.9f);
-            comboHue = (comboHue + 0.1f) % 1;
+        if (comboText) {
+            if (combo >= 100) {
+                comboText.color = Color.HSVToRGB(comboHue, 0.9f, 0.9f);
+                comboHue = (comboHue + 0.1f) % 1;
+            }
         }
         if (dead) {
             deadRotation *= 1f + (Time.deltaTime / 4f);
@@ -63,10 +64,12 @@ public class PlayerStats : MonoBehaviour {
         Rigidbody rb = gameObject.AddComponent<Rigidbody>();
         rb.AddForce(Vector3.ClampMagnitude((transform.up - transform.forward) + transform.right * UnityEngine.Random.Range(-0.5f, 0.5f), 1) * 20, ForceMode.Impulse);
         deadRotation = new Vector3(UnityEngine.Random.Range(0.0f, 10.0f), UnityEngine.Random.Range(0.0f, 10.0f), UnityEngine.Random.Range(0.0f, 10.0f));
-        Transform playerCamera = transform.Find("Camera");
-        Destroy(playerCamera.gameObject, 3.0f);
-        transform.Find("Camera").GetComponent<PointAt>().enabled = true;
-        transform.Find("Camera").SetParent(null);
+        Transform playerCamera = transform.Find("CameraGrip/Camera");
+        if (playerCamera) {
+            Destroy(playerCamera.gameObject, 3.0f);
+            playerCamera.GetComponent<PointAt>().enabled = true;
+            playerCamera.SetParent(null);
+        }
         dead = true;
         Destroy(gameObject, 3.0f);
     }
