@@ -6,7 +6,7 @@ public class Posing : MonoBehaviour
 {
 
     public int ID;
-    private const float threshold = 0.6f;
+    private const float threshold = 0.1f;
     private Animator animator;
     private RaycastHit hit;
     private const float checkRange = 20.0f;
