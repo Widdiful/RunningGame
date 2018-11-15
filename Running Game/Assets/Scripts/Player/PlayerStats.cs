@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class PlayerStats : MonoBehaviour {
 
     public int health;
+    public float wallSpeedIncrease = 0.1f;
     public int laps;
     public float positionOnSpline;
     public Text comboText;
@@ -122,9 +123,13 @@ public class PlayerStats : MonoBehaviour {
     internal void Passed()
     {
         //TODO: Play sound or do some visuals to let the player know he passed the wall
-        if (!dead) track.IncreaseSpeed(0.1f);
+        if (!dead) track.IncreaseSpeed(wallSpeedIncrease);
         combo++;
         UpdateComboUI();
+
+        AIController ai = GetComponent<AIController>();
+        if (ai)
+            ai.posing = false;
     }
 
     internal void Failed()
@@ -133,5 +138,9 @@ public class PlayerStats : MonoBehaviour {
         track.FailObstacle();
         combo = 0;
         UpdateComboUI();
+
+        AIController ai = GetComponent<AIController>();
+        if (ai)
+            ai.posing = false;
     }
 }

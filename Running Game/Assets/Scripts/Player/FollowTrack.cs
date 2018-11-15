@@ -27,9 +27,9 @@ public class FollowTrack : MonoBehaviour
     public int player_id;
 
     public Vector3 targetPosition;
-    private SplineCurve leftSpline; // Left spline found on detection
-    private SplineCurve rightSpline; // Right spline found on detection
-    private SplineCurve nextSpline; // Selected spline to select automatically
+    public SplineCurve leftSpline; // Left spline found on detection
+    public SplineCurve rightSpline; // Right spline found on detection
+    public SplineCurve nextSpline; // Selected spline to select automatically
     private Vector3 adjustedTargetPosition;
     private SubPath[] subPaths;
     private Wall[] walls;

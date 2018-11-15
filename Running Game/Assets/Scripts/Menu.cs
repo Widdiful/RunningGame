@@ -23,7 +23,7 @@ public class Menu : MonoBehaviour {
         button_panel = GameObject.Find("Buttons_Panel");
 
         button_start = GameObject.Find("Button_Start").GetComponentInChildren<Button>();
-		button_options = GameObject.Find("Button_Options").GetComponentInChildren<Button>();
+		button_options = GameObject.Find("Button_Tutorial").GetComponentInChildren<Button>();
 		button_credits = GameObject.Find("Button_Credits").GetComponentInChildren<Button>();
 		button_quit = GameObject.Find("Button_Quit").GetComponentInChildren<Button>();	
 		
@@ -102,6 +102,10 @@ public class Menu : MonoBehaviour {
 	{
 		
 	}
+
+    public void StartTutorial() {
+        SceneManager.LoadScene(1);
+    }
 	
 	void ShowCredtis()
 	{

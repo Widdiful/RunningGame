@@ -83,8 +83,18 @@ public class DropInRound : MonoBehaviour
             wall.BreakRandom();
         }
 
-        if (gameData.players.Count > 1) gm.gameStarted = true;
-        else gm.gameStartedSolo = true;
+        gm.gameStarted = true;
+        if (gameData.players.Count == 1){
+            for (int i = 1; i < 4; i++) {
+                GameObject newAI = SpawnAI(i);
+                newAI.transform.position = new Vector3(0, newAI.transform.lossyScale.y * 2, newAI.transform.lossyScale.z * i + proximity * i);
+                newAI.transform.rotation = Quaternion.identity;
+                FollowTrack playerTrack = newAI.GetComponent<FollowTrack>();
+                playerTrack.enabled = true;
+                playerTrack.randomStart = false;
+                playerTrack.InitialiseRunner(startingSpline, (float)i / (float)4);
+            }
+        }
         gm.maxPlayers = gameData.players.Count;
         cam.GetComponent<SpectatorCamera>().enabled = true;
         Destroy(GetComponent<DropInRound>());
@@ -143,6 +153,14 @@ public class DropInRound : MonoBehaviour
         tmpPlayer.GetComponent<FollowTrack>().player_id = gameData.players.Count;
         gameData.players.Add(tmpPlayer);
         //Debug.Log(tmpPlayer.GetComponent<Posing>().ID);
+    }
+
+    private GameObject SpawnAI(int pNumber) {
+        GameObject tmpPlayer = Instantiate(Resources.Load<GameObject>("AI_Player_Solo") as GameObject);
+        tmpPlayer.GetComponent<Posing>().ID = pNumber;
+
+        tmpPlayer.name = "AI_" + pNumber;
+        return tmpPlayer;
     }
 
     private void UpdateDropInPosition(List<GameObject> ps, int number)

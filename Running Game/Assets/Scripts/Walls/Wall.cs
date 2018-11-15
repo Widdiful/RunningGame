@@ -14,6 +14,7 @@ public class Wall : MonoBehaviour
     [Range(0, 1)]
     public float positionOnSpline;
     public bool broken;
+    public bool startBroken = true;
     private float repairTime = 40.0f;
     public float timer;
     //private System.Random rnd;
@@ -24,8 +25,7 @@ public class Wall : MonoBehaviour
     void Start()
     {
         int rnd = UnityEngine.Random.Range(0, poses.Length);
-        BreakWall(poses[rnd]);
-        broken = true;
+        if (startBroken) BreakWall(poses[rnd]);
         positionOnSpline = attachedSpline.GetPositionOnSpline(transform.position);
         transform.position = attachedSpline.GetPoint(positionOnSpline);
         transform.LookAt(transform.position + attachedSpline.GetDirection(positionOnSpline));
