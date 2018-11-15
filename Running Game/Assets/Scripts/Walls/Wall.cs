@@ -13,12 +13,13 @@ public class Wall : MonoBehaviour
     private string[] poses = new[] { "LD_RD", "LD_RO", "LD_RU", "LO_RD", "LO_RO", "LO_RU", "LU_RD", "LU_RO", "LU_RU" };
     [Range(0, 1)]
     public float positionOnSpline;
-    private bool broken;
+    public bool broken;
     private float repairTime = 40.0f;
     public float timer;
     //private System.Random rnd;
     private ParticleSystem particles;
     private AudioSource audioSource;
+    public string wallPose;
 
     void Start()
     {
@@ -82,6 +83,7 @@ public class Wall : MonoBehaviour
 
     public void BreakWall(string pose)
     {
+        wallPose = pose;
         gameObject.GetComponent<MeshFilter>().sharedMesh =
             Resources.Load<GameObject>("Walls\\Wall_" + pose).GetComponent<MeshFilter>().sharedMesh;
         if (pose == "LO_RU")

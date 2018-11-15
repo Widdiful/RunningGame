@@ -188,4 +188,33 @@ public class Posing : MonoBehaviour
         rightArmPositionPrompt = (ArmPositions) Random.Range(0, 3);
         posePromptActive = true;
     }
+
+    public void Pose(string pose) {
+        string leftPose = pose.Split('_')[0];
+        string rightPose = pose.Split('_')[1];
+
+        switch (leftPose) {
+            case "LU":
+                L_PoseUp();
+                break;
+            case "LO":
+                L_PoseOut();
+                break;
+            case "LD":
+                L_PoseDown();
+                break;
+        }
+
+        switch (rightPose) {
+            case "RU":
+                R_PoseUp();
+                break;
+            case "RO":
+                R_PoseOut();
+                break;
+            case "RD":
+                R_PoseDown();
+                break;
+        }
+    }
 }

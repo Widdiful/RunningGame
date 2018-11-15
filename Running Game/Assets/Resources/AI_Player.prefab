@@ -507,6 +507,7 @@ GameObject:
   - component: {fileID: 114289747425729402}
   - component: {fileID: 114426293554127470}
   - component: {fileID: 114103542413019764}
+  - component: {fileID: 114033829454888682}
   m_Layer: 0
   m_Name: AI_Player
   m_TagString: Player
@@ -1635,6 +1636,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114033829454888682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1532830082881314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183fa2de38e6bf742b3bb7b8591d4e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  accuracy: 1
+  distanceToPose: 20
 --- !u!114 &114103542413019764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1646,10 +1660,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d39e99398d8030f4989dc53b0ca79f81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 100000
   laps: 0
   positionOnSpline: 0
   comboText: {fileID: 0}
+  hearts: []
 --- !u!114 &114289747425729402
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1668,6 +1683,7 @@ MonoBehaviour:
   rightArmPositionPrompt: 0
   posePromptActive: 0
   posePromptPossible: 0
+  canPose: 0
 --- !u!114 &114426293554127470
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1696,6 +1712,7 @@ MonoBehaviour:
   pathChangeRadius: 10
   positionOnSpline: 0
   randomStart: 1
+  player_id: 0
   targetPosition: {x: 0, y: 0, z: 0}
   nextWallPos: {x: 0, y: 0, z: 0}
   baseSpeed: 0

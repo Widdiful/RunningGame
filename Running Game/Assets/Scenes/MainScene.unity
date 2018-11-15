@@ -1399,16 +1399,6 @@ Prefab:
       propertyPath: spline
       value: 
       objectReference: {fileID: 512334441}
-    - target: {fileID: 114289747425729402, guid: 59530ed6213dfdd49b4b4da0994332ac,
-        type: 2}
-      propertyPath: canPose
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114103542413019764, guid: 59530ed6213dfdd49b4b4da0994332ac,
-        type: 2}
-      propertyPath: health
-      value: 100000
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 59530ed6213dfdd49b4b4da0994332ac, type: 2}
   m_IsPrefabParent: 0

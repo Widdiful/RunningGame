@@ -33,6 +33,7 @@ public class FollowTrack : MonoBehaviour
     private Vector3 adjustedTargetPosition;
     private SubPath[] subPaths;
     private Wall[] walls;
+    public Wall nextWall;
     public Vector3 nextWallPos;
     public float baseSpeed;
     private bool leader;
@@ -115,7 +116,8 @@ public class FollowTrack : MonoBehaviour
         }
 
         // Detect next wall
-        nextWallPos = GetNextWallPosition();
+        nextWall = GetNextWall();
+        nextWallPos = nextWall.transform.position;
         distanceToNextWall = Vector3.Distance(nextWallPos, transform.position);
 
         //if (distanceToNextWall <= 80 && !posing.posePromptActive)
@@ -272,7 +274,7 @@ public class FollowTrack : MonoBehaviour
         {
             if (adjustedTargetPosition - transform.position != Vector3.zero)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(adjustedTargetPosition - transform.position), 0.1f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(adjustedTargetPosition - transform.position), Mathf.Clamp(moveSpeed, 5f, 15f) * Time.deltaTime);
             }
         }
         transform.localPosition = position;
@@ -430,27 +432,27 @@ public class FollowTrack : MonoBehaviour
         }
     }
 
-    private Vector3 GetNextWallPosition()
-    {
+    private Wall GetNextWall() {
         float tempClosest = 2;
-        Vector3 wallPos = new Vector3();
-        foreach (Wall wall in walls)
-        {
-            if (wall.positionOnSpline < tempClosest && wall.positionOnSpline > positionOnSpline)
-            {
+        Wall wallPos = new Wall();
+        foreach (Wall wall in walls) {
+            if (wall.positionOnSpline < tempClosest && wall.positionOnSpline > positionOnSpline) {
                 tempClosest = wall.positionOnSpline;
-                wallPos = wall.transform.position;
+                wallPos = wall;
             }
         }
-        foreach (Wall wall in walls)
-        {
-            if (wall.positionOnSpline + 1 < tempClosest && wall.positionOnSpline + 1 > positionOnSpline)
-            {
+        foreach (Wall wall in walls) {
+            if (wall.positionOnSpline + 1 < tempClosest && wall.positionOnSpline + 1 > positionOnSpline) {
                 tempClosest = wall.positionOnSpline + 1;
-                wallPos = wall.transform.position;
+                wallPos = wall;
             }
         }
         return wallPos;
+    }
+
+    private Vector3 GetNextWallPosition()
+    {
+        return GetNextWall().transform.position;
     }
 
     private void UpdateSpeedUI()

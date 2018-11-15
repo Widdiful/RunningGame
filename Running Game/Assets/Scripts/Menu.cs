@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Menu : MonoBehaviour {
@@ -13,6 +14,8 @@ public class Menu : MonoBehaviour {
 	private Button button_credits;
 	private Button button_quit;
     private bool active;
+
+    private GameManager gm;
 	
 	// Use this for initialization
 	void Start () {
@@ -28,6 +31,8 @@ public class Menu : MonoBehaviour {
 		button_options.onClick.AddListener(ShowOptions);
 		button_credits.onClick.AddListener(ShowCredtis);
 		button_quit.onClick.AddListener(Quit);
+
+        gm = FindObjectOfType<GameManager>();
 	}
 
     internal void ToggleActive()
@@ -40,6 +45,20 @@ public class Menu : MonoBehaviour {
         button_options.gameObject.SetActive(active);
         button_credits.gameObject.SetActive(active);
         button_quit.gameObject.SetActive(active);
+
+        if (gm) {
+            if (gm.gameStarted || gm.gameStartedSolo) {
+                button_start.GetComponentInChildren<Text>().text = "Return to menu";
+                switch (active) {
+                    case true:
+                        Time.timeScale = 0;
+                        break;
+                    case false:
+                        Time.timeScale = 1;
+                        break;
+                }
+            }
+        }
     }
 
     // Update is called once per frame
@@ -49,18 +68,26 @@ public class Menu : MonoBehaviour {
 	
 	void StartRound()
 	{
+        if (gm) {
+            if (gm.gameStarted || gm.gameStartedSolo) {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                return;
+            }
+        }
+
+        active = false;
+
         button_panel.gameObject.SetActive(false);
 
         button_start.gameObject.SetActive(false);
         button_options.gameObject.SetActive(false);
         button_credits.gameObject.SetActive(false);
         button_quit.gameObject.SetActive(false);
-        
+
 
         GameObject.Find("GameUpdates").GetComponent<DropInRound>().Playerselect = true;
 
-        foreach(FollowTrack runner in FindObjectsOfType<FollowTrack>())
-        {
+        foreach (FollowTrack runner in FindObjectsOfType<FollowTrack>()) {
             Destroy(runner.gameObject);
         }
 

@@ -2474,6 +2474,7 @@ MonoBehaviour:
   randomStart: 0
   player_id: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  nextWall: {fileID: 0}
   nextWallPos: {x: 0, y: 0, z: 0}
   baseSpeed: 0
   targetPositionObj: {fileID: 4658362713861866}
