@@ -84,6 +84,10 @@ public class Wall : MonoBehaviour
     {
         gameObject.GetComponent<MeshFilter>().sharedMesh =
             Resources.Load<GameObject>("Walls\\Wall_" + pose).GetComponent<MeshFilter>().sharedMesh;
+        if (pose == "LO_RU")
+            transform.localScale = new Vector3(-transform.localScale.y, transform.localScale.y, transform.localScale.z);
+        else
+            transform.localScale = new Vector3(transform.localScale.y, transform.localScale.y, transform.localScale.z);
         broken = true;
     }
 

@@ -61,13 +61,18 @@ public class PlayerStats : MonoBehaviour {
         rb.AddForce(Vector3.ClampMagnitude((transform.up - transform.forward) + transform.right * UnityEngine.Random.Range(-0.5f, 0.5f), 1) * 20, ForceMode.Impulse);
         deadRotation = new Vector3(UnityEngine.Random.Range(0.0f, 10.0f), UnityEngine.Random.Range(0.0f, 10.0f), UnityEngine.Random.Range(0.0f, 10.0f));
         Transform playerCamera = transform.Find("CameraGrip/Camera");
+        Transform playerCanvas = transform.Find("Canvas");
         if (playerCamera) {
             Destroy(playerCamera.gameObject, 3.0f);
             playerCamera.GetComponent<PointAt>().enabled = true;
             playerCamera.SetParent(null);
         }
+        if (playerCanvas)
+        {
+            Destroy(playerCanvas.gameObject);
+        }
         dead = true;
-        Destroy(gameObject, 3.0f);
+        Destroy(track, 3.0f);
     }
 
     public float GetPosition() {
@@ -95,12 +100,21 @@ public class PlayerStats : MonoBehaviour {
     }
 
     private void UpdateHealthUI() {
-        for (int i = 0; i < hearts.Length; i++) {
-            if (i <= health - 1) {
-                hearts[i].enabled = true;
-            }
-            else {
-                hearts[i].enabled = false;
+        if (hearts.Length > 0)
+        {
+            if (hearts[0])
+            {
+                for (int i = 0; i < hearts.Length; i++)
+                {
+                    if (i <= health - 1)
+                    {
+                        hearts[i].enabled = true;
+                    }
+                    else
+                    {
+                        hearts[i].enabled = false;
+                    }
+                }
             }
         }
     }
