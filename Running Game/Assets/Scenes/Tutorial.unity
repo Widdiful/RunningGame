@@ -6618,7 +6618,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.00001}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -208, y: 0}
+  m_AnchoredPosition: {x: -179, y: 0}
   m_SizeDelta: {x: 236, y: 44.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &515767857
@@ -27324,7 +27324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -52.5, y: -0}
+  m_AnchoredPosition: {x: -75, y: 0}
   m_SizeDelta: {x: 240.2, y: 421.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1341518330
@@ -27348,7 +27348,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
@@ -27405,7 +27405,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 196, y: 0}
+  m_AnchoredPosition: {x: 180, y: 0}
   m_SizeDelta: {x: 310.4, y: 100.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1345552132
@@ -27698,8 +27698,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90.00001}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -216.9, y: 0}
-  m_SizeDelta: {x: 531.3, y: 533.8}
+  m_AnchoredPosition: {x: -176.1, y: 0}
+  m_SizeDelta: {x: 472.6, y: 452.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1368669279
 MonoBehaviour:
@@ -32749,7 +32749,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -32996,7 +32996,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -322.2, y: 0}
+  m_AnchoredPosition: {x: -260, y: 0}
   m_SizeDelta: {x: -408.7, y: -250.99998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1483911835
@@ -47103,9 +47103,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   accuracy: 1
+  chanceToChangePath: 0
   distanceToPose: 20
   posing: 0
   raycastWall: 0
+  canTurn: 0
 --- !u!114 &1729480414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47158,6 +47160,9 @@ MonoBehaviour:
   randomStart: 0
   player_id: 0
   targetPosition: {x: 0, y: 0, z: 0}
+  leftSpline: {fileID: 0}
+  rightSpline: {fileID: 0}
+  nextSpline: {fileID: 0}
   nextWall: {fileID: 0}
   nextWallPos: {x: 0, y: 0, z: 0}
   baseSpeed: 0

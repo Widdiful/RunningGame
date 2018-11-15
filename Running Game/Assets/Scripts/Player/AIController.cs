@@ -8,7 +8,7 @@ public class AIController : MonoBehaviour {
     public float accuracy;
     [Range(0, 1)]
     public float chanceToChangePath;
-    public float distanceToPose;
+    public float distanceToPose = 20;
 
     private FollowTrack track;
     private Posing pose;
@@ -51,6 +51,10 @@ public class AIController : MonoBehaviour {
 
         if (track) {
             if (nextWall) {
+                if (track.distanceToNextWall > distanceToPose && !raycastWall) {
+                    posing = false;
+                }
+
                 if (track.distanceToNextWall <= distanceToPose || raycastWall) {
                     if (nextWall.broken && !posing) {
                         if (Random.Range(0.0f, 1.0f) <= accuracy) {
@@ -93,13 +97,13 @@ public class AIController : MonoBehaviour {
             }
         }
 
-        if (posing) {
-            poseTimer -= Time.deltaTime;
-            if (poseTimer <= 0) {
-                poseTimer = 1.0f;
-                posing = false;
-            }
-        }
+        //if (posing) {
+        //    poseTimer -= Time.deltaTime;
+        //    if (poseTimer <= 0) {
+        //        poseTimer = 1.0f;
+        //        posing = false;
+        //    }
+        //}
 
         if (overtaking) {
             overtakeTimer -= Time.deltaTime;

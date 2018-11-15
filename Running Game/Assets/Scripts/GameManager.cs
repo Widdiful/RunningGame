@@ -17,8 +17,10 @@ public class GameManager : MonoBehaviour {
     public int maxPlayers;
 
     private void Start() {
-        mainCamera = FindObjectOfType<SpectatorCamera>().gameObject;
-        mainCamera.transform.Find("Canvas").gameObject.SetActive(false);
+        if (FindObjectOfType<SpectatorCamera>()) {
+            mainCamera = FindObjectOfType<SpectatorCamera>().gameObject;
+            mainCamera.transform.Find("Canvas").gameObject.SetActive(false);
+        }
     }
 
     void Update() {
@@ -41,6 +43,9 @@ public class GameManager : MonoBehaviour {
                     activePlayers[0].GetComponent<PlayerStats>().health = 100000;
                     mainCamera.transform.Find("Canvas/PlayerWin").GetComponent<Text>().text = activePlayers[0].name.Replace("_", " ");
                     mainCamera.GetComponent<SpectatorCamera>().target = activePlayers[0].transform;
+
+                    AIController ai = activePlayers[0].gameObject.AddComponent<AIController>();
+                    ai.accuracy = 1;
                 }
                 else endGame = false;
             }

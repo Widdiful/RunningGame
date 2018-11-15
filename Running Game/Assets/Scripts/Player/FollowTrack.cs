@@ -490,14 +490,14 @@ public class FollowTrack : MonoBehaviour
     IEnumerator MoveCamera(Camera camera) {
         bool loop = true;
         float moveAmount = 0.01f;
-        if (camera.rect.x >= 0.5f) {
-            moveAmount *= -1;
-        }
         while (loop) {
-            camera.rect = new Rect(new Vector2(camera.rect.x - moveAmount, camera.rect.y), new Vector2(camera.rect.width, camera.rect.height));
-            if (Mathf.Abs(camera.rect.x) >= 1) {
-                loop = false;
+            camera.rect = new Rect(new Vector2(camera.rect.x, camera.rect.y), new Vector2(camera.rect.width - moveAmount, camera.rect.height));
+            if (camera.rect.x >= 0.5f && camera.rect.x <= 1.0f) {
+                camera.rect = new Rect(new Vector2(camera.rect.x + 0.01f, camera.rect.y), new Vector2(camera.rect.width, camera.rect.height));
             }
+            //if (Mathf.Abs(camera.rect.width) >= 1) {
+            //    loop = false;
+            //}
             yield return new WaitForEndOfFrame();
         }
     }
