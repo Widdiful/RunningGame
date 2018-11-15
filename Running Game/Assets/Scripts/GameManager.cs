@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
     public Vector3 lastPosition;
     public FollowTrack[] activePlayers;
     public bool gameStarted;
+    public bool gameStartedSolo;
     private GameObject mainCamera;
     public int maxPlayers;
 
@@ -55,6 +56,15 @@ public class GameManager : MonoBehaviour {
                 StartCoroutine(EndGame());
                 gameStarted = false;
             }
+        }
+        else if (activePlayers.Length <= 0 && gameStartedSolo) {
+            mainCamera.transform.Find("Canvas/PlayerWin").GetComponent<Text>().text = "Nobody";
+            mainCamera.transform.Find("Canvas").gameObject.SetActive(true);
+            foreach (ParticleSystem ps in mainCamera.GetComponentsInChildren<ParticleSystem>()) {
+                ps.Play();
+            }
+            StartCoroutine(EndGame());
+            gameStarted = false;
         }
         if (slowestSpeed == 0) {
             globalSpeedCap = 10;

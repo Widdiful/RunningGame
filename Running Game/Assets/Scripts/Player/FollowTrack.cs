@@ -118,15 +118,15 @@ public class FollowTrack : MonoBehaviour
         nextWallPos = GetNextWallPosition();
         distanceToNextWall = Vector3.Distance(nextWallPos, transform.position);
 
-        if (distanceToNextWall <= 80 && !posing.posePromptActive)
-        {
-            posing.RandomPosePrompt();
-        }
-        else if (distanceToNextWall > 80 && posing.posePromptActive)
-        {
-            posing.posePromptActive = false;
-            posing.posePromptPossible = true;
-        }
+        //if (distanceToNextWall <= 80 && !posing.posePromptActive)
+        //{
+        //    posing.RandomPosePrompt();
+        //}
+        //else if (distanceToNextWall > 80 && posing.posePromptActive)
+        //{
+        //    posing.posePromptActive = false;
+        //    posing.posePromptPossible = true;
+        //}
 
         // Detect nearby splines
         leftSpline = null;

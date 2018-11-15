@@ -34,12 +34,13 @@ public class Wall : MonoBehaviour
 
     void Update()
     {
-        if(timer > repairTime)
-        {
-            RepairWall();
-            timer = 0;
+        if (broken) {
+            if (timer > repairTime) {
+                RepairWall();
+                timer = 0;
+            }
+            timer += Time.deltaTime;
         }
-        timer += Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)

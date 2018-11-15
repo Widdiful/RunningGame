@@ -39,10 +39,6 @@ public class PlayerStats : MonoBehaviour {
             deadRotation *= 1f + (Time.deltaTime / 4f);
             transform.Rotate(deadRotation);
         }
-
-        if (Input.GetKeyDown("z")) {
-            Kill();
-        }
     }
 
     public void TakeHit()
