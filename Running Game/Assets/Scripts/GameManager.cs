@@ -38,11 +38,10 @@ public class GameManager : MonoBehaviour {
             bool endGame = true;
             if (activePlayers.Length == 1) {
                 if (activePlayers[0].lookForward) {
-                    Debug.Log(activePlayers[0].name + " wins!");
                     activePlayers[0].RemoveCamera();
                     activePlayers[0].GetComponent<PlayerStats>().health = 100000;
                     mainCamera.transform.Find("Canvas/PlayerWin").GetComponent<Text>().text = activePlayers[0].name.Replace("_", " ");
-                    mainCamera.GetComponent<SpectatorCamera>().target = activePlayers[0].transform;
+                    //mainCamera.GetComponent<SpectatorCamera>().target = activePlayers[0].transform;
 
                     AIController ai = activePlayers[0].gameObject.AddComponent<AIController>();
                     ai.accuracy = 1;

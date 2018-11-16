@@ -434,7 +434,7 @@ public class FollowTrack : MonoBehaviour
 
     private Wall GetNextWall() {
         float tempClosest = 2;
-        Wall wallPos = new Wall();
+        Wall wallPos = null;
         foreach (Wall wall in walls) {
             if (wall.positionOnSpline < tempClosest && wall.positionOnSpline > positionOnSpline) {
                 tempClosest = wall.positionOnSpline;
@@ -495,10 +495,11 @@ public class FollowTrack : MonoBehaviour
             if (camera.rect.x >= 0.5f && camera.rect.x <= 1.0f) {
                 camera.rect = new Rect(new Vector2(camera.rect.x + 0.01f, camera.rect.y), new Vector2(camera.rect.width, camera.rect.height));
             }
-            //if (Mathf.Abs(camera.rect.width) >= 1) {
-            //    loop = false;
-            //}
-            yield return new WaitForEndOfFrame();
+            if (Mathf.Abs(camera.rect.width) <= 0) {
+                loop = false;
+            }
+            yield return null;
         }
+        FindObjectOfType<SpectatorCamera>().changeTimer = 0;
     }
 }

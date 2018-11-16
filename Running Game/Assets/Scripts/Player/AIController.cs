@@ -28,7 +28,7 @@ public class AIController : MonoBehaviour {
     }
 
     private void Update() {
-        Wall nextWall = new Wall();
+        Wall nextWall = null;
         raycastWall = false;
         RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, 10);
         foreach(RaycastHit hit in hits) {

@@ -72,6 +72,14 @@ public class PlayerStats : MonoBehaviour {
         {
             Destroy(playerCanvas.gameObject);
         }
+
+        SpectatorCamera spectator = FindObjectOfType<SpectatorCamera>();
+        if (spectator)
+        {
+            spectator.changeTimer = spectator.changeTime;
+            spectator.target = transform;
+            spectator.NewTicker(name.Replace("_", " "));
+        }
         dead = true;
         Destroy(track, 3.0f);
     }

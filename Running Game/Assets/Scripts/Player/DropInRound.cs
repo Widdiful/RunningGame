@@ -47,7 +47,7 @@ public class DropInRound : MonoBehaviour
             }
         }
 
-        if (Input.GetKey("joystick 1 button 9") || Input.GetKey(KeyCode.Return) && gameData.players.Count > 0)
+        if (Input.GetKey("joystick 1 button 9") || Input.GetKey(KeyCode.Return) && gameData.players.Count >= 0)
         {
             gameStarted = true;
             FindObjectOfType<SplitscreenManager>().SetSplitscreen(gameData.players.Count);
@@ -84,9 +84,10 @@ public class DropInRound : MonoBehaviour
         }
 
         gm.gameStarted = true;
-        if (gameData.players.Count == 1){
-            for (int i = 1; i < 4; i++) {
+        if (gameData.players.Count <= 1){
+            for (int i = gameData.players.Count; i < 4; i++) {
                 GameObject newAI = SpawnAI(i);
+                if (gameData.players.Count == 0) newAI.name = "AI_" + (i + 1);
                 newAI.transform.position = new Vector3(0, newAI.transform.lossyScale.y * 2, newAI.transform.lossyScale.z * i + proximity * i);
                 newAI.transform.rotation = Quaternion.identity;
                 FollowTrack playerTrack = newAI.GetComponent<FollowTrack>();

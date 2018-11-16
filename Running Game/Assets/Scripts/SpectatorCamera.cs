@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpectatorCamera : MonoBehaviour {
     public float changeTime;
     public float lerpSpeed;
-    private float changeTimer;
+    public float changeTimer;
     public Transform target;
+    public Canvas tickerTextCanvas;
+    public GameObject spectatorTextPrefab;
+
     private GameManager gm;
     private Camera cam;
     private int previousPlayerCount;
@@ -14,7 +18,13 @@ public class SpectatorCamera : MonoBehaviour {
     private void Start() {
         gm = FindObjectOfType<GameManager>();
         cam = GetComponent<Camera>();
-        if (gm.activePlayers.Length > 0) target = gm.activePlayers[Random.Range(0, gm.activePlayers.Length)].transform;
+    }
+
+    private void Awake()
+    {
+        if (gm) {
+            if (gm.activePlayers.Length > 0) target = gm.activePlayers[Random.Range(0, gm.activePlayers.Length)].transform;
+        }
         changeTimer = 0;
     }
 
@@ -24,7 +34,15 @@ public class SpectatorCamera : MonoBehaviour {
         if (changeTimer <= 0)
         {
             changeTimer = changeTime;
-            if (gm.activePlayers.Length > 0) target = gm.activePlayers[Random.Range(0, gm.activePlayers.Length)].transform;
+            if (gm.activePlayers.Length > 0)
+            {
+                Transform newTarget = gm.activePlayers[Random.Range(0, gm.activePlayers.Length)].transform;
+                while (target == newTarget && gm.activePlayers.Length > 1)
+                {
+                    newTarget = gm.activePlayers[Random.Range(0, gm.activePlayers.Length)].transform;
+                }
+                target = newTarget;
+            }
         }
 
         if (target) {
@@ -46,6 +64,8 @@ public class SpectatorCamera : MonoBehaviour {
         }
 
         if (gm.gameStarted) UpdateSplitscreen();
+
+        if (Input.GetButtonDown("UIConfirm")) changeTimer = 0;
     }
 
     public void UpdateSplitscreen() {
@@ -120,5 +140,15 @@ public class SpectatorCamera : MonoBehaviour {
             cam.rect = new Rect(new Vector2(x, y), new Vector2(width, height));
         }
         previousPlayerCount = gm.activePlayers.Length;
+    }
+
+    public void NewTicker(string player)
+    {
+        if (spectatorTextPrefab && tickerTextCanvas)
+        {
+            RectTransform rect = Instantiate(spectatorTextPrefab, tickerTextCanvas.transform).GetComponent<RectTransform>();
+            rect.GetComponent<Text>().text = player + " is out!";
+            rect.anchoredPosition = new Vector2(150, 25);
+        }
     }
 }

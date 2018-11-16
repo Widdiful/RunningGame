@@ -60,13 +60,13 @@ public class Posing : MonoBehaviour
             if (Input.GetAxisRaw("Joy" + ID + "_RightStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.DownArrow)) { R_PoseDown(); }
         }
 
-        if (posePromptActive && posePromptPossible && CheckPosePrompt())
-        {
-            posePromptActive = false;
-            posePromptPossible = false;
-            track.TemporaryBoost(1, 1);
-            RandomPosePrompt();
-        }
+        //if (posePromptActive && posePromptPossible && CheckPosePrompt())
+        //{
+        //    posePromptActive = false;
+        //    posePromptPossible = false;
+        //    track.TemporaryBoost(1, 1);
+        //    RandomPosePrompt();
+        //}
 
         if (!turning)
         {
@@ -177,7 +177,7 @@ public class Posing : MonoBehaviour
     {
         if (leftArmPositions == leftArmPositionPrompt && rightArmPositions == rightArmPositionPrompt)
         {
-            return true;
+            return false;
         }
         return false;
     }
