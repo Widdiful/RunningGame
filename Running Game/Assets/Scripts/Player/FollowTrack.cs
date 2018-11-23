@@ -258,17 +258,19 @@ public class FollowTrack : MonoBehaviour
         //adjustedTargetPosition.y += verticalAdjust;
         //adjustedTargetPosition = transform.TransformPoint(adjustedTargetPosition);
 
-        float adjustedMoveSpeed = moveSpeed;
+        //float adjustedMoveSpeed = moveSpeed;
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1.0f))
+        
+        
+        if (Physics.SphereCast(transform.position, 0.125f,transform.forward, out hit))
         {
             if (hit.transform.GetComponent<FollowTrack>())
-            {
-                adjustedMoveSpeed = Mathf.Clamp(moveSpeed, 0, hit.transform.GetComponent<FollowTrack>().moveSpeed);
+            {                
+                moveSpeed = Mathf.Clamp(moveSpeed, 0, hit.transform.GetComponent<FollowTrack>().moveSpeed);
             }
         }
 
-        Vector3 position = Vector3.MoveTowards(transform.position, adjustedTargetPosition, adjustedMoveSpeed - (Vector3.Dot(transform.forward, Vector3.up) * slopeSpeedModifier));
+        Vector3 position = Vector3.MoveTowards(transform.position, adjustedTargetPosition, moveSpeed - (Vector3.Dot(transform.forward, Vector3.up) * slopeSpeedModifier));
 
         if (lookForward)
         {
@@ -336,7 +338,7 @@ public class FollowTrack : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (other.CompareTag("Obstacle"))
         {
             moveSpeed = baseSpeed;
@@ -502,4 +504,6 @@ public class FollowTrack : MonoBehaviour
         }
         FindObjectOfType<SpectatorCamera>().changeTimer = 0;
     }
+
+
 }
