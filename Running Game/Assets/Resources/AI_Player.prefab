@@ -1626,7 +1626,7 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1532830082881314}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 07044a73f63f064489136393e4b6adf5, type: 3}
+  m_Avatar: {fileID: 9000000, guid: d8f7282618fdf474e849fe9a2cdbaea7, type: 3}
   m_Controller: {fileID: 9100000, guid: f365908119f821d4ab0cd407c8aa8f2d, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
@@ -1652,6 +1652,7 @@ MonoBehaviour:
   distanceToPose: 20
   posing: 0
   raycastWall: 0
+  canTurn: 0
 --- !u!114 &114103542413019764
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1720,6 +1721,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   leftSpline: {fileID: 0}
   rightSpline: {fileID: 0}
+  nextSpline: {fileID: 0}
   nextWall: {fileID: 0}
   nextWallPos: {x: 0, y: 0, z: 0}
   baseSpeed: 0

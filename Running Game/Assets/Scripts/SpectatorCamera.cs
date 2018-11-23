@@ -31,6 +31,10 @@ public class SpectatorCamera : MonoBehaviour {
     private void Update()
     {
         changeTimer -= Time.fixedDeltaTime;
+        if (target == null)
+        {
+            changeTimer = 0;
+        }
         if (changeTimer <= 0)
         {
             changeTimer = changeTime;
