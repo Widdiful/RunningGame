@@ -71,6 +71,7 @@ public class Menu : MonoBehaviour {
         if (gm) {
             if (gm.gameStarted || gm.gameStartedSolo) {
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                Time.timeScale = 1;
                 return;
             }
         }
