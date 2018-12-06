@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class DropInRound : MonoBehaviour
 {
@@ -98,6 +99,7 @@ public class DropInRound : MonoBehaviour
         }
         gm.maxPlayers = gameData.players.Count;
         cam.GetComponent<SpectatorCamera>().enabled = true;
+        GameObject.Find("JoinScreenText").GetComponent<Text>().enabled = false;
         Destroy(GetComponent<DropInRound>());
     }
 
