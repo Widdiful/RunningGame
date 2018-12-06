@@ -2395,6 +2395,18 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114641107637144184, guid: 048c496bc4eeebc4986112a206a0ea47,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 34d4dbb764fb78040afffb629fd515c5,
+        type: 3}
+    - target: {fileID: 114495286166100954, guid: 048c496bc4eeebc4986112a206a0ea47,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 34d4dbb764fb78040afffb629fd515c5,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 048c496bc4eeebc4986112a206a0ea47, type: 2}
   m_IsPrefabParent: 0
