@@ -28,6 +28,7 @@ public class MenuReturn : MonoBehaviour
     private void ReturnToMenu()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1;
     }    
 
 }

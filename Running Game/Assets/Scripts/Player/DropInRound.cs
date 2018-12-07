@@ -147,7 +147,9 @@ public class DropInRound : MonoBehaviour
         //Debug.Log("Player " + pNumber + " joined");
         GameObject tmpPlayer = Instantiate(Resources.Load<GameObject>("Player") as GameObject);		
         tmpPlayer.GetComponent<Posing>().ID = pNumber;
-		
+
+        cam = GameObject.Find("MainCamera").GetComponent<Camera>();
+
         tmpPlayer.name = "Player_" + pNumber;
         tmpPlayer.gameObject.transform.LookAt(-cam.transform.position);
 

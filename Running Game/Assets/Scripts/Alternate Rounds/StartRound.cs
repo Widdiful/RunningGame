@@ -14,6 +14,7 @@ public class StartRound : MonoBehaviour {
     void Start()
     {
        gm = FindObjectOfType<GameManager>();
+        GameObject.Find("MainMenu").GetComponent<Menu>().ToggleActive();
         StartRoundNow();
     }
 

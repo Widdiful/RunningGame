@@ -42,12 +42,12 @@ public class PlayerStats : MonoBehaviour {
             }
         }
         if (dead) {
-            if (PlayerPrefs.GetInt("NP1SText") < score)
+            if (PlayerPrefs.GetInt(gameObject.name) < score)
             {
-                PlayerPrefs.SetInt("NP1SText", score);
+                PlayerPrefs.SetInt(gameObject.name, score);
             }
-            Debug.Log("Score: " + score);
-            Debug.Log("PlayerPrefs Value: " + PlayerPrefs.GetInt("NP1SText"));
+            //Debug.Log("Score: " + score);
+            Debug.Log("PlayerPrefs Value: " + PlayerPrefs.GetInt(gameObject.name));
             deadRotation *= 1f + (Time.deltaTime / 4f);
             transform.Rotate(deadRotation);
         }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,11 +12,19 @@ public class GameData : MonoBehaviour {
     private Menu menu;
     public AudioSource music;
 
+    public static GameData gameData;
 
     // Use this for initialization
     private void Start ()
     {
         Scene scene = SceneManager.GetActiveScene();
+
+        //if (gameData == null)
+        //    gameData = this;
+        //else if (gameData != this)
+        //    Destroy(gameObject);
+
+        //DontDestroyOnLoad(this);
         players = new List<GameObject>();
         FindCam();
         music = GetComponent<AudioSource>();
@@ -32,6 +41,10 @@ public class GameData : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyUp(KeyCode.Escape)) { menu.ToggleActive(); }
+        if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            menu = GameObject.Find("MainMenu").GetComponent<Menu>();
+            menu.ToggleActive();
+        }
 	}
 }

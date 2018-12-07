@@ -22,6 +22,10 @@ public class Menu : MonoBehaviour {
 
     //Creating placeholders for HighScores output in HighScores Scene..FJ
     public Text Player1ScoreText;
+    public Text Player2ScoreText;
+    public Text Player3ScoreText;
+    public Text Player4ScoreText;
+
 
 
 
@@ -29,52 +33,68 @@ public class Menu : MonoBehaviour {
     void Start()
     {
         //returns the HighScores value for the HighScore scene and sets the placeholder..FJ
-       // if (SceneManager.GetActiveScene())
-       // {
-        //    PrintScores();
-        //}
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("HighScores"))
+        {
+            Player1ScoreText = GameObject.Find("NP1SText").GetComponent<Text>();
+            Player2ScoreText = GameObject.Find("P2S Text").GetComponent<Text>();
+            Player3ScoreText = GameObject.Find("P3S Text").GetComponent<Text>();
+            Player4ScoreText = GameObject.Find("P4S Text").GetComponent<Text>();
+                PrintScores();
+        }
+        //gameData = GameObject.Find("GameUpdates").GetComponent<GameData>();
         active = true;
         button_panel = GameObject.Find("Buttons_Panel");
 
-        button_start = GameObject.Find("Button_Start").GetComponentInChildren<Button>();
-        button_highScores = GameObject.Find("Button_HighScores").GetComponentInChildren<Button>();
-        button_tutorial = GameObject.Find("Button_Tutorial").GetComponentInChildren<Button>();
-        button_credits = GameObject.Find("Button_Credits").GetComponentInChildren<Button>();
-        button_quit = GameObject.Find("Button_Quit").GetComponentInChildren<Button>();
-        button_InfiniteSpeed = GameObject.Find("Button_InfiniteSpeed").GetComponentInChildren<Button>();
-        button_HellMode = GameObject.Find("Button_HellMode").GetComponentInChildren<Button>();
+        if (GameObject.Find("Button_Start"))
+        {
+            button_start = GameObject.Find("Button_Start").GetComponentInChildren<Button>();
+            button_highScores = GameObject.Find("Button_HighScores").GetComponentInChildren<Button>();
+            button_tutorial = GameObject.Find("Button_Tutorial").GetComponentInChildren<Button>();
+            button_credits = GameObject.Find("Button_Credits").GetComponentInChildren<Button>();
+            button_quit = GameObject.Find("Button_Quit").GetComponentInChildren<Button>();
+            button_InfiniteSpeed = GameObject.Find("Button_InfiniteSpeed").GetComponentInChildren<Button>();
+            button_HellMode = GameObject.Find("Button_HellMode").GetComponentInChildren<Button>();
 
-        button_start.onClick.AddListener(StartRound);
-        button_highScores.onClick.AddListener(ShowHighScores);
-        button_tutorial.onClick.AddListener(StartTutorial);
-        button_credits.onClick.AddListener(ShowCredtis);
-        button_quit.onClick.AddListener(Quit);
-        button_InfiniteSpeed.onClick.AddListener(InfiniteSpeed);
-        button_HellMode.onClick.AddListener(HellMode);
+            button_start.onClick.AddListener(StartRound);
+            button_highScores.onClick.AddListener(ShowHighScores);
+            button_tutorial.onClick.AddListener(StartTutorial);
+            button_credits.onClick.AddListener(ShowCredtis);
+            button_quit.onClick.AddListener(Quit);
+            button_InfiniteSpeed.onClick.AddListener(InfiniteSpeed);
+            button_HellMode.onClick.AddListener(HellMode);
+        }
+
+
 
         gm = FindObjectOfType<GameManager>();
-
+            
 
     }
 
     private void PrintScores()
     {
-        Player1ScoreText.text = "x" + PlayerPrefs.GetInt("NP1SText");
+        Player1ScoreText.text = "x" + PlayerPrefs.GetInt("Player_1");
+        Player2ScoreText.text = "x" + PlayerPrefs.GetInt("Player_2");
+        Player3ScoreText.text = "x" + PlayerPrefs.GetInt("Player_3");
+        Player4ScoreText.text = "x" + PlayerPrefs.GetInt("Player_4");
     }
 
     internal void ToggleActive()
     {
         active = !active;
-        
-        button_panel.gameObject.SetActive(active);
 
-        button_start.gameObject.SetActive(active);
-        button_highScores.gameObject.SetActive(active);
-        button_tutorial.gameObject.SetActive(active);
-        button_credits.gameObject.SetActive(active);
-        button_quit.gameObject.SetActive(active);
-        button_InfiniteSpeed.gameObject.SetActive(active);
-        button_HellMode.gameObject.SetActive(active);
+        if (button_panel)
+        {
+            button_panel.gameObject.SetActive(active);
+
+            button_start.gameObject.SetActive(active);
+            button_highScores.gameObject.SetActive(active);
+            button_tutorial.gameObject.SetActive(active);
+            button_credits.gameObject.SetActive(active);
+            button_quit.gameObject.SetActive(active);
+            button_InfiniteSpeed.gameObject.SetActive(active);
+            button_HellMode.gameObject.SetActive(active);
+        }
 
         if (gm) {
             if (gm.gameStarted || gm.gameStartedSolo) {
@@ -100,7 +120,7 @@ public class Menu : MonoBehaviour {
 	{
         if (gm) {
             if (gm.gameStarted || gm.gameStartedSolo) {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                SceneManager.LoadScene(0);
                 Time.timeScale = 1;
                 return;
             }
@@ -137,6 +157,7 @@ public class Menu : MonoBehaviour {
 
     public void StartTutorial() {
         SceneManager.LoadScene(1);
+        Time.timeScale = 1;
     }
 	
 	void ShowCredtis()
@@ -152,10 +173,12 @@ public class Menu : MonoBehaviour {
     public void InfiniteSpeed()
     {
         SceneManager.LoadScene(4);
+        Time.timeScale = 1;
     }
 
     public void HellMode()
     {
         SceneManager.LoadScene(3);
+        Time.timeScale = 1;
     }
 }
