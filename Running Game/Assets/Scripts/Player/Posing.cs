@@ -49,12 +49,12 @@ public class Posing : MonoBehaviour
         //Debug.Log(ID);
         bool turning = false;
         if (canPose) {
-            if (Input.GetAxisRaw("Joy" + ID + "_LeftStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.D)) { turning = true; TurnRight(); }
+            if (Input.GetButton("Joy" + ID + "_MoveRight") || /* TESTING */ Input.GetKey(KeyCode.D)) { turning = true; TurnRight(); }
             if (Input.GetAxisRaw("Joy" + ID + "_LeftStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.A)) { L_PoseOut(); }
             if (Input.GetAxisRaw("Joy" + ID + "_LeftStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.W)) { L_PoseUp(); }
             if (Input.GetAxisRaw("Joy" + ID + "_LeftStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.S)) { L_PoseDown(); }
 
-            if (Input.GetAxisRaw("Joy" + ID + "_RightStickHori") < -threshold || /* TESTING */ Input.GetKey(KeyCode.LeftArrow)) { turning = true; TurnLeft(); }
+            if (Input.GetButton("Joy" + ID + "_MoveLeft") || /* TESTING */ Input.GetKey(KeyCode.LeftArrow)) { turning = true; TurnLeft(); }
             if (Input.GetAxisRaw("Joy" + ID + "_RightStickHori") > threshold || /* TESTING */ Input.GetKey(KeyCode.RightArrow)) { R_PoseOut(); }
             if (Input.GetAxisRaw("Joy" + ID + "_RightStickVert") < -threshold || /* TESTING */ Input.GetKey(KeyCode.UpArrow)) { R_PoseUp(); }
             if (Input.GetAxisRaw("Joy" + ID + "_RightStickVert") > threshold || /* TESTING */ Input.GetKey(KeyCode.DownArrow)) { R_PoseDown(); }
