@@ -70,12 +70,12 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(EndGame());
             gameStarted = false;
         }
-        if (slowestSpeed == 0) {
-            globalSpeedCap = 10;
-        }
-        else {
-            globalSpeedCap = slowestSpeed + maximumSpeedDifference;
-        }
+        //if (slowestSpeed == 0) {
+        //    globalSpeedCap = 10;
+        //}
+        //else {
+        //    globalSpeedCap = slowestSpeed + maximumSpeedDifference;
+        //}
     }
 
     IEnumerator EndGame() {

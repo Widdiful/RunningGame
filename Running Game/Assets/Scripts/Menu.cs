@@ -127,6 +127,7 @@ public class Menu : MonoBehaviour {
         spectator.transform.position = new Vector3(0, 10, -10);
         spectator.transform.rotation = Quaternion.Euler(30, 0, 0);
         spectator.enabled = false;
+        GameObject.Find("JoinScreenText").GetComponent<Text>().enabled = true;
     }
 	
 	public void ShowHighScores()
