@@ -15,6 +15,7 @@ public class PlayerStats : MonoBehaviour {
 
     private int combo;
     private BounceUI bounce;
+    private int score;
 
     private FollowTrack track;
     private float comboHue;
@@ -29,6 +30,10 @@ public class PlayerStats : MonoBehaviour {
 
     private void Update()
     {
+        if (score <= combo)
+        {
+            score = combo;
+        }
         //positionOnSpline = track.spline.GetPositionOnSpline(transform.position);
         if (comboText) {
             if (combo >= 100) {
@@ -37,6 +42,12 @@ public class PlayerStats : MonoBehaviour {
             }
         }
         if (dead) {
+            if (PlayerPrefs.GetInt("NP1SText") < score)
+            {
+                PlayerPrefs.SetInt("NP1SText", score);
+            }
+            Debug.Log("Score: " + score);
+            Debug.Log("PlayerPrefs Value: " + PlayerPrefs.GetInt("NP1SText"));
             deadRotation *= 1f + (Time.deltaTime / 4f);
             transform.Rotate(deadRotation);
         }

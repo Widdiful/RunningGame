@@ -112,7 +112,12 @@ ModelImporter:
     7400000: Take 001
     9500000: //RootNode
     13700000: Ragdoll
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 05bcdc27be6c0004fa8706b1629d5fa8, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

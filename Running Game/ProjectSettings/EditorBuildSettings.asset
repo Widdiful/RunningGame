@@ -11,4 +11,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 8e908ae7a03bb9c439a4955352bd30a8
+  - enabled: 1
+    path: Assets/Scenes/HighScores.unity
+    guid: d1882576ea5e627458a14e28f20155e5
+  - enabled: 1
+    path: Assets/Scenes/Hell_Mode.unity
+    guid: f3f4cc17f9e4cb040813bc56b03c92a3
+  - enabled: 1
+    path: Assets/Scenes/Infinite_Speed_Mode.unity
+    guid: b615f1b11c43d7340aed989bd1ac5753
   m_configObjects: {}

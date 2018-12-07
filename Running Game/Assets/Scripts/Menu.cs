@@ -10,30 +10,57 @@ public class Menu : MonoBehaviour {
 	private GameData gameData;
     private GameObject button_panel;
 	private Button button_start;
-	private Button button_options;
-	private Button button_credits;
+	private Button button_highScores;
+    private Button button_tutorial;
+    private Button button_credits;
 	private Button button_quit;
+    private Button button_InfiniteSpeed;
+    private Button button_HellMode;
     private bool active;
 
     private GameManager gm;
-	
-	// Use this for initialization
-	void Start () {
+
+    //Creating placeholders for HighScores output in HighScores Scene..FJ
+    public Text Player1ScoreText;
+
+
+
+    // Use this for initialization
+    void Start()
+    {
+        //returns the HighScores value for the HighScore scene and sets the placeholder..FJ
+       // if (SceneManager.GetActiveScene())
+       // {
+        //    PrintScores();
+        //}
         active = true;
         button_panel = GameObject.Find("Buttons_Panel");
 
         button_start = GameObject.Find("Button_Start").GetComponentInChildren<Button>();
-		button_options = GameObject.Find("Button_Tutorial").GetComponentInChildren<Button>();
-		button_credits = GameObject.Find("Button_Credits").GetComponentInChildren<Button>();
-		button_quit = GameObject.Find("Button_Quit").GetComponentInChildren<Button>();	
-		
-		button_start.onClick.AddListener(StartRound);
-		button_options.onClick.AddListener(ShowOptions);
-		button_credits.onClick.AddListener(ShowCredtis);
-		button_quit.onClick.AddListener(Quit);
+        button_highScores = GameObject.Find("Button_HighScores").GetComponentInChildren<Button>();
+        button_tutorial = GameObject.Find("Button_Tutorial").GetComponentInChildren<Button>();
+        button_credits = GameObject.Find("Button_Credits").GetComponentInChildren<Button>();
+        button_quit = GameObject.Find("Button_Quit").GetComponentInChildren<Button>();
+        button_InfiniteSpeed = GameObject.Find("Button_InfiniteSpeed").GetComponentInChildren<Button>();
+        button_HellMode = GameObject.Find("Button_HellMode").GetComponentInChildren<Button>();
+
+        button_start.onClick.AddListener(StartRound);
+        button_highScores.onClick.AddListener(ShowHighScores);
+        button_tutorial.onClick.AddListener(StartTutorial);
+        button_credits.onClick.AddListener(ShowCredtis);
+        button_quit.onClick.AddListener(Quit);
+        button_InfiniteSpeed.onClick.AddListener(InfiniteSpeed);
+        button_HellMode.onClick.AddListener(HellMode);
 
         gm = FindObjectOfType<GameManager>();
-	}
+
+
+    }
+
+    private void PrintScores()
+    {
+        Player1ScoreText.text = "x" + PlayerPrefs.GetInt("NP1SText");
+    }
 
     internal void ToggleActive()
     {
@@ -42,9 +69,12 @@ public class Menu : MonoBehaviour {
         button_panel.gameObject.SetActive(active);
 
         button_start.gameObject.SetActive(active);
-        button_options.gameObject.SetActive(active);
+        button_highScores.gameObject.SetActive(active);
+        button_tutorial.gameObject.SetActive(active);
         button_credits.gameObject.SetActive(active);
         button_quit.gameObject.SetActive(active);
+        button_InfiniteSpeed.gameObject.SetActive(active);
+        button_HellMode.gameObject.SetActive(active);
 
         if (gm) {
             if (gm.gameStarted || gm.gameStartedSolo) {
@@ -66,7 +96,7 @@ public class Menu : MonoBehaviour {
 		
 	}
 	
-	void StartRound()
+	public void StartRound()
 	{
         if (gm) {
             if (gm.gameStarted || gm.gameStartedSolo) {
@@ -81,7 +111,7 @@ public class Menu : MonoBehaviour {
         button_panel.gameObject.SetActive(false);
 
         button_start.gameObject.SetActive(false);
-        button_options.gameObject.SetActive(false);
+        button_highScores.gameObject.SetActive(false);
         button_credits.gameObject.SetActive(false);
         button_quit.gameObject.SetActive(false);
 
@@ -99,10 +129,10 @@ public class Menu : MonoBehaviour {
         spectator.enabled = false;
     }
 	
-	void ShowOptions()
+	public void ShowHighScores()
 	{
-		
-	}
+        SceneManager.LoadScene(2);
+    }
 
     public void StartTutorial() {
         SceneManager.LoadScene(1);
@@ -117,4 +147,14 @@ public class Menu : MonoBehaviour {
 	{
         Application.Quit();
 	}
+
+    public void InfiniteSpeed()
+    {
+        SceneManager.LoadScene(4);
+    }
+
+    public void HellMode()
+    {
+        SceneManager.LoadScene(3);
+    }
 }
