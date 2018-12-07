@@ -47,7 +47,7 @@ public class PlayerStats : MonoBehaviour {
                 PlayerPrefs.SetInt(gameObject.name, score);
             }
             //Debug.Log("Score: " + score);
-            Debug.Log("PlayerPrefs Value: " + PlayerPrefs.GetInt(gameObject.name));
+            //Debug.Log("PlayerPrefs Value: " + PlayerPrefs.GetInt(gameObject.name));
             deadRotation *= 1f + (Time.deltaTime / 4f);
             transform.Rotate(deadRotation);
         }
@@ -149,6 +149,11 @@ public class PlayerStats : MonoBehaviour {
         AIController ai = GetComponent<AIController>();
         if (ai)
             ai.posing = false;
+
+        if (PlayerPrefs.GetInt(gameObject.name) < score)
+        {
+            PlayerPrefs.SetInt(gameObject.name, score);
+        }
     }
 
     internal void Failed()
