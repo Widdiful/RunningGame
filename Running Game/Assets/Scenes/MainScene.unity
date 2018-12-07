@@ -585,6 +585,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 224203544829293948, guid: b752053e10d0f0741aaf300a51f49bd4,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 305.30005
+      objectReference: {fileID: 0}
     - target: {fileID: 1057119082097530, guid: b752053e10d0f0741aaf300a51f49bd4, type: 2}
       propertyPath: m_IsActive
       value: 0
@@ -2706,7 +2711,7 @@ MonoBehaviour:
   m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 488695643}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1431623992
@@ -4199,6 +4204,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player1ScoreText: {fileID: 0}
+  Player2ScoreText: {fileID: 0}
+  Player3ScoreText: {fileID: 0}
+  Player4ScoreText: {fileID: 0}
 --- !u!114 &2143189510
 MonoBehaviour:
   m_ObjectHideFlags: 0

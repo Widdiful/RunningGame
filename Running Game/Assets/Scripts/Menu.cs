@@ -36,9 +36,9 @@ public class Menu : MonoBehaviour {
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("HighScores"))
         {
             Player1ScoreText = GameObject.Find("NP1SText").GetComponent<Text>();
-            Player2ScoreText = GameObject.Find("P2S Text").GetComponent<Text>();
-            Player3ScoreText = GameObject.Find("P3S Text").GetComponent<Text>();
-            Player4ScoreText = GameObject.Find("P4S Text").GetComponent<Text>();
+            Player2ScoreText = GameObject.Find("NP2S Text").GetComponent<Text>();
+            Player3ScoreText = GameObject.Find("NP3S Text").GetComponent<Text>();
+            Player4ScoreText = GameObject.Find("NP4S Text").GetComponent<Text>();
                 PrintScores();
         }
         //gameData = GameObject.Find("GameUpdates").GetComponent<GameData>();
