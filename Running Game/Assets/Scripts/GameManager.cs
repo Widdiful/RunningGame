@@ -80,7 +80,7 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator EndGame() {
         yield return new WaitForSeconds(10);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(0);
     }
 
     public void ReturnToMenu() {
