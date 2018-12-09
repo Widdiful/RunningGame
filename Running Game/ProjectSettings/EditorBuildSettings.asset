@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Infinite.unity
     guid: 9e9261abbb154cb43a05e082ef15e3a5
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: fc57c2f770242834dbcc6f38dad4e724
   m_configObjects: {}

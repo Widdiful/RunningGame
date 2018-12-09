@@ -162,8 +162,8 @@ public class Menu : MonoBehaviour {
 	
 	void ShowCredtis()
 	{
-		
-	}
+        SceneManager.LoadScene(5);
+    }
 	
 	void Quit()
 	{
