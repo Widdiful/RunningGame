@@ -2909,7 +2909,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Hell Just Walls
+  m_Text: Hell Mode
 --- !u!222 &1589554203
 CanvasRenderer:
   m_ObjectHideFlags: 0
