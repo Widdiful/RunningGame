@@ -81,9 +81,9 @@ public class SpectatorCamera : MonoBehaviour {
             }
 
             else if (gm.maxPlayers == 3) {
-                bool p1 = GameObject.Find("Player_1");
-                bool p2 = GameObject.Find("Player_2");
-                bool p3 = GameObject.Find("Player_3");
+                bool p1 = GameObject.Find("Player_1").GetComponent<FollowTrack>();
+                bool p2 = GameObject.Find("Player_2").GetComponent<FollowTrack>();
+                bool p3 = GameObject.Find("Player_3").GetComponent<FollowTrack>();
 
                 x = 0.5f;
                 y = 0.0f;
@@ -105,10 +105,10 @@ public class SpectatorCamera : MonoBehaviour {
             }
 
             else {
-                bool p1 = GameObject.Find("Player_1");
-                bool p2 = GameObject.Find("Player_2");
-                bool p3 = GameObject.Find("Player_3");
-                bool p4 = GameObject.Find("Player_4");
+                bool p1 = GameObject.Find("Player_1").GetComponent<FollowTrack>();
+                bool p2 = GameObject.Find("Player_2").GetComponent<FollowTrack>();
+                bool p3 = GameObject.Find("Player_3").GetComponent<FollowTrack>();
+                bool p4 = GameObject.Find("Player_4").GetComponent<FollowTrack>();
 
                 if ((p1 && p3) ^ (p2 && p4)) {
                     width = 0.5f;
